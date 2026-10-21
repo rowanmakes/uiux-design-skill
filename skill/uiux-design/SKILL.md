@@ -100,7 +100,7 @@ description: 从产品描述或现有界面出发，做出有辨识度、可落�
 
 多种情况叠加时都读，例如桌面上的 AI 生图工作台 = `app.md` + `workbench.md` + `ai.md`。
 - 需要把品牌词转成界面动作、选表达强度、写状态文案 → `references/brand-to-interface.md`
-- 需要可用性原则、UX 定律的正确用法、可访问性清单 → `references/ux-foundations.md`
+- 只要界面上有操作（流程、表单、反馈、状态、导航、出错与撤销、文案），以及做可用性或可访问性检查 → `references/interaction.md`。视觉以外的事基本都在这里，除了纯展示页几乎每次都要读
 - 做评审、写问题卡、判断证据够不够 → `references/review-and-evidence.md`
 - 想借鉴或比较外部设计技能 → `references/skill-landscape.md`
 
