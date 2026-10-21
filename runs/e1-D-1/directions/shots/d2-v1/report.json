@@ -1,0 +1,243 @@
+{
+  "file": "d2.html",
+  "viewports": {
+    "wide": {
+      "width": 1440,
+      "height": 900,
+      "horizontalOverflow": false
+    },
+    "narrow": {
+      "width": 390,
+      "height": 844,
+      "horizontalOverflow": false
+    }
+  },
+  "consoleErrors": [],
+  "pageErrors": [],
+  "externalRequests": [
+    "[wide] https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600&family=Syne:wght@600;700&display=swap",
+    "[wide] https://fonts.gstatic.com/s/instrumentsans/v4/pxiTypc9vsFDm051Uf6KVwgkfoSxQ0GsQv8ToedPibnr0SZe1Q.woff2",
+    "[wide] https://fonts.gstatic.com/s/syne/v24/8vIH7w4qzmVxm2BL9A.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.116.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.115.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.106.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.103.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.118.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.117.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.114.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.110.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.109.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.119.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.111.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.113.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.104.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.107.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.105.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.112.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.108.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.101.woff2",
+    "[narrow] https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600&family=Syne:wght@600;700&display=swap",
+    "[narrow] https://fonts.gstatic.com/s/instrumentsans/v4/pxiTypc9vsFDm051Uf6KVwgkfoSxQ0GsQv8ToedPibnr0SZe1Q.woff2",
+    "[narrow] https://fonts.gstatic.com/s/syne/v24/8vIH7w4qzmVxm2BL9A.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.116.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.115.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.106.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.103.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.118.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.117.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.114.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.110.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.109.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.119.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.111.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.113.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.104.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.107.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.105.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.112.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.108.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.101.woff2"
+  ],
+  "tabStops": [
+    {
+      "tag": "a",
+      "text": "半山烘焙\n成都 · 订阅制精品咖啡豆",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "01 云雾水洗 · ¥68 / 200g",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "02 火塘日晒 · ¥58 / 200g",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "03 山脊蜜处理 · ¥72 / 200g",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每 2 周",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每月",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每 6 周",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "订阅云雾水洗（每月）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙\n成都 · 订阅制精品咖啡豆",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "01 云雾水洗 · ¥68 / 200g",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "02 火塘日晒 · ¥58 / 200g",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "03 山脊蜜处理 · ¥72 / 200g",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每 2 周",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每月",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每 6 周",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "订阅云雾水洗（每月）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙\n成都 · 订阅制精品咖啡豆",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "01 云雾水洗 · ¥68 / 200g",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "02 火塘日晒 · ¥58 / 200g",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "03 山脊蜜处理 · ¥72 / 200g",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每 2 周",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每月",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每 6 周",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "订阅云雾水洗（每月）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙\n成都 · 订阅制精品咖啡豆",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "01 云雾水洗 · ¥68 / 200g",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "02 火塘日晒 · ¥58 / 200g",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "03 山脊蜜处理 · ¥72 / 200g",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每 2 周",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每月",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每 6 周",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "订阅云雾水洗（每月）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙\n成都 · 订阅制精品咖啡豆",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "01 云雾水洗 · ¥68 / 200g",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "02 火塘日晒 · ¥58 / 200g",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "03 山脊蜜处理 · ¥72 / 200g",
+      "visibleFocusStyle": true
+    }
+  ]
+}

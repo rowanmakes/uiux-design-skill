@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>半山烘焙 · 方向二：居中单一物件（200g 订阅豆袋雕塑）</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600&family=Syne:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-mist: #f4f7f5;
+      --ink-pine: #0f1a15;
+      --ink-secondary: #4a5d54;
+      --ink-muted: #7e9087;
+      --accent-jade: #1b6b50;
+      --accent-soft: rgba(27, 107, 80, 0.08);
+      --line-subtle: rgba(15, 26, 21, 0.11);
+      --font-display: 'Syne', 'Noto Sans SC', sans-serif;
+      --font-body: 'Instrument Sans', 'Noto Sans SC', -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      background-color: var(--bg-mist);
+      color: var(--ink-pine);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--accent-jade);
+      outline-offset: 3px;
+      box-shadow: 0 0 0 4px rgba(27, 107, 80, 0.2);
+    }
+
+    .stage-frame {
+      min-height: 100vh;
+      height: 900px;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 24px 48px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      background:
+        radial-gradient(520px circle at 50% 48%, #ffffff 0%, rgba(244, 247, 245, 0) 75%);
+    }
+
+    /* Minimal Top Navigation (Apple / Grok restraint) */
+    .minimal-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .wordmark {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--ink-pine);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .wordmark-tag {
+      font-family: var(--font-body);
+      font-size: 11.5px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: var(--accent-jade);
+      background: var(--accent-soft);
+      padding: 3px 9px;
+      border-radius: 999px;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-size: 13px;
+      color: var(--ink-secondary);
+    }
+
+    /* Centerpiece Hero: Centered Single Object + Extreme Whitespace */
+    .centerpiece-zone {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin: auto 0;
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      color: var(--accent-jade);
+      margin-bottom: 10px;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 40px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      color: var(--ink-pine);
+      margin-bottom: 10px;
+    }
+
+    .hero-intro {
+      max-width: 660px;
+      font-size: 13.5px;
+      line-height: 1.68;
+      color: var(--ink-secondary);
+      font-weight: 400;
+      margin-bottom: 18px;
+    }
+
+    /* Bean Switcher Pills right above the single object */
+    .bean-pills {
+      display: inline-flex;
+      gap: 6px;
+      padding: 4px;
+      background: rgba(15, 26, 21, 0.045);
+      border-radius: 999px;
+      margin-bottom: 18px;
+    }
+
+    .bean-pill {
+      appearance: none;
+      border: none;
+      background: transparent;
+      padding: 7px 18px;
+      border-radius: 999px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink-secondary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .bean-pill.active {
+      background: #ffffff;
+      color: var(--ink-pine);
+      box-shadow: 0 2px 8px rgba(15, 26, 21, 0.08);
+      font-weight: 600;
+    }
+
+    /* Sculptural Single Object Stage */
+    .object-pedestal {
+      position: relative;
+      width: 100%;
+      max-width: 860px;
+      height: 360px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pouch-svg {
+      width: 780px;
+      height: 350px;
+      overflow: visible;
+      filter: drop-shadow(0 26px 42px rgba(15, 26, 21, 0.11));
+    }
+
+    /* Bottom Subscription Action Dock */
+    .subscription-dock {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 12px;
+      padding: 12px 24px;
+      background: #ffffff;
+      border: 1px solid var(--line-subtle);
+      border-radius: 999px;
+      box-shadow: 0 12px 32px rgba(15, 26, 21, 0.05);
+    }
+
+    .dock-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--ink-secondary);
+    }
+
+    .dock-item strong {
+      color: var(--ink-pine);
+      font-weight: 600;
+    }
+
+    .dock-divider {
+      width: 1px;
+      height: 18px;
+      background: var(--line-subtle);
+    }
+
+    .cadence-mini {
+      display: inline-flex;
+      gap: 4px;
+    }
+
+    .cadence-chip {
+      appearance: none;
+      border: 1px solid var(--line-subtle);
+      background: transparent;
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 12px;
+      color: var(--ink-secondary);
+      cursor: pointer;
+    }
+
+    .cadence-chip.active {
+      background: var(--ink-pine);
+      color: #ffffff;
+      border-color: var(--ink-pine);
+    }
+
+    .dock-cta {
+      appearance: none;
+      border: none;
+      background: var(--accent-jade);
+      color: #ffffff;
+      padding: 9px 22px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s ease;
+    }
+
+    .dock-cta:hover {
+      opacity: 0.92;
+    }
+
+    /* Footer */
+    .minimal-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11.5px;
+      color: var(--ink-muted);
+      border-top: 1px solid var(--line-subtle);
+      padding-top: 12px;
+    }
+
+    @media (max-width: 900px) {
+      .stage-frame {
+        height: auto;
+        padding: 18px 16px;
+        gap: 20px;
+      }
+      .minimal-nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      .nav-right {
+        flex-wrap: wrap;
+        gap: 12px;
+        font-size: 12px;
+      }
+      .hero-title {
+        font-size: 26px;
+      }
+      .bean-pills {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .object-pedestal {
+        height: auto;
+      }
+      .pouch-svg {
+        width: 100%;
+        height: auto;
+      }
+      .subscription-dock {
+        flex-direction: column;
+        border-radius: 18px;
+        padding: 16px;
+        gap: 12px;
+        width: 100%;
+      }
+      .dock-divider {
+        display: none;
+      }
+      .minimal-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="stage-frame">
+    <header class="minimal-nav">
+      <a href="#pouch" class="wordmark">
+        <span>半山烘焙</span>
+        <span class="wordmark-tag">成都 · 订阅制精品咖啡豆</span>
+      </a>
+      <div class="nav-right">
+        <span>偏浅中烘 · 保留产地本味</span>
+        <span>单袋订阅 ¥62 / 月起</span>
+        <span>双袋尝鲜 ¥118 / 月</span>
+      </div>
+    </header>
+
+    <main id="pouch" class="centerpiece-zone">
+      <div class="eyebrow">CHENGDU SMALL-BATCH ROASTERY · 仅做按月订阅</div>
+      <h1 class="hero-title">豆子的产地和处理法自己会说话。</h1>
+      <p class="hero-intro">
+        半山烘焙是成都一家小型精品咖啡豆烘焙工作室，只做订阅制卖豆：每支豆子按小批量烘焙，标注烘焙日期与风味描述，按月寄送到家。工作室相信“豆子的产地和处理法自己会说话”，烘焙风格偏浅中烘，尽量保留产地本味。
+      </p>
+
+      <!-- Bean Switcher -->
+      <div class="bean-pills" role="tablist" aria-label="切换三款订阅豆">
+        <button type="button" class="bean-pill active" role="tab" aria-selected="true" data-idx="0">
+          01 云雾水洗 · ¥68 / 200g
+        </button>
+        <button type="button" class="bean-pill" role="tab" aria-selected="false" data-idx="1">
+          02 火塘日晒 · ¥58 / 200g
+        </button>
+        <button type="button" class="bean-pill" role="tab" aria-selected="false" data-idx="2">
+          03 山脊蜜处理 · ¥72 / 200g
+        </button>
+      </div>
+
+      <!-- Single Sculptural Object: 200g Subscription Pouch with Callouts -->
+      <div class="object-pedestal">
+        <svg class="pouch-svg" viewBox="0 0 780 340" role="img" aria-label="半山烘焙 200g 订阅豆袋与单向排气阀实物构造图">
+          <defs>
+            <linearGradient id="pouchBody" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#fcfdfc" />
+              <stop offset="48%" stop-color="#edf2ef" />
+              <stop offset="100%" stop-color="#dde6e1" />
+            </linearGradient>
+            <linearGradient id="labelStripe" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" id="stripeStart" stop-color="#1b6b50" />
+              <stop offset="100%" id="stripeEnd" stop-color="#389e7b" />
+            </linearGradient>
+          </defs>
+
+          <!-- Left Architectural Callouts -->
+          <g class="callouts-left">
+            <line x1="190" y1="78" x2="390" y2="78" stroke="#0f1a15" stroke-opacity="0.22" stroke-width="1" stroke-dasharray="3 3" />
+            <circle cx="390" cy="78" r="3" fill="#1b6b50" />
+            <text x="180" y="74" text-anchor="end" fill="#0f1a15" font-size="12" font-weight="600">单向排气阀与热封易撕口</text>
+            <text x="180" y="92" text-anchor="end" fill="#4a5d54" font-size="11">小批量浅中烘出炉封装 · 锁住产地本味</text>
+
+            <line x1="190" y1="215" x2="295" y2="215" stroke="#0f1a15" stroke-opacity="0.22" stroke-width="1" />
+            <circle cx="295" cy="215" r="3" fill="#1b6b50" />
+            <text x="180" y="211" text-anchor="end" fill="#0f1a15" font-size="12" font-weight="600" id="callout-origin-title">埃塞俄比亚 耶加雪菲 · 水洗</text>
+            <text x="180" y="229" text-anchor="end" fill="#4a5d54" font-size="11" id="callout-price-sub">单袋日常价 ¥68 / 200g · 订阅 ¥62 / 月起</text>
+          </g>
+
+          <!-- Right Architectural Callouts -->
+          <g class="callouts-right">
+            <line x1="485" y1="152" x2="590" y2="152" stroke="#0f1a15" stroke-opacity="0.22" stroke-width="1" />
+            <circle cx="485" cy="152" r="3" fill="#1b6b50" />
+            <text x="600" y="148" text-anchor="start" fill="#0f1a15" font-size="12" font-weight="600" id="callout-flavor-title">茉莉花香 · 柠檬酸质 · 红茶尾韵</text>
+            <text x="600" y="166" text-anchor="start" fill="#4a5d54" font-size="11">袋身正面逐期标注烘焙日期与风味描述</text>
+
+            <line x1="492" y1="268" x2="590" y2="268" stroke="#0f1a15" stroke-opacity="0.22" stroke-width="1" stroke-dasharray="3 3" />
+            <circle cx="492" cy="268" r="3" fill="#1b6b50" />
+            <text x="600" y="264" text-anchor="start" fill="#0f1a15" font-size="12" font-weight="600">每期 1 袋 200g · 按月寄送到家</text>
+            <text x="600" y="282" text-anchor="start" fill="#4a5d54" font-size="11">支持每 2 周 / 每月 / 每 6 周灵活节奏</text>
+          </g>
+
+          <!-- Sculptural 200g Matte Foil Coffee Pouch in Center -->
+          <g transform="translate(275, 14)">
+            <!-- Ground contact shadow -->
+            <ellipse cx="115" cy="312" rx="96" ry="10" fill="rgba(15, 26, 21, 0.08)" />
+
+            <!-- Pouch Outer Silhouette -->
+            <path d="M18,16 Q115,10 212,16 L222,294 Q222,306 208,306 L22,306 Q8,306 8,294 Z"
+                  fill="url(#pouchBody)" stroke="#cad5cf" stroke-width="1.5" />
+
+            <!-- Top heat-seal crimp ridges -->
+            <line x1="19" y1="26" x2="211" y2="26" stroke="#b9c7c0" stroke-width="1" />
+            <line x1="19" y1="31" x2="211" y2="31" stroke="#b9c7c0" stroke-width="1" />
+            <!-- Tear notch -->
+            <path d="M17,42 L23,45 L17,48" fill="none" stroke="#7e9087" stroke-width="1.2" />
+            <path d="M213,42 L207,45 L213,48" fill="none" stroke="#7e9087" stroke-width="1.2" />
+            <line x1="23" y1="45" x2="207" y2="45" stroke="#aebdb5" stroke-dasharray="2 3" />
+
+            <!-- One-way degassing valve -->
+            <circle cx="115" cy="64" r="11" fill="#e6ece8" stroke="#bdc9c3" stroke-width="1.2" />
+            <circle cx="115" cy="64" r="4" fill="none" stroke="#8fa198" stroke-width="1" />
+            <circle cx="115" cy="59" r="1" fill="#7e9087" />
+            <circle cx="120" cy="64" r="1" fill="#7e9087" />
+            <circle cx="115" cy="69" r="1" fill="#7e9087" />
+            <circle cx="110" cy="64" r="1" fill="#7e9087" />
+
+            <!-- Front Applied Batch Label Card -->
+            <rect x="28" y="88" width="174" height="196" rx="6" fill="#ffffff" stroke="#d5dfd9" stroke-width="1.2" />
+            <!-- Color Process Band -->
+            <rect x="28" y="88" width="174" height="8" rx="3" fill="url(#labelStripe)" />
+
+            <!-- Label Typography -->
+            <text x="42" y="114" fill="#7e9087" font-size="8.5" font-weight="600" letter-spacing="1.5">BANSHAN ROASTERS · 成都</text>
+            <text x="188" y="114" text-anchor="end" fill="#1b6b50" font-size="8.5" font-weight="700" id="pouch-badge">水洗</text>
+
+            <text x="42" y="142" fill="#0f1a15" font-size="22" font-weight="700" id="pouch-name">云雾水洗</text>
+            <text x="42" y="160" fill="#4a5d54" font-size="10.5" font-weight="500" id="pouch-origin">埃塞俄比亚 耶加雪菲</text>
+
+            <line x1="42" y1="172" x2="188" y2="172" stroke="#e6ece8" stroke-width="1" />
+
+            <text x="42" y="188" fill="#7e9087" font-size="8.5">风味描述</text>
+            <text x="42" y="204" fill="#0f1a15" font-size="11" font-weight="600" id="pouch-notes">茉莉花香 / 柠檬酸质 / 红茶尾韵</text>
+
+            <line x1="42" y1="216" x2="188" y2="216" stroke="#e6ece8" stroke-width="1" />
+
+            <text x="42" y="232" fill="#7e9087" font-size="8.5">烘焙设定</text>
+            <text x="42" y="245" fill="#0f1a15" font-size="9.5" font-weight="500">小批量偏浅中烘 · 标注烘焙日期</text>
+
+            <text x="42" y="269" fill="#0f1a15" font-size="11" font-weight="700">NET WT. 200g</text>
+            <text x="188" y="269" text-anchor="end" fill="#1b6b50" font-size="11" font-weight="700" id="pouch-price">¥68 / 200g</text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- Compact Subscription Bar -->
+      <div class="subscription-dock" aria-label="订阅方式与节奏选择">
+        <div class="dock-item">
+          <span>订阅方式：</span>
+          <strong>按月寄送，每期 1 袋 200g</strong>
+        </div>
+        <div class="dock-divider"></div>
+        <div class="dock-item">
+          <span>订阅价格：</span>
+          <strong>¥62 / 月起（单袋） · ¥118 / 月（双袋尝鲜组合）</strong>
+        </div>
+        <div class="dock-divider"></div>
+        <div class="dock-item">
+          <span>可选节奏：</span>
+          <div class="cadence-mini" role="radiogroup" aria-label="寄送节奏">
+            <button type="button" class="cadence-chip" data-rhythm="每 2 周">每 2 周</button>
+            <button type="button" class="cadence-chip active" data-rhythm="每月">每月</button>
+            <button type="button" class="cadence-chip" data-rhythm="每 6 周">每 6 周</button>
+          </div>
+        </div>
+        <button type="button" class="dock-cta" id="dock-cta-btn">订阅云雾水洗（每月）</button>
+      </div>
+    </main>
+
+    <footer class="minimal-footer">
+      <span>半山烘焙 · 成都小型精品咖啡豆烘焙工作室</span>
+      <span>这是样例：本页面展示内容均为虚构演示素材。</span>
+    </footer>
+  </div>
+
+  <script>
+    const pouchData = [
+      {
+        name: '云雾水洗',
+        origin: '埃塞俄比亚 耶加雪菲',
+        process: '水洗',
+        notes: '茉莉花香 / 柠檬酸质 / 红茶尾韵',
+        notesDot: '茉莉花香 · 柠檬酸质 · 红茶尾韵',
+        price: '¥68 / 200g',
+        c1: '#1b6b50',
+        c2: '#389e7b'
+      },
+      {
+        name: '火塘日晒',
+        origin: '巴西 喜拉多',
+        process: '日晒',
+        notes: '巧克力 / 烤坚果 / 低酸醇厚',
+        notesDot: '巧克力 · 烤坚果 · 低酸醇厚',
+        price: '¥58 / 200g',
+        c1: '#8c4a27',
+        c2: '#c47247'
+      },
+      {
+        name: '山脊蜜处理',
+        origin: '哥伦比亚 惠兰',
+        process: '蜜处理',
+        notes: '红苹果 / 焦糖甜感 / 奶油口感',
+        notesDot: '红苹果 · 焦糖甜感 · 奶油口感',
+        price: '¥72 / 200g',
+        c1: '#9e2f3b',
+        c2: '#d45b68'
+      }
+    ];
+
+    let curBean = 0;
+    let curRhythm = '每月';
+
+    function updatePouch() {
+      const d = pouchData[curBean];
+      document.getElementById('pouch-name').textContent = d.name;
+      document.getElementById('pouch-origin').textContent = d.origin;
+      document.getElementById('pouch-badge').textContent = d.process;
+      document.getElementById('pouch-notes').textContent = d.notes;
+      document.getElementById('pouch-price').textContent = d.price;
+      document.getElementById('stripeStart').setAttribute('stop-color', d.c1);
+      document.getElementById('stripeEnd').setAttribute('stop-color', d.c2);
+
+      document.getElementById('callout-origin-title').textContent = `${d.origin} · ${d.process}`;
+      document.getElementById('callout-price-sub').textContent = `单袋日常价 ${d.price} · 订阅 ¥62 / 月起`;
+      document.getElementById('callout-flavor-title').textContent = d.notesDot;
+      document.getElementById('dock-cta-btn').textContent = `订阅${d.name}（${curRhythm}）`;
+    }
+
+    document.querySelectorAll('.bean-pill').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.bean-pill').forEach((el) => {
+          el.classList.remove('active');
+          el.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        curBean = Number(btn.dataset.idx);
+        updatePouch();
+      });
+    });
+
+    document.querySelectorAll('.cadence-chip').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.cadence-chip').forEach((el) => el.classList.remove('active'));
+        btn.classList.add('active');
+        curRhythm = btn.dataset.rhythm;
+        updatePouch();
+      });
+    });
+  </script>
+</body>
+</html>

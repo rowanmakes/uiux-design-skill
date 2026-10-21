@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>半山烘焙 · 方向一：画面即界面（浅中烘风味光谱调阅台）</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-obsidian: #090a0d;
+      --bg-panel: #101218;
+      --bg-panel-elevated: #151821;
+      --border-hairline: rgba(236, 239, 244, 0.09);
+      --border-strong: rgba(236, 239, 244, 0.2);
+      --text-primary: #eceff4;
+      --text-secondary: #9aa3b2;
+      --text-muted: #5e6778;
+      --accent-active: #7ee2b8;
+      --accent-glow: rgba(126, 226, 184, 0.14);
+      --font-sans: 'Plus Jakarta Sans', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Noto Sans SC', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      background-color: var(--bg-obsidian);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--accent-active);
+      outline-offset: 2px;
+      box-shadow: 0 0 0 4px rgba(126, 226, 184, 0.25);
+    }
+
+    /* Ambient subtle radial backdrop */
+    .viewport-shell {
+      min-height: 100vh;
+      height: 900px;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 20px 32px 16px;
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      gap: 16px;
+      background:
+        radial-gradient(640px circle at 68% 42%, var(--accent-glow), transparent 70%),
+        linear-gradient(180deg, #090a0d 0%, #0b0d12 100%);
+    }
+
+    /* Top System Bar */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border-hairline);
+    }
+
+    .brand-cluster {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .brand-mark svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .status-pill {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-secondary);
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-hairline);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-active);
+      box-shadow: 0 0 8px var(--accent-active);
+    }
+
+    .topbar-meta {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    /* Header Statement Row */
+    .hero-statement {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 32px;
+      align-items: end;
+      padding: 4px 0;
+    }
+
+    .headline-group h1 {
+      font-size: 38px;
+      font-weight: 600;
+      line-height: 1.16;
+      letter-spacing: -0.025em;
+      color: var(--text-primary);
+    }
+
+    .headline-group h1 span {
+      color: var(--accent-active);
+      transition: color 0.3s ease;
+    }
+
+    .brand-verbatim {
+      font-size: 13.5px;
+      line-height: 1.72;
+      color: var(--text-secondary);
+      border-left: 2px solid var(--border-strong);
+      padding-left: 16px;
+    }
+
+    /* Main Interface Console (画面即界面) */
+    .console-workspace {
+      display: grid;
+      grid-template-columns: 310px 1fr 330px;
+      border: 1px solid var(--border-strong);
+      border-radius: 12px;
+      background: rgba(16, 18, 24, 0.86);
+      backdrop-filter: blur(16px);
+      overflow: hidden;
+      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.65);
+    }
+
+    /* Left Column: Bean Selector */
+    .bean-rail {
+      border-right: 1px solid var(--border-hairline);
+      display: flex;
+      flex-direction: column;
+      background: rgba(11, 13, 18, 0.6);
+    }
+
+    .rail-header {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border-hairline);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .bean-list {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .bean-tab {
+      appearance: none;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--border-hairline);
+      text-align: left;
+      padding: 20px 18px;
+      cursor: pointer;
+      color: var(--text-primary);
+      transition: background 0.2s ease;
+      position: relative;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .bean-tab:hover {
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .bean-tab.active {
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .bean-tab.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--accent-active);
+    }
+
+    .bean-tab-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .bean-idx {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .bean-process-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid var(--border-hairline);
+      color: var(--text-secondary);
+    }
+
+    .bean-tab.active .bean-process-badge {
+      border-color: var(--accent-active);
+      color: var(--accent-active);
+    }
+
+    .bean-name {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      letter-spacing: 0.01em;
+    }
+
+    .bean-origin {
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+    }
+
+    .bean-bottom-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .bean-price {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    /* Center Column: Flavor Spectrum & Process Topography */
+    .spectrum-stage {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 22px 28px;
+      position: relative;
+      background:
+        linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px) 0 0 / 48px 48px,
+        linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px) 0 0 / 48px 48px;
+    }
+
+    .stage-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .stage-title-block .stage-kicker {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent-active);
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+
+    .stage-title-block h2 {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 4px;
+    }
+
+    .stage-origin-sub {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .roast-scale-chip {
+      text-align: right;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-secondary);
+      background: rgba(9, 10, 13, 0.75);
+      border: 1px solid var(--border-hairline);
+      padding: 8px 12px;
+      border-radius: 6px;
+    }
+
+    .roast-scale-chip strong {
+      display: block;
+      color: var(--text-primary);
+      font-size: 12px;
+      margin-top: 2px;
+    }
+
+    .svg-visualizer-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 250px;
+      position: relative;
+    }
+
+    .spectrum-svg {
+      width: 100%;
+      height: 260px;
+      overflow: visible;
+    }
+
+    /* Flavor Notes Bar at bottom of center stage */
+    .stage-flavor-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border-hairline);
+    }
+
+    .flavor-node {
+      background: rgba(9, 10, 13, 0.65);
+      border: 1px solid var(--border-hairline);
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+
+    .flavor-node-index {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .flavor-node-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    /* Right Column: Subscription Dispatch Configurator */
+    .dispatch-panel {
+      border-left: 1px solid var(--border-hairline);
+      padding: 20px 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: rgba(13, 15, 21, 0.85);
+    }
+
+    .panel-section-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+    }
+
+    .plan-cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .plan-btn {
+      appearance: none;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-hairline);
+      border-radius: 8px;
+      padding: 12px 14px;
+      color: var(--text-primary);
+      cursor: pointer;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.2s ease;
+    }
+
+    .plan-btn.active {
+      border-color: var(--accent-active);
+      background: rgba(126, 226, 184, 0.06);
+    }
+
+    .plan-title {
+      font-size: 13.5px;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .plan-desc {
+      font-size: 11.5px;
+      color: var(--text-secondary);
+    }
+
+    .plan-price {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--accent-active);
+      white-space: nowrap;
+    }
+
+    .cadence-group {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .cadence-btn {
+      appearance: none;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-hairline);
+      border-radius: 6px;
+      padding: 8px 6px;
+      color: var(--text-secondary);
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+
+    .cadence-btn.active {
+      border-color: var(--text-primary);
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    /* Live Bag Label Preview */
+    .bag-manifest {
+      border: 1px solid var(--border-strong);
+      border-radius: 8px;
+      padding: 14px;
+      background: #0b0c10;
+      font-family: var(--font-mono);
+      margin-bottom: 14px;
+    }
+
+    .manifest-top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10.5px;
+      color: var(--text-muted);
+      padding-bottom: 8px;
+      border-bottom: 1px dashed var(--border-hairline);
+      margin-bottom: 8px;
+    }
+
+    .manifest-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      margin-bottom: 5px;
+      color: var(--text-secondary);
+    }
+
+    .manifest-row strong {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .subscribe-cta {
+      appearance: none;
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+      padding: 13px 18px;
+      background: var(--text-primary);
+      color: #090a0d;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: transform 0.15s ease, background 0.2s ease;
+    }
+
+    .subscribe-cta:hover {
+      background: var(--accent-active);
+    }
+
+    /* Footer bar */
+    .footer-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11.5px;
+      color: var(--text-muted);
+      padding-top: 8px;
+    }
+
+    @media (max-width: 960px) {
+      .viewport-shell {
+        height: auto;
+        padding: 16px;
+      }
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .topbar-meta {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .hero-statement {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .headline-group h1 {
+        font-size: 26px;
+      }
+      .console-workspace {
+        grid-template-columns: 1fr;
+      }
+      .bean-rail {
+        border-right: none;
+        border-bottom: 1px solid var(--border-hairline);
+      }
+      .dispatch-panel {
+        border-left: none;
+        border-top: 1px solid var(--border-hairline);
+      }
+      .stage-flavor-bar {
+        grid-template-columns: 1fr;
+      }
+      .footer-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="viewport-shell">
+    <header class="topbar">
+      <div class="brand-cluster">
+        <a href="#console" class="brand-mark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+            <path d="M3 18L9.5 7L14.5 14.5L17.5 10L21 18H3Z" />
+            <line x1="3" y1="21" x2="21" y2="21" stroke-opacity="0.45" />
+          </svg>
+          <span>半山烘焙</span>
+        </a>
+        <span class="status-pill">
+          <span class="status-dot"></span>
+          成都 · 小型精品咖啡豆烘焙工作室 · 仅做订阅制
+        </span>
+      </div>
+      <div class="topbar-meta">
+        <span>烘焙风格：偏浅中烘</span>
+        <span>单袋 200g · 按月寄送</span>
+        <span>¥62 / 月起</span>
+      </div>
+    </header>
+
+    <section class="hero-statement" aria-label="品牌核心宣言">
+      <div class="headline-group">
+        <h1>豆子的产地和处理法<span id="hero-highlight">自己会说话</span>。</h1>
+      </div>
+      <p class="brand-verbatim">
+        半山烘焙是成都一家小型精品咖啡豆烘焙工作室，只做订阅制卖豆：每支豆子按小批量烘焙，标注烘焙日期与风味描述，按月寄送到家。工作室相信“豆子的产地和处理法自己会说话”，烘焙风格偏浅中烘，尽量保留产地本味。
+      </p>
+    </section>
+
+    <main id="console" class="console-workspace" aria-label="浅中烘三豆风味光谱与按月订阅调阅台">
+      <!-- Left Rail: 3 Beans -->
+      <aside class="bean-rail" aria-label="当期三款订阅豆">
+        <div class="rail-header">
+          <span>当期三款豆单 (3)</span>
+          <span>200g / 袋</span>
+        </div>
+        <div class="bean-list" role="tablist">
+          <button type="button" class="bean-tab active" role="tab" aria-selected="true" data-bean="0">
+            <div>
+              <div class="bean-tab-top">
+                <span class="bean-idx">BEAN 01</span>
+                <span class="bean-process-badge">水洗</span>
+              </div>
+              <div class="bean-name">云雾水洗</div>
+              <div class="bean-origin">埃塞俄比亚 耶加雪菲</div>
+            </div>
+            <div class="bean-bottom-row">
+              <span>茉莉花香 · 柠檬酸质 · 红茶尾韵</span>
+              <span class="bean-price">¥68 / 200g</span>
+            </div>
+          </button>
+
+          <button type="button" class="bean-tab" role="tab" aria-selected="false" data-bean="1">
+            <div>
+              <div class="bean-tab-top">
+                <span class="bean-idx">BEAN 02</span>
+                <span class="bean-process-badge">日晒</span>
+              </div>
+              <div class="bean-name">火塘日晒</div>
+              <div class="bean-origin">巴西 喜拉多</div>
+            </div>
+            <div class="bean-bottom-row">
+              <span>巧克力 · 烤坚果 · 低酸醇厚</span>
+              <span class="bean-price">¥58 / 200g</span>
+            </div>
+          </button>
+
+          <button type="button" class="bean-tab" role="tab" aria-selected="false" data-bean="2">
+            <div>
+              <div class="bean-tab-top">
+                <span class="bean-idx">BEAN 03</span>
+                <span class="bean-process-badge">蜜处理</span>
+              </div>
+              <div class="bean-name">山脊蜜处理</div>
+              <div class="bean-origin">哥伦比亚 惠兰</div>
+            </div>
+            <div class="bean-bottom-row">
+              <span>红苹果 · 焦糖甜感 · 奶油口感</span>
+              <span class="bean-price">¥72 / 200g</span>
+            </div>
+          </button>
+        </div>
+      </aside>
+
+      <!-- Center Stage: Flavor Topography Visualizer -->
+      <section class="spectrum-stage" aria-live="polite">
+        <div class="stage-header">
+          <div class="stage-title-block">
+            <div class="stage-kicker" id="stage-kicker">ORIGIN &amp; PROCESS SPECTRUM · 01 / 水洗</div>
+            <h2 id="stage-name">云雾水洗</h2>
+            <div class="stage-origin-sub" id="stage-origin">产地：埃塞俄比亚 耶加雪菲 · 处理法：水洗 · 单买参考价 ¥68 / 200g</div>
+          </div>
+          <div class="roast-scale-chip">
+            <span>烘焙度设定</span>
+            <strong>偏浅中烘 · 保留产地本味</strong>
+          </div>
+        </div>
+
+        <div class="svg-visualizer-wrap">
+          <svg class="spectrum-svg" viewBox="0 0 640 240" role="img" aria-label="豆子风味光谱与浅中烘曲线图">
+            <defs>
+              <linearGradient id="specGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" id="gradStopTop" stop-color="#7ee2b8" stop-opacity="0.34" />
+                <stop offset="100%" id="gradStopBot" stop-color="#7ee2b8" stop-opacity="0.0" />
+              </linearGradient>
+            </defs>
+
+            <!-- Reference horizontal axis lines -->
+            <line x1="20" y1="45" x2="620" y2="45" stroke="rgba(236,239,244,0.07)" stroke-dasharray="3 5" />
+            <line x1="20" y1="115" x2="620" y2="115" stroke="rgba(236,239,244,0.07)" stroke-dasharray="3 5" />
+            <line x1="20" y1="185" x2="620" y2="185" stroke="rgba(236,239,244,0.12)" />
+
+            <!-- Axis Labels -->
+            <text x="20" y="36" fill="#5e6778" font-family="JetBrains Mono" font-size="10">HIGH CLARITY / 花果香气段</text>
+            <text x="20" y="106" fill="#5e6778" font-family="JetBrains Mono" font-size="10">SWEETNESS &amp; ACIDITY / 酸甜平衡段（浅中烘核心区）</text>
+            <text x="20" y="206" fill="#5e6778" font-family="JetBrains Mono" font-size="10">前段干湿香</text>
+            <text x="280" y="206" fill="#5e6778" font-family="JetBrains Mono" font-size="10">中段风味主轴</text>
+            <text x="545" y="206" fill="#5e6778" font-family="JetBrains Mono" font-size="10">尾韵延展</text>
+
+            <!-- Secondary harmonic wave -->
+            <path id="wave-secondary" d="M20,165 C140,85 240,145 350,75 C450,25 530,120 620,90" fill="none" stroke="rgba(236,239,244,0.18)" stroke-width="1.5" stroke-dasharray="4 4" />
+
+            <!-- Area Fill -->
+            <path id="wave-area" d="M20,185 L20,140 C130,38 220,75 330,52 C440,30 520,88 620,64 L620,185 Z" fill="url(#specGrad)" />
+
+            <!-- Primary Flavor Curve -->
+            <path id="wave-primary" d="M20,140 C130,38 220,75 330,52 C440,30 520,88 620,64" fill="none" stroke="#7ee2b8" stroke-width="2.75" />
+
+            <!-- Node 1 -->
+            <g id="node-g-1" transform="translate(135, 68)">
+              <circle r="6" fill="#090a0d" stroke="#7ee2b8" stroke-width="2.5" id="dot-1" />
+              <rect x="-44" y="-34" width="88" height="22" rx="4" fill="#101218" stroke="rgba(236,239,244,0.22)" />
+              <text x="0" y="-19" text-anchor="middle" fill="#eceff4" font-size="11" font-weight="500" id="svg-note-1">茉莉花香</text>
+            </g>
+
+            <!-- Node 2 -->
+            <g id="node-g-2" transform="translate(330, 52)">
+              <circle r="6" fill="#090a0d" stroke="#7ee2b8" stroke-width="2.5" id="dot-2" />
+              <rect x="-44" y="-34" width="88" height="22" rx="4" fill="#101218" stroke="rgba(236,239,244,0.22)" />
+              <text x="0" y="-19" text-anchor="middle" fill="#eceff4" font-size="11" font-weight="500" id="svg-note-2">柠檬酸质</text>
+            </g>
+
+            <!-- Node 3 -->
+            <g id="node-g-3" transform="translate(525, 74)">
+              <circle r="6" fill="#090a0d" stroke="#7ee2b8" stroke-width="2.5" id="dot-3" />
+              <rect x="-44" y="-34" width="88" height="22" rx="4" fill="#101218" stroke="rgba(236,239,244,0.22)" />
+              <text x="0" y="-19" text-anchor="middle" fill="#eceff4" font-size="11" font-weight="500" id="svg-note-3">红茶尾韵</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="stage-flavor-bar">
+          <div class="flavor-node">
+            <div class="flavor-node-index">NOTE 01 · 前调</div>
+            <div class="flavor-node-name" id="card-note-1">茉莉花香</div>
+          </div>
+          <div class="flavor-node">
+            <div class="flavor-node-index">NOTE 02 · 中调</div>
+            <div class="flavor-node-name" id="card-note-2">柠檬酸质</div>
+          </div>
+          <div class="flavor-node">
+            <div class="flavor-node-index">NOTE 03 · 尾韵</div>
+            <div class="flavor-node-name" id="card-note-3">红茶尾韵</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Subscription Configurator -->
+      <aside class="dispatch-panel" aria-label="订阅寄送配置">
+        <div>
+          <div class="panel-section-label">01 / 选择订阅方案（按月寄送）</div>
+          <div class="plan-cards" role="radiogroup" aria-label="订阅方案">
+            <button type="button" class="plan-btn active" data-plan="single" data-price="¥62 / 月起">
+              <div>
+                <span class="plan-title">单袋订阅价</span>
+                <span class="plan-desc">按月寄送 · 每期 1 袋 200g</span>
+              </div>
+              <span class="plan-price">¥62 / 月起</span>
+            </button>
+            <button type="button" class="plan-btn" data-plan="double" data-price="¥118 / 月">
+              <div>
+                <span class="plan-title">双袋尝鲜组合</span>
+                <span class="plan-desc">按月寄送 · 任选两款 200g 组合</span>
+              </div>
+              <span class="plan-price">¥118 / 月</span>
+            </button>
+          </div>
+
+          <div class="panel-section-label">02 / 可选寄送节奏</div>
+          <div class="cadence-group" role="radiogroup" aria-label="可选节奏">
+            <button type="button" class="cadence-btn" data-cadence="每 2 周">每 2 周</button>
+            <button type="button" class="cadence-btn active" data-cadence="每月">每月</button>
+            <button type="button" class="cadence-btn" data-cadence="每 6 周">每 6 周</button>
+          </div>
+        </div>
+
+        <div>
+          <div class="panel-section-label">03 / 当期豆袋封签预览</div>
+          <div class="bag-manifest">
+            <div class="manifest-top">
+              <span>半山烘焙 · 成都</span>
+              <span>小批量浅中烘</span>
+            </div>
+            <div class="manifest-row">
+              <span>严选豆款</span>
+              <strong id="manifest-bean">云雾水洗 (200g)</strong>
+            </div>
+            <div class="manifest-row">
+              <span>产地与处理法</span>
+              <strong id="manifest-origin">埃塞俄比亚 耶加雪菲 · 水洗</strong>
+            </div>
+            <div class="manifest-row">
+              <span>风味标注</span>
+              <strong id="manifest-flavor">茉莉花香、柠檬酸质、红茶尾韵</strong>
+            </div>
+            <div class="manifest-row">
+              <span>烘焙日期</span>
+              <strong>按每期小批量出炉当日标注</strong>
+            </div>
+            <div class="manifest-row">
+              <span>寄送节奏与价格</span>
+              <strong id="manifest-plan">每月 · ¥62 / 月起</strong>
+            </div>
+          </div>
+
+          <button type="button" class="subscribe-cta" id="cta-btn">
+            <span id="cta-text">开启按月订阅 · 云雾水洗</span>
+            <span>→</span>
+          </button>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="footer-bar">
+      <span>半山烘焙 · 成都小型精品咖啡豆烘焙工作室 · 每期 1 袋 200g 按月寄送到家</span>
+      <span>说明：这是样例，本页面展示内容均为虚构演示素材。</span>
+    </footer>
+  </div>
+
+  <script>
+    const beans = [
+      {
+        kicker: 'ORIGIN & PROCESS SPECTRUM · 01 / 水洗',
+        name: '云雾水洗',
+        origin: '埃塞俄比亚 耶加雪菲',
+        process: '水洗',
+        price: '¥68 / 200g',
+        notes: ['茉莉花香', '柠檬酸质', '红茶尾韵'],
+        color: '#7ee2b8',
+        glow: 'rgba(126, 226, 184, 0.14)',
+        primaryPath: 'M20,140 C130,38 220,75 330,52 C440,30 520,88 620,64',
+        areaPath: 'M20,185 L20,140 C130,38 220,75 330,52 C440,30 520,88 620,64 L620,185 Z',
+        secondaryPath: 'M20,165 C140,85 240,145 350,75 C450,25 530,120 620,90',
+        nodes: [
+          [135, 68],
+          [330, 52],
+          [525, 74]
+        ]
+      },
+      {
+        kicker: 'ORIGIN & PROCESS SPECTRUM · 02 / 日晒',
+        name: '火塘日晒',
+        origin: '巴西 喜拉多',
+        process: '日晒',
+        price: '¥58 / 200g',
+        notes: ['巧克力', '烤坚果', '低酸醇厚'],
+        color: '#e8985a',
+        glow: 'rgba(232, 152, 90, 0.15)',
+        primaryPath: 'M20,155 C140,120 230,92 330,84 C430,78 520,62 620,58',
+        areaPath: 'M20,185 L20,155 C140,120 230,92 330,84 C430,78 520,62 620,58 L620,185 Z',
+        secondaryPath: 'M20,170 C150,140 250,118 350,105 C450,95 530,85 620,80',
+        nodes: [
+          [145, 114],
+          [330, 84],
+          [525, 64]
+        ]
+      },
+      {
+        kicker: 'ORIGIN & PROCESS SPECTRUM · 03 / 蜜处理',
+        name: '山脊蜜处理',
+        origin: '哥伦比亚 惠兰',
+        process: '蜜处理',
+        price: '¥72 / 200g',
+        notes: ['红苹果', '焦糖甜感', '奶油口感'],
+        color: '#f26d5b',
+        glow: 'rgba(242, 109, 91, 0.14)',
+        primaryPath: 'M20,148 C135,72 230,45 330,62 C430,78 515,48 620,70',
+        areaPath: 'M20,185 L20,148 C135,72 230,45 330,62 C430,78 515,48 620,70 L620,185 Z',
+        secondaryPath: 'M20,168 C145,102 240,82 340,95 C440,105 520,78 620,96',
+        nodes: [
+          [140, 82],
+          [330, 62],
+          [520, 58]
+        ]
+      }
+    ];
+
+    let activeBeanIdx = 0;
+    let activePlanPrice = '¥62 / 月起';
+    let activeCadence = '每月';
+
+    function renderConsole() {
+      const b = beans[activeBeanIdx];
+      document.documentElement.style.setProperty('--accent-active', b.color);
+      document.documentElement.style.setProperty('--accent-glow', b.glow);
+
+      document.getElementById('stage-kicker').textContent = b.kicker;
+      document.getElementById('stage-name').textContent = b.name;
+      document.getElementById('stage-origin').textContent = `产地：${b.origin} · 处理法：${b.process} · 单买参考价 ${b.price}`;
+
+      document.getElementById('gradStopTop').setAttribute('stop-color', b.color);
+      document.getElementById(' gradStopBot')?.setAttribute('stop-color', b.color);
+      document.getElementById('wave-primary').setAttribute('d', b.primaryPath);
+      document.getElementById('wave-primary').setAttribute('stroke', b.color);
+      document.getElementById('wave-area').setAttribute('d', b.areaPath);
+      document.getElementById('wave-secondary').setAttribute('d', b.secondaryPath);
+
+      b.notes.forEach((note, i) => {
+        const idx = i + 1;
+        document.getElementById(`svg-note-${idx}`).textContent = note;
+        document.getElementById(`card-note-${idx}`).textContent = note;
+        document.getElementById(`dot-${idx}`).setAttribute('stroke', b.color);
+        const [x, y] = b.nodes[i];
+        document.getElementById(`node-g-${idx}`).setAttribute('transform', `translate(${x}, ${y})`);
+      });
+
+      document.getElementById('manifest-bean').textContent = `${b.name} (200g)`;
+      document.getElementById('manifest-origin').textContent = `${b.origin} · ${b.process}`;
+      document.getElementById('manifest-flavor').textContent = b.notes.join('、');
+      document.getElementById('manifest-plan').textContent = `${activeCadence} · ${activePlanPrice}`;
+      document.getElementById('cta-text').textContent = `开启按月订阅 · ${b.name}`;
+    }
+
+    document.querySelectorAll('.bean-tab').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.bean-tab').forEach((el) => {
+          el.classList.remove('active');
+          el.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        activeBeanIdx = Number(btn.dataset.bean);
+        renderConsole();
+      });
+    });
+
+    document.querySelectorAll('.plan-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.plan-btn').forEach((el) => el.classList.remove('active'));
+        btn.classList.add('active');
+        activePlanPrice = btn.dataset.price;
+        renderConsole();
+      });
+    });
+
+    document.querySelectorAll('.cadence-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.cadence-btn').forEach((el) => el.classList.remove('active'));
+        btn.classList.add('active');
+        activeCadence = btn.dataset.cadence;
+        renderConsole();
+      });
+    });
+  </script>
+</body>
+</html>

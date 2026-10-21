@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>半山烘焙 · 方向三 v1：左右分栏（杂志豆单分栏）</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Noto+Serif+SC:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-paper: #f4efe6;
+      --bg-card: #ebe3d5;
+      --ink-roast: #231915;
+      --ink-sub: #5c4d44;
+      --ink-muted: #8a796e;
+      --accent-terracotta: #b84a27;
+      --border-rule: rgba(35, 25, 21, 0.14);
+      --font-serif: 'Noto Serif SC', 'Cormorant Garamond', Georgia, serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      background-color: var(--bg-paper);
+      color: var(--ink-roast);
+      font-family: var(--font-serif);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--accent-terracotta);
+      outline-offset: 2px;
+      box-shadow: 0 0 0 4px rgba(184, 74, 39, 0.2);
+    }
+
+    .split-viewport {
+      min-height: 100vh;
+      height: 900px;
+      max-width: 1440px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: 24px 48px 18px;
+    }
+
+    .editorial-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-rule);
+    }
+
+    .brand-title {
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--ink-roast);
+      text-decoration: none;
+    }
+
+    .header-meta {
+      font-size: 13px;
+      color: var(--ink-sub);
+      display: flex;
+      gap: 24px;
+    }
+
+    .split-main {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 48px;
+      align-items: center;
+      padding: 28px 0;
+    }
+
+    .left-column {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      padding-right: 24px;
+      border-right: 1px solid var(--border-rule);
+    }
+
+    .kicker {
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      color: var(--accent-terracotta);
+      font-weight: 600;
+    }
+
+    .left-column h1 {
+      font-size: 42px;
+      line-height: 1.24;
+      font-weight: 700;
+      color: var(--ink-roast);
+    }
+
+    .intro-copy {
+      font-size: 14.5px;
+      line-height: 1.85;
+      color: var(--ink-sub);
+    }
+
+    .sub-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-rule);
+      padding: 20px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .sub-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13.5px;
+      border-bottom: 1px dashed var(--border-rule);
+      padding-bottom: 8px;
+    }
+
+    .sub-row:last-of-type {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .cta-row {
+      display: flex;
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .primary-btn {
+      appearance: none;
+      border: none;
+      background: var(--accent-terracotta);
+      color: #fff;
+      font-family: var(--font-serif);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 24px;
+      cursor: pointer;
+    }
+
+    .secondary-btn {
+      appearance: none;
+      border: 1px solid var(--ink-roast);
+      background: transparent;
+      color: var(--ink-roast);
+      font-family: var(--font-serif);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 20px;
+      cursor: pointer;
+    }
+
+    /* Right Column: 3 Bean Editorial Cards */
+    .right-column {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .bean-card {
+      border: 1px solid var(--border-rule);
+      background: #faf6f0;
+      padding: 20px 24px;
+      display: grid;
+      grid-template-columns: 72px 1fr auto;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .bean-seal {
+      width: 64px;
+      height: 64px;
+    }
+
+    .bean-info h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .bean-meta-line {
+      font-size: 13px;
+      color: var(--accent-terracotta);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .bean-flavors {
+      font-size: 13.5px;
+      color: var(--ink-sub);
+    }
+
+    .bean-price-tag {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--ink-roast);
+      white-space: nowrap;
+    }
+
+    .split-footer {
+      border-top: 1px solid var(--border-rule);
+      padding-top: 12px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--ink-muted);
+    }
+
+    @media (max-width: 900px) {
+      .split-viewport {
+        height: auto;
+        padding: 16px;
+      }
+      .editorial-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      .header-meta {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .split-main {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .left-column {
+        padding-right: 0;
+        border-right: none;
+      }
+      .left-column h1 {
+        font-size: 28px;
+      }
+      .bean-card {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .split-footer {
+        flex-direction: column;
+        gap: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="split-viewport">
+    <header class="editorial-header">
+      <a href="#main" class="brand-title">半山烘焙</a>
+      <div class="header-meta">
+        <span>成都 · 小型精品咖啡豆烘焙工作室</span>
+        <span>偏浅中烘 · 保留产地本味</span>
+        <span>按月寄送到家</span>
+      </div>
+    </header>
+
+    <main id="main" class="split-main">
+      <section class="left-column">
+        <div class="kicker">CHENGDU COFFEE SUBSCRIPTION · 订阅制卖豆</div>
+        <h1>豆子的产地和处理法<br />自己会说话。</h1>
+        <p class="intro-copy">
+          半山烘焙是成都一家小型精品咖啡豆烘焙工作室，只做订阅制卖豆：每支豆子按小批量烘焙，标注烘焙日期与风味描述，按月寄送到家。工作室相信“豆子的产地和处理法自己会说话”，烘焙风格偏浅中烘，尽量保留产地本味。
+        </p>
+
+        <div class="sub-box">
+          <div class="sub-row">
+            <span>订阅方式</span>
+            <strong>按月寄送，每期 1 袋 200g</strong>
+          </div>
+          <div class="sub-row">
+            <span>单袋订阅价</span>
+            <strong>¥62 / 月起</strong>
+          </div>
+          <div class="sub-row">
+            <span>双袋尝鲜组合</span>
+            <strong>¥118 / 月</strong>
+          </div>
+          <div class="sub-row">
+            <span>可选节奏</span>
+            <strong>每 2 周 / 每月 / 每 6 周</strong>
+          </div>
+        </div>
+
+        <div class="cta-row">
+          <button type="button" class="primary-btn">开启单袋订阅（¥62 / 月起）</button>
+          <button type="button" class="secondary-btn">双袋尝鲜组合（¥118 / 月）</button>
+        </div>
+      </section>
+
+      <section class="right-column" aria-label="三款豆子信息">
+        <article class="bean-card">
+          <svg class="bean-seal" viewBox="0 0 64 64" aria-hidden="true">
+            <circle cx="32" cy="32" r="28" fill="none" stroke="#b84a27" stroke-width="1.5" />
+            <path d="M16,34 Q24,24 32,34 T48,34" fill="none" stroke="#231915" stroke-width="1.5" />
+            <path d="M16,42 Q24,32 32,42 T48,42" fill="none" stroke="#b84a27" stroke-width="1.2" />
+          </svg>
+          <div class="bean-info">
+            <h2>云雾水洗</h2>
+            <div class="bean-meta-line">埃塞俄比亚 耶加雪菲 · 水洗</div>
+            <div class="bean-flavors">风味描述：茉莉花香、柠檬酸质、红茶尾韵</div>
+          </div>
+          <div class="bean-price-tag">¥68 / 200g</div>
+        </article>
+
+        <article class="bean-card">
+          <svg class="bean-seal" viewBox="0 0 64 64" aria-hidden="true">
+            <circle cx="32" cy="32" r="28" fill="none" stroke="#b84a27" stroke-width="1.5" />
+            <circle cx="32" cy="32" r="12" fill="rgba(184,74,39,0.2)" stroke="#231915" stroke-width="1.5" />
+          </svg>
+          <div class="bean-info">
+            <h2>火塘日晒</h2>
+            <div class="bean-meta-line">巴西 喜拉多 · 日晒</div>
+            <div class="bean-flavors">风味描述：巧克力、烤坚果、低酸醇厚</div>
+          </div>
+          <div class="bean-price-tag">¥58 / 200g</div>
+        </article>
+
+        <article class="bean-card">
+          <svg class="bean-seal" viewBox="0 0 64 64" aria-hidden="true">
+            <circle cx="32" cy="32" r="28" fill="none" stroke="#b84a27" stroke-width="1.5" />
+            <path d="M14,44 L28,22 L38,36 L46,26 L52,44 Z" fill="none" stroke="#231915" stroke-width="1.5" />
+          </svg>
+          <div class="bean-info">
+            <h2>山脊蜜处理</h2>
+            <div class="bean-meta-line">哥伦比亚 惠兰 · 蜜处理</div>
+            <div class="bean-flavors">风味描述：红苹果、焦糖甜感、奶油口感</div>
+          </div>
+          <div class="bean-price-tag">¥72 / 200g</div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="split-footer">
+      <span>半山烘焙 · 成都小型精品咖啡豆烘焙工作室</span>
+      <span>这是样例：本页所列内容均为虚构演示素材。</span>
+    </footer>
+  </div>
+</body>
+</html>
