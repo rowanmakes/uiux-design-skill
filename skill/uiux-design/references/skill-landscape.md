@@ -55,7 +55,7 @@
 
 | 来源 · 快照 | 用途 | 注意 |
 | --- | --- | --- |
-| [Magic UI](https://github.com/magicuidesign/magicui) · `efe76fc` | 75 个动效组件，React + Tailwind + shadcn，依赖 motion | 按用途挑（`taste.md` 第 8 节）；不少组件是 AI 落地页的常见套路 |
+| [Magic UI](https://github.com/magicuidesign/magicui) · `efe76fc` | 75 个动效组件的参考，看动效该是什么样子 | 只做参考，实现按项目实际技术栈；按用途挑（`taste.md` 第 8 节）；不少组件是 AI 落地页的常见套路 |
 | [impeccable](https://github.com/pbakaus/impeccable) · `89097b9`（4.7.0） | 交付前用 `critique`、`audit`、`polish` 检查 | 只用检查部分 |
 | [taste-skill](https://github.com/Leonxlnx/taste-skill) · `6010f91` | 交付前用 `references/critique.md`（14 遍检查）看设计表达与细节 | 它要求至少 8 个移动元素、每个区块出场动画、至少 4 张真实图片，与用户"少用动效"冲突，不采用 |
 | [awesome-design-md](https://github.com/VoltAgent/awesome-design-md) · `3b60532` | 84 份 DESIGN.md 种子；网站 getdesign.md 有 550 多份 | 三个方向用三份不同种子，防止撞脸 |

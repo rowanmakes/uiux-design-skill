@@ -255,7 +255,7 @@
 
 **用户的原则（2026-10-21）：动效要么帮用户理解页面，要么突出真正重要的内容；不需要所有区块都动起来，宁可少用。** 一页里通常只有 1–3 处值得动，程度按 DESIGN.md 的动效档位。
 
-**动效组件来源：Magic UI**（https://github.com/magicuidesign/magicui，`efe76fc` 时有 75 个组件）。它是 React + Tailwind 的组件库，通过 shadcn 安装（`npx shadcn@latest add @magicui/<组件名>`），依赖 motion。项目是 React 时直接用；单文件 HTML 原型借它的做法，用 CSS、Web Animations 或 GSAP 重写，不硬引入整套依赖。按用途挑：
+**动效参考：Magic UI**（https://github.com/magicuidesign/magicui，网站 magicui.design，`efe76fc` 时有 75 个组件）。**只把它当参考，看动效该是什么样子；不直接安装使用。** 实现按项目实际的技术栈来：网页用项目已有的方式（CSS、Web Animations、项目已有的动效库），Flutter、React Native、Electron、Tauri 各用各自的动画能力。在 DESIGN.md 的动效一节写明"参考了 Magic UI 的哪个效果、在我们的技术栈里怎么实现"。按用途挑参考：
 
 | 用途 | 适合的组件（举例） |
 | --- | --- |
