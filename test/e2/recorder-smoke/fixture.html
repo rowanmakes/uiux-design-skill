@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!-- test/e2/recorder-smoke/fixture.html · scroll-record.mjs 冒烟夹具
+     自包含、无外部资源；高个子页面 + 每 700px 可见位置标记 + 粘性头 + 滚动读数。
+     载入 4s 后追加一节（动态增高），用于覆盖“页面动态高度”路径。 -->
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>scroll-recorder smoke fixture</title>
+<style>
+  :root { color-scheme: light; }
+  html { scroll-behavior: smooth; } /* 故意设置：验证录制驱动每步显式 instant，不被站点 smooth 拖拽打架 */
+  body { font-family: ui-monospace, Consolas, monospace; background: #f4f2ec; color: #1d1c19; }
+  header {
+    position: sticky; top: 0; z-index: 10;
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 16px; background: #1d1c19; color: #f4f2ec;
+    font-size: 14px; letter-spacing: 0.06em;
+  }
+  header .dot { width: 10px; height: 10px; border-radius: 50%; background: #e0b04b; animation: pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { transform: scale(0.7); opacity: 0.5; } 50% { transform: scale(1.25); opacity: 1; } }
+  #readout {
+    position: fixed; right: 12px; bottom: 12px; z-index: 10;
+    padding: 6px 10px; background: #1d1c19; color: #f4f2ec;
+    font-size: 13px; white-space: nowrap; border-radius: 4px;
+  }
+  section {
+    min-height: 700px; padding: 48px 24px;
+    border-bottom: 4px solid #1d1c19;
+    display: flex; flex-direction: column; gap: 12px; justify-content: flex-start;
+  }
+  #late[hidden] { display: none; } /* section 的 display:flex 会覆盖 hidden 默认样式，需显式恢复 */
+  section:nth-child(even) { background: #e9e5da; }
+  section:nth-child(odd) { background: #f4f2ec; }
+  h2 { font-size: clamp(28px, 6vw, 64px); letter-spacing: 0.04em; }
+  .band { font-size: 15px; opacity: 0.75; }
+  #late { background: #dcd3c0; border-bottom: none; }
+  footer { padding: 24px; font-size: 13px; opacity: 0.7; }
+</style>
+</head>
+<body>
+<header><span class="dot"></span> SMOKE FIXTURE · scroll-record.mjs · 粘性头</header>
+<div id="readout">scroll 0px</div>
+<main>
+  <section><h2>SECTION 01 · 0–700px</h2><p class="band">位置标记 · 每节 700px</p></section>
+  <section><h2>SECTION 02 · 700–1400px</h2><p class="band">位置标记</p></section>
+  <section><h2>SECTION 03 · 1400–2100px</h2><p class="band">位置标记</p></section>
+  <section><h2>SECTION 04 · 2100–2800px</h2><p class="band">位置标记</p></section>
+  <section><h2>SECTION 05 · 2800–3500px</h2><p class="band">位置标记</p></section>
+  <section><h2>SECTION 06 · 3500–4200px</h2><p class="band">位置标记</p></section>
+  <section><h2>SECTION 07 · 4200–4900px</h2><p class="band">位置标记</p></section>
+  <section id="late" hidden><h2>LATE SECTION · 动态增高 +800px（载入 4s 后出现）</h2><p class="band">用于覆盖页面动态高度</p></section>
+</main>
+<footer>END OF PAGE · 底部可见即为滚到底</footer>
+<script>
+  const readout = document.getElementById('readout');
+  const update = () => {
+    const doc = document.scrollingElement || document.documentElement;
+    const max = Math.max(0, doc.scrollHeight - window.innerHeight);
+    readout.textContent = `scroll ${Math.round(window.scrollY)}px / ${max}px`;
+  };
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+  setTimeout(() => { document.getElementById('late').hidden = false; update(); }, 4000);
+</script>
+</body>
+</html>
