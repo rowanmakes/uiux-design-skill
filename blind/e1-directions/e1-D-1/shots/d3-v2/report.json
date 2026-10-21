@@ -1,0 +1,241 @@
+{
+  "file": "d3.html",
+  "viewports": {
+    "wide": {
+      "width": 1440,
+      "height": 900,
+      "horizontalOverflow": false
+    },
+    "narrow": {
+      "width": 390,
+      "height": 844,
+      "horizontalOverflow": false
+    }
+  },
+  "consoleErrors": [],
+  "pageErrors": [],
+  "externalRequests": [
+    "[wide] https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Noto+Serif+SC:wght@400;600;700;900&display=swap",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.115.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.116.woff2",
+    "[wide] https://fonts.gstatic.com/s/cormorantgaramond/v21/co3smX5slCNuHLi8bLeY9MK7whWMhyjYrGFEsdtdc62E6zd5LDf-iNM8.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7kqGWbg.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.118.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.119.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.106.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.103.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.110.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.117.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.114.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.111.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.109.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.113.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.108.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.112.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.104.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.101.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.105.woff2",
+    "[narrow] https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Noto+Serif+SC:wght@400;600;700;900&display=swap",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.115.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.116.woff2",
+    "[narrow] https://fonts.gstatic.com/s/cormorantgaramond/v21/co3smX5slCNuHLi8bLeY9MK7whWMhyjYrGFEsdtdc62E6zd5LDf-iNM8.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7kqGWbg.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.118.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.119.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.106.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.103.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.110.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.117.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.114.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.111.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.109.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.113.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.108.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.112.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.104.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.101.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.105.woff2"
+  ],
+  "tabStops": [
+    {
+      "tag": "a",
+      "text": "半山烘焙\nCHENGDU · 浅中烘订阅制工作室",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "云\n01\n水洗\n云雾水洗\n埃塞俄比亚 耶加雪菲\nFLAVOR NOTES / 风",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "火\n02\n日晒\n火塘日晒\n巴西 喜拉多\nFLAVOR NOTES / 风味描述\n",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "山\n03\n蜜处理\n山脊蜜处理\n哥伦比亚 惠兰\nFLAVOR NOTES / 风味",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每 2 周",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每月",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每 6 周",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "开启订阅 · 云雾水洗（每月）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙\nCHENGDU · 浅中烘订阅制工作室",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "云\n01\n水洗\n云雾水洗\n埃塞俄比亚 耶加雪菲\nFLAVOR NOTES / 风",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "火\n02\n日晒\n火塘日晒\n巴西 喜拉多\nFLAVOR NOTES / 风味描述\n",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "山\n03\n蜜处理\n山脊蜜处理\n哥伦比亚 惠兰\nFLAVOR NOTES / 风味",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每 2 周",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每月",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每 6 周",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "开启订阅 · 云雾水洗（每月）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙\nCHENGDU · 浅中烘订阅制工作室",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "云\n01\n水洗\n云雾水洗\n埃塞俄比亚 耶加雪菲\nFLAVOR NOTES / 风",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "火\n02\n日晒\n火塘日晒\n巴西 喜拉多\nFLAVOR NOTES / 风味描述\n",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "山\n03\n蜜处理\n山脊蜜处理\n哥伦比亚 惠兰\nFLAVOR NOTES / 风味",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每 2 周",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每月",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每 6 周",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "开启订阅 · 云雾水洗（每月）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙\nCHENGDU · 浅中烘订阅制工作室",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "云\n01\n水洗\n云雾水洗\n埃塞俄比亚 耶加雪菲\nFLAVOR NOTES / 风",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "火\n02\n日晒\n火塘日晒\n巴西 喜拉多\nFLAVOR NOTES / 风味描述\n",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "山\n03\n蜜处理\n山脊蜜处理\n哥伦比亚 惠兰\nFLAVOR NOTES / 风味",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每 2 周",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每月",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每 6 周",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "开启订阅 · 云雾水洗（每月）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙\nCHENGDU · 浅中烘订阅制工作室",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "云\n01\n水洗\n云雾水洗\n埃塞俄比亚 耶加雪菲\nFLAVOR NOTES / 风",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "火\n02\n日晒\n火塘日晒\n巴西 喜拉多\nFLAVOR NOTES / 风味描述\n",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "山\n03\n蜜处理\n山脊蜜处理\n哥伦比亚 惠兰\nFLAVOR NOTES / 风味",
+      "visibleFocusStyle": true
+    }
+  ]
+}

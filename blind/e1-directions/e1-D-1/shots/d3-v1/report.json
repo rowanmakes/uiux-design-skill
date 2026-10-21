@@ -1,0 +1,209 @@
+{
+  "file": "d3.html",
+  "viewports": {
+    "wide": {
+      "width": 1440,
+      "height": 900,
+      "horizontalOverflow": false
+    },
+    "narrow": {
+      "width": 390,
+      "height": 844,
+      "horizontalOverflow": false
+    }
+  },
+  "consoleErrors": [],
+  "pageErrors": [],
+  "externalRequests": [
+    "[wide] https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Noto+Serif+SC:wght@400;500;600;700&display=swap",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.115.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.118.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7kqGWbg.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.116.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.106.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.103.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.117.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.114.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.110.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.109.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.119.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.111.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.113.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.108.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.112.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.104.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.101.woff2",
+    "[wide] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.105.woff2",
+    "[narrow] https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Noto+Serif+SC:wght@400;500;600;700&display=swap",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.115.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.118.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7kqGWbg.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.116.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.106.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.103.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.117.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.114.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.110.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.109.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.119.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.111.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.113.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.108.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.112.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.104.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.101.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notoserifsc/v36/H4chBXePl9DZ0Xe7gG9cyOj7oqP0dTpxZbB9E9gjjmzKvaeKHUTtJDWv3z-us4bxD8F5og.105.woff2"
+  ],
+  "tabStops": [
+    {
+      "tag": "a",
+      "text": "半山烘焙",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "开启单袋订阅（¥62 / 月起）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "双袋尝鲜组合（¥118 / 月）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "开启单袋订阅（¥62 / 月起）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "双袋尝鲜组合（¥118 / 月）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "开启单袋订阅（¥62 / 月起）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "双袋尝鲜组合（¥118 / 月）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "开启单袋订阅（¥62 / 月起）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "双袋尝鲜组合（¥118 / 月）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "开启单袋订阅（¥62 / 月起）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "双袋尝鲜组合（¥118 / 月）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "开启单袋订阅（¥62 / 月起）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "双袋尝鲜组合（¥118 / 月）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "开启单袋订阅（¥62 / 月起）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "双袋尝鲜组合（¥118 / 月）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "开启单袋订阅（¥62 / 月起）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "双袋尝鲜组合（¥118 / 月）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "开启单袋订阅（¥62 / 月起）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "双袋尝鲜组合（¥118 / 月）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "开启单袋订阅（¥62 / 月起）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "双袋尝鲜组合（¥118 / 月）",
+      "visibleFocusStyle": true
+    }
+  ]
+}

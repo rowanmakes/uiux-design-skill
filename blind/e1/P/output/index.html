@@ -1,0 +1,1710 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>半山烘焙 · 成都小型精品咖啡豆烘焙工作室</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #08090B;
+      --bg-subtle: #0D0F14;
+      --panel: #11141B;
+      --panel-elevated: #171B24;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.16);
+      --text: #F3F5F8;
+      --text-secondary: #9099AA;
+      --text-muted: #5E6778;
+      --c-washed: #67B7F7;
+      --c-natural: #F59E0B;
+      --c-honey: #F43F5E;
+      --active-accent: #67B7F7;
+      --font-sans: 'Plus Jakarta Sans', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      width: 100%;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image:
+        radial-gradient(circle at 50% 0%, rgba(103, 183, 247, 0.08) 0%, transparent 50%),
+        linear-gradient(180deg, #08090B 0%, #0B0D12 100%);
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--active-accent);
+      outline-offset: 2px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* Sticky Minimal Header */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      background: rgba(8, 9, 11, 0.84);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .header-inner {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .brand-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .brand-name {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-secondary);
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 26px;
+    }
+
+    .nav-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.18s ease;
+      white-space: nowrap;
+    }
+
+    .nav-link:hover {
+      color: var(--text);
+    }
+
+    .nav-cta {
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: var(--text);
+      color: #08090B;
+      font-weight: 600;
+      font-size: 12px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: opacity 0.18s ease;
+    }
+
+    .nav-cta:hover {
+      opacity: 0.9;
+    }
+
+    /* HERO FOLD (1440x900 Screen-as-Interface) */
+    .hero-section {
+      min-height: calc(100vh - 60px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 24px 0 32px;
+    }
+
+    .hero-top {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 32px;
+      margin-bottom: 22px;
+    }
+
+    .hero-title-block {
+      max-width: 720px;
+    }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--active-accent);
+      margin-bottom: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .eyebrow-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--active-accent);
+      box-shadow: 0 0 10px var(--active-accent);
+      flex-shrink: 0;
+    }
+
+    .hero-h1 {
+      font-size: clamp(26px, 3.2vw, 43px);
+      font-weight: 700;
+      line-height: 1.16;
+      letter-spacing: -0.025em;
+    }
+
+    .hero-h1 span {
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .hero-verbatim {
+      max-width: 460px;
+      font-size: 13px;
+      line-height: 1.72;
+      color: var(--text-secondary);
+      border-left: 1px solid var(--border-strong);
+      padding-left: 16px;
+    }
+
+    /* Interactive Console */
+    .console {
+      width: 100%;
+      background: var(--panel);
+      border: 1px solid var(--border-strong);
+      border-radius: 14px;
+      box-shadow:
+        0 28px 70px rgba(0, 0, 0, 0.65),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      overflow: hidden;
+    }
+
+    .bean-matrix {
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      background: rgba(11, 13, 18, 0.75);
+    }
+
+    .matrix-header {
+      padding: 11px 18px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .bean-tab {
+      width: 100%;
+      text-align: left;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--border);
+      padding: 16px 20px;
+      color: var(--text);
+      cursor: pointer;
+      transition: background 0.18s ease;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .bean-tab:last-child {
+      border-bottom: none;
+      flex: 1;
+    }
+
+    .bean-tab:hover {
+      background: rgba(255, 255, 255, 0.025);
+    }
+
+    .bean-tab.active {
+      background: var(--panel-elevated);
+    }
+
+    .bean-tab.active::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--active-accent);
+    }
+
+    .tab-row-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    .tab-code {
+      color: var(--text-muted);
+    }
+
+    .tab-price {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .tab-title-row {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .tab-name {
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    .tab-origin {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .tab-notes {
+      font-size: 12px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .process-chip {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.07);
+      color: var(--text);
+      flex-shrink: 0;
+    }
+
+    /* Console Right Workbench */
+    .workbench {
+      padding: 22px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .workbench-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .wb-origin {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--active-accent);
+      letter-spacing: 0.06em;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .wb-title-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .wb-title {
+      font-size: 25px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .wb-roast-pill {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      padding: 3px 9px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .wb-seal-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-strong);
+      padding: 6px 12px;
+      border-radius: 8px;
+    }
+
+    .svg-stage {
+      width: 100%;
+      height: 192px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: rgba(6, 7, 9, 0.78);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .svg-stage svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .stage-overlay-top {
+      position: absolute;
+      top: 10px;
+      left: 14px;
+      right: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-muted);
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .node-callout {
+      position: absolute;
+      transform: translate(-50%, -100%);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text);
+      background: rgba(17, 20, 27, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      padding: 2px 7px;
+      border-radius: 999px;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .stage-overlay-bottom {
+      position: absolute;
+      bottom: 12px;
+      left: 14px;
+      right: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      pointer-events: none;
+    }
+
+    .flavor-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .flavor-tag {
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(17, 20, 27, 0.9);
+      border: 1px solid var(--border-strong);
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .bag-ref-price {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-secondary);
+      background: rgba(17, 20, 27, 0.9);
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+    }
+
+    .console-dock {
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .dock-controls {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .ctrl-block {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .ctrl-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+    }
+
+    .segmented {
+      display: inline-flex;
+      background: #08090B;
+      padding: 3px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .seg-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-family: var(--font-sans);
+      font-size: 12px;
+      padding: 5px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .seg-btn.active {
+      background: var(--panel-elevated);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .dock-action {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .dock-readout {
+      text-align: right;
+    }
+
+    .dock-price {
+      font-family: var(--font-mono);
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .dock-sub {
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    .btn-light {
+      background: var(--text);
+      color: #08090B;
+      border: none;
+      border-radius: 8px;
+      padding: 11px 18px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    .btn-light:hover {
+      opacity: 0.92;
+      transform: translateY(-1px);
+    }
+
+    /* SECTION 2: ALL 3 BEANS ARCHIVE + 200G POUCH SEALS */
+    .section {
+      padding: 80px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 24px;
+      margin-bottom: 36px;
+      flex-wrap: wrap;
+    }
+
+    .section-kicker {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .section-title {
+      font-size: clamp(24px, 2.6vw, 34px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .section-desc {
+      max-width: 440px;
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    .beans-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .bean-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 26px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .bean-card:hover {
+      border-color: var(--border-strong);
+      transform: translateY(-2px);
+    }
+
+    .pouch-illustration {
+      width: 100%;
+      height: 215px;
+      background: rgba(8, 9, 11, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .card-meta-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .card-bean-name {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-price-badge {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .card-specs {
+      margin-top: 14px;
+      border-top: 1px solid var(--border);
+      padding-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .spec-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .spec-key {
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 11px;
+    }
+
+    .spec-val {
+      color: var(--text);
+      font-weight: 500;
+      text-align: right;
+    }
+
+    .card-select-btn {
+      width: 100%;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border-strong);
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.18s ease, border-color 0.18s ease;
+    }
+
+    .card-select-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    /* SECTION 3: SUBSCRIPTION ARCHITECTURE & LIVE SEAL RECEIPT */
+    .sub-architecture {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .sub-plans-panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .plan-cards-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .plan-option-card {
+      text-align: left;
+      background: rgba(8, 9, 11, 0.65);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.18s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .plan-option-card.active {
+      border-color: var(--text);
+      background: var(--panel-elevated);
+    }
+
+    .plan-opt-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    .plan-opt-price {
+      font-family: var(--font-mono);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .plan-opt-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    .cadence-selector-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .cadence-card {
+      background: rgba(8, 9, 11, 0.65);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      color: var(--text);
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.15s ease;
+    }
+
+    .cadence-card.active {
+      border-color: var(--active-accent);
+      background: var(--panel-elevated);
+    }
+
+    .cadence-name {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    .cadence-note {
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    /* Live Physical Seal Contract Preview */
+    .seal-receipt {
+      background: #F4F6F4;
+      color: #111412;
+      border-radius: 14px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+    }
+
+    .receipt-top {
+      border-bottom: 1px solid rgba(17, 20, 18, 0.12);
+      padding-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: #5B645E;
+    }
+
+    .receipt-band {
+      height: 4px;
+      width: 100%;
+      background: var(--active-accent);
+      margin-top: 10px;
+      border-radius: 2px;
+    }
+
+    .receipt-body {
+      padding: 18px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+    }
+
+    .receipt-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #111412;
+    }
+
+    .receipt-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 13px;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed rgba(17, 20, 18, 0.12);
+    }
+
+    .receipt-line span:first-child {
+      color: #5B645E;
+      flex-shrink: 0;
+    }
+
+    .receipt-line span:last-child {
+      font-weight: 600;
+      color: #111412;
+      text-align: right;
+    }
+
+    .receipt-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding-top: 6px;
+    }
+
+    .receipt-total-label {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .receipt-total-price {
+      font-family: var(--font-mono);
+      font-size: 26px;
+      font-weight: 700;
+      color: #111412;
+    }
+
+    .receipt-btn {
+      width: 100%;
+      padding: 13px 18px;
+      border: none;
+      border-radius: 8px;
+      background: #111412;
+      color: #F4F6F4;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.18s ease;
+    }
+
+    .receipt-btn:hover {
+      background: #232925;
+    }
+
+    /* SECTION 4: STUDIO PHILOSOPHY */
+    .philosophy-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .phil-card {
+      padding: 24px;
+      background: rgba(17, 20, 27, 0.6);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .phil-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--active-accent);
+    }
+
+    .phil-title {
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    .phil-text {
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    /* FOOTER (Single Sample Disclaimer) */
+    .site-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 28px 0 36px;
+      margin-top: 40px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 960px) {
+      .container {
+        padding: 0 16px;
+      }
+      .brand-badge,
+      .nav-link {
+        display: none;
+      }
+      .hero-section {
+        padding: 14px 0 24px;
+      }
+      .hero-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+      .hero-verbatim {
+        max-width: 100%;
+        font-size: 12.5px;
+        line-height: 1.6;
+      }
+      .console {
+        grid-template-columns: 1fr;
+      }
+      .bean-matrix {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+      }
+      .bean-tab {
+        padding: 13px 16px;
+      }
+      .workbench {
+        padding: 16px;
+      }
+      .console-dock {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .dock-action {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+      }
+      .dock-readout {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        text-align: left;
+      }
+      .btn-light {
+        width: 100%;
+      }
+      .beans-grid,
+      .sub-architecture,
+      .philosophy-grid,
+      .plan-cards-row,
+      .cadence-selector-row {
+        grid-template-columns: 1fr;
+      }
+      .section {
+        padding: 52px 0;
+      }
+      .stage-en-prefix {
+        display: none;
+      }
+      .node-callout {
+        font-size: 10px;
+        padding: 2px 6px;
+      }
+      .receipt-line {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+      .receipt-line span:last-child {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#console" class="brand">
+        <span class="brand-icon" aria-hidden="true">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M1.5 9.5L6 2.5L10.5 9.5H1.5Z" stroke="#F3F5F8" stroke-width="1.3"/>
+          </svg>
+        </span>
+        <span class="brand-name">半山烘焙</span>
+        <span class="brand-badge">CHENGDU · 浅中烘订阅制</span>
+      </a>
+      <nav class="nav" aria-label="主导航">
+        <a href="#console" class="nav-link">原味声呐台</a>
+        <a href="#beans" class="nav-link">三款豆子</a>
+        <a href="#subscription" class="nav-link">按月订阅</a>
+        <a href="#philosophy" class="nav-link">烘焙准则</a>
+        <a href="#subscription" class="nav-cta">开启订阅 ¥62/月起</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- 1. First Fold: Screen-as-Interface Origin Resonance & Subscription Workbench -->
+    <section class="hero-section" id="console">
+      <div class="container">
+        <div class="hero-top">
+          <div class="hero-title-block">
+            <div class="eyebrow">
+              <span class="eyebrow-dot"></span>
+              <span>CHENGDU ROASTERY · 成都半山小批量烘焙</span>
+            </div>
+            <h1 class="hero-h1">
+              豆子的产地和处理法自己会说话。<br>
+              <span>每支豆子按小批量烘焙，按月寄送到家。</span>
+            </h1>
+          </div>
+          <p class="hero-verbatim">
+            半山烘焙是成都一家小型精品咖啡豆烘焙工作室，只做订阅制卖豆：每支豆子按小批量烘焙，标注烘焙日期与风味描述，按月寄送到家。工作室相信“豆子的产地和处理法自己会说话”，烘焙风格偏浅中烘，尽量保留产地本味。
+          </p>
+        </div>
+
+        <div class="console" role="region" aria-label="当期咖啡豆风味声呐与订阅操作台">
+          <!-- Left: 3-Bean Interactive Matrix -->
+          <div class="bean-matrix" role="tablist" aria-label="当期三款咖啡豆">
+            <div class="matrix-header">
+              <span>ORIGIN / PROCESS MATRIX</span>
+              <span>每期 1 袋 200g 起</span>
+            </div>
+
+            <button type="button" class="bean-tab active" role="tab" aria-selected="true" data-bean-tab="0" onclick="selectBean(0)">
+              <div class="tab-row-top">
+                <span class="tab-code">#01 · WASHED</span>
+                <span class="tab-price">¥68 / 200g</span>
+              </div>
+              <div class="tab-title-row">
+                <span class="tab-name">云雾水洗</span>
+                <span class="tab-origin">埃塞俄比亚 耶加雪菲</span>
+              </div>
+              <div class="tab-notes">
+                <span class="process-chip">水洗</span>
+                <span>茉莉花香、柠檬酸质、红茶尾韵</span>
+              </div>
+            </button>
+
+            <button type="button" class="bean-tab" role="tab" aria-selected="false" data-bean-tab="1" onclick="selectBean(1)">
+              <div class="tab-row-top">
+                <span class="tab-code">#02 · NATURAL</span>
+                <span class="tab-price">¥58 / 200g</span>
+              </div>
+              <div class="tab-title-row">
+                <span class="tab-name">火塘日晒</span>
+                <span class="tab-origin">巴西 喜拉多</span>
+              </div>
+              <div class="tab-notes">
+                <span class="process-chip">日晒</span>
+                <span>巧克力、烤坚果、低酸醇厚</span>
+              </div>
+            </button>
+
+            <button type="button" class="bean-tab" role="tab" aria-selected="false" data-bean-tab="2" onclick="selectBean(2)">
+              <div class="tab-row-top">
+                <span class="tab-code">#03 · HONEY</span>
+                <span class="tab-price">¥72 / 200g</span>
+              </div>
+              <div class="tab-title-row">
+                <span class="tab-name">山脊蜜处理</span>
+                <span class="tab-origin">哥伦比亚 惠兰</span>
+              </div>
+              <div class="tab-notes">
+                <span class="process-chip">蜜处理</span>
+                <span>红苹果、焦糖甜感、奶油口感</span>
+              </div>
+            </button>
+          </div>
+
+          <!-- Right: Live Resonance Stage + Subscription Dock -->
+          <div class="workbench">
+            <div class="workbench-header">
+              <div>
+                <span class="wb-origin" id="wbOrigin">埃塞俄比亚 耶加雪菲 · 水洗处理法</span>
+                <div class="wb-title-row">
+                  <h2 class="wb-title" id="wbTitle">云雾水洗</h2>
+                  <span class="wb-roast-pill">浅中烘 · 保留产地本味</span>
+                </div>
+              </div>
+              <div class="wb-seal-tag" id="wbSealTag">封条标注：烘焙日期 + 风味描述 · 200g</div>
+            </div>
+
+            <div class="svg-stage" aria-hidden="true">
+              <div class="stage-overlay-top">
+                <span><span class="stage-en-prefix">FLAVOR RESONANCE PROFILE · </span>浅中烘风味切面</span>
+                <span id="stageProcessCode">PROCESS: WASHED / 水洗</span>
+              </div>
+              <svg viewBox="0 0 800 192" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="waveGrad" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#67B7F7" stop-opacity="0.14"/>
+                    <stop offset="50%" stop-color="#67B7F7" stop-opacity="0.95"/>
+                    <stop offset="100%" stop-color="#67B7F7" stop-opacity="0.18"/>
+                  </linearGradient>
+                </defs>
+                <line x1="0" y1="48" x2="800" y2="48" stroke="rgba(255,255,255,0.04)" stroke-dasharray="3 3"/>
+                <line x1="0" y1="96" x2="800" y2="96" stroke="rgba(255,255,255,0.06)"/>
+                <line x1="0" y1="144" x2="800" y2="144" stroke="rgba(255,255,255,0.04)" stroke-dasharray="3 3"/>
+                <line x1="200" y1="0" x2="200" y2="192" stroke="rgba(255,255,255,0.04)"/>
+                <line x1="400" y1="0" x2="400" y2="192" stroke="rgba(255,255,255,0.04)"/>
+                <line x1="600" y1="0" x2="600" y2="192" stroke="rgba(255,255,255,0.04)"/>
+
+                <!-- Node Vertical Drop Lines -->
+                <line id="drop1" x1="165" y1="74" x2="165" y2="144" stroke="rgba(103,183,247,0.28)" stroke-dasharray="2 2"/>
+                <line id="drop2" x1="385" y1="58" x2="385" y2="144" stroke="rgba(103,183,247,0.28)" stroke-dasharray="2 2"/>
+                <line id="drop3" x1="635" y1="90" x2="635" y2="144" stroke="rgba(103,183,247,0.28)" stroke-dasharray="2 2"/>
+
+                <path id="waveSec" d="M 0 116 Q 100 42, 200 96 T 400 80 T 600 100 T 800 66" fill="none" stroke="rgba(103,183,247,0.28)" stroke-width="1.5"/>
+                <path id="waveMain" d="M 0 100 C 120 26, 220 146, 360 70 C 480 16, 620 136, 800 58" fill="none" stroke="url(#waveGrad)" stroke-width="2.5"/>
+
+                <circle id="pt1" cx="165" cy="74" r="4.5" fill="#67B7F7"/>
+                <circle id="pt2" cx="385" cy="58" r="4.5" fill="#67B7F7"/>
+                <circle id="pt3" cx="635" cy="90" r="4.5" fill="#67B7F7"/>
+              </svg>
+              <span class="node-callout" id="lbl1" style="left: 20.6%; top: 34%;">01 茉莉花香</span>
+              <span class="node-callout" id="lbl2" style="left: 48.1%; top: 26%;">02 柠檬酸质</span>
+              <span class="node-callout" id="lbl3" style="left: 79.4%; top: 42%;">03 红茶尾韵</span>
+              <div class="stage-overlay-bottom">
+                <div class="flavor-tags" id="wbFlavorTags">
+                  <span class="flavor-tag">茉莉花香</span>
+                  <span class="flavor-tag">柠檬酸质</span>
+                  <span class="flavor-tag">红茶尾韵</span>
+                </div>
+                <span class="bag-ref-price" id="wbPriceRef">单袋价格：¥68 / 200g</span>
+              </div>
+            </div>
+
+            <div class="console-dock">
+              <div class="dock-controls">
+                <div class="ctrl-block">
+                  <span class="ctrl-label">订阅价格方案（按月寄送）</span>
+                  <div class="segmented" role="group" aria-label="订阅价格方案">
+                    <button type="button" class="seg-btn active" id="consolePlanSingle" onclick="syncPlan('single')">单袋订阅 ¥62/月起</button>
+                    <button type="button" class="seg-btn" id="consolePlanDouble" onclick="syncPlan('double')">双袋尝鲜组合 ¥118/月</button>
+                  </div>
+                </div>
+                <div class="ctrl-block">
+                  <span class="ctrl-label">可选寄送节奏</span>
+                  <div class="segmented" role="group" aria-label="可选寄送节奏">
+                    <button type="button" class="seg-btn" data-cadence="每 2 周" onclick="syncCadence('每 2 周')">每 2 周</button>
+                    <button type="button" class="seg-btn active" data-cadence="每月" onclick="syncCadence('每月')">每月</button>
+                    <button type="button" class="seg-btn" data-cadence="每 6 周" onclick="syncCadence('每 6 周')">每 6 周</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="dock-action">
+                <div class="dock-readout">
+                  <div class="dock-price" id="consolePriceMain">¥62 / 月起</div>
+                  <div class="dock-sub" id="consoleSubSummary">云雾水洗 · 每月（1 袋 200g）</div>
+                </div>
+                <a href="#subscription" class="btn-light">
+                  <span>确认订阅方案</span>
+                  <span aria-hidden="true">→</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Three Beans Full Archive & 200g Pouch Seals -->
+    <section class="section" id="beans">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <span class="section-kicker">01 — 03 CURRENT RELEASES · 三款豆子信息</span>
+            <h2 class="section-title">三支产地豆，三种处理法，各自开口说话。</h2>
+          </div>
+          <p class="section-desc">
+            每支豆子按小批量烘焙，烘焙风格偏浅中烘，尽量保留产地本味。每袋 200g 均贴印实体烘焙日期与风味描述封条。
+          </p>
+        </div>
+
+        <div class="beans-grid">
+          <!-- Bean 1: 云雾水洗 -->
+          <article class="bean-card">
+            <div>
+              <div class="pouch-illustration" aria-hidden="true">
+                <svg viewBox="0 0 220 200" width="180" height="190">
+                  <rect x="42" y="14" width="136" height="14" rx="2" fill="#1C222B" stroke="rgba(255,255,255,0.15)"/>
+                  <path d="M42 28 L178 28 L186 184 C186 190 181 194 175 194 L45 194 C39 194 34 190 34 184 Z" fill="#141820" stroke="rgba(103,183,247,0.35)"/>
+                  <circle cx="110" cy="48" r="6" fill="none" stroke="rgba(255,255,255,0.2)"/>
+                  <rect x="54" y="64" width="112" height="106" fill="#F4F6F8"/>
+                  <rect x="54" y="64" width="112" height="5" fill="#67B7F7"/>
+                  <text x="62" y="82" fill="#5A6577" font-size="7" font-family="JetBrains Mono">LOT #01 · WASHED</text>
+                  <text x="62" y="102" fill="#0D1117" font-size="15" font-weight="700" font-family="Noto Sans SC">云雾水洗</text>
+                  <text x="62" y="116" fill="#4A5568" font-size="8.5" font-family="Noto Sans SC">埃塞俄比亚 耶加雪菲</text>
+                  <text x="62" y="136" fill="#1E293B" font-size="8" font-family="Noto Sans SC">茉莉花香 / 柠檬酸质</text>
+                  <text x="62" y="148" fill="#1E293B" font-size="8" font-family="Noto Sans SC">红茶尾韵</text>
+                  <text x="62" y="163" fill="#0D1117" font-size="8.5" font-weight="600" font-family="JetBrains Mono">200g · ¥68</text>
+                </svg>
+              </div>
+              <div class="card-meta-top">
+                <span>#01 · 水洗处理法</span>
+                <span style="color: var(--c-washed);">LIGHT-MEDIUM</span>
+              </div>
+              <div class="card-bean-name">
+                <span>云雾水洗</span>
+                <span class="card-price-badge">¥68 / 200g</span>
+              </div>
+              <div class="card-specs">
+                <div class="spec-row">
+                  <span class="spec-key">产地</span>
+                  <span class="spec-val">埃塞俄比亚 耶加雪菲</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-key">处理法</span>
+                  <span class="spec-val">水洗</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-key">风味描述</span>
+                  <span class="spec-val">茉莉花香、柠檬酸质、红茶尾韵</span>
+                </div>
+              </div>
+            </div>
+            <button type="button" class="card-select-btn" onclick="chooseBeanAndScroll(0)">选入月度订阅（云雾水洗）</button>
+          </article>
+
+          <!-- Bean 2: 火塘日晒 -->
+          <article class="bean-card">
+            <div>
+              <div class="pouch-illustration" aria-hidden="true">
+                <svg viewBox="0 0 220 200" width="180" height="190">
+                  <rect x="42" y="14" width="136" height="14" rx="2" fill="#241E1A" stroke="rgba(255,255,255,0.15)"/>
+                  <path d="M42 28 L178 28 L186 184 C186 190 181 194 175 194 L45 194 C39 194 34 190 34 184 Z" fill="#191512" stroke="rgba(245,158,11,0.35)"/>
+                  <circle cx="110" cy="48" r="6" fill="none" stroke="rgba(255,255,255,0.2)"/>
+                  <rect x="54" y="64" width="112" height="106" fill="#FAF7F2"/>
+                  <rect x="54" y="64" width="112" height="5" fill="#F59E0B"/>
+                  <text x="62" y="82" fill="#78685A" font-size="7" font-family="JetBrains Mono">LOT #02 · NATURAL</text>
+                  <text x="62" y="102" fill="#1C1613" font-size="15" font-weight="700" font-family="Noto Sans SC">火塘日晒</text>
+                  <text x="62" y="116" fill="#5C4F44" font-size="8.5" font-family="Noto Sans SC">巴西 喜拉多</text>
+                  <text x="62" y="136" fill="#2D241E" font-size="8" font-family="Noto Sans SC">巧克力 / 烤坚果</text>
+                  <text x="62" y="148" fill="#2D241E" font-size="8" font-family="Noto Sans SC">低酸醇厚</text>
+                  <text x="62" y="163" fill="#1C1613" font-size="8.5" font-weight="600" font-family="JetBrains Mono">200g · ¥58</text>
+                </svg>
+              </div>
+              <div class="card-meta-top">
+                <span>#02 · 日晒处理法</span>
+                <span style="color: var(--c-natural);">LIGHT-MEDIUM</span>
+              </div>
+              <div class="card-bean-name">
+                <span>火塘日晒</span>
+                <span class="card-price-badge">¥58 / 200g</span>
+              </div>
+              <div class="card-specs">
+                <div class="spec-row">
+                  <span class="spec-key">产地</span>
+                  <span class="spec-val">巴西 喜拉多</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-key">处理法</span>
+                  <span class="spec-val">日晒</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-key">风味描述</span>
+                  <span class="spec-val">巧克力、烤坚果、低酸醇厚</span>
+                </div>
+              </div>
+            </div>
+            <button type="button" class="card-select-btn" onclick="chooseBeanAndScroll(1)">选入月度订阅（火塘日晒）</button>
+          </article>
+
+          <!-- Bean 3: 山脊蜜处理 -->
+          <article class="bean-card">
+            <div>
+              <div class="pouch-illustration" aria-hidden="true">
+                <svg viewBox="0 0 220 200" width="180" height="190">
+                  <rect x="42" y="14" width="136" height="14" rx="2" fill="#261B20" stroke="rgba(255,255,255,0.15)"/>
+                  <path d="M42 28 L178 28 L186 184 C186 190 181 194 175 194 L45 194 C39 194 34 190 34 184 Z" fill="#1B1317" stroke="rgba(244,63,94,0.35)"/>
+                  <circle cx="110" cy="48" r="6" fill="none" stroke="rgba(255,255,255,0.2)"/>
+                  <rect x="54" y="64" width="112" height="106" fill="#FBF5F6"/>
+                  <rect x="54" y="64" width="112" height="5" fill="#F43F5E"/>
+                  <text x="62" y="82" fill="#7A5A62" font-size="7" font-family="JetBrains Mono">LOT #03 · HONEY</text>
+                  <text x="62" y="102" fill="#1F1216" font-size="15" font-weight="700" font-family="Noto Sans SC">山脊蜜处理</text>
+                  <text x="62" y="116" fill="#63474E" font-size="8.5" font-family="Noto Sans SC">哥伦比亚 惠兰</text>
+                  <text x="62" y="136" fill="#2E1A20" font-size="8" font-family="Noto Sans SC">红苹果 / 焦糖甜感</text>
+                  <text x="62" y="148" fill="#2E1A20" font-size="8" font-family="Noto Sans SC">奶油口感</text>
+                  <text x="62" y="163" fill="#1F1216" font-size="8.5" font-weight="600" font-family="JetBrains Mono">200g · ¥72</text>
+                </svg>
+              </div>
+              <div class="card-meta-top">
+                <span>#03 · 蜜处理法</span>
+                <span style="color: var(--c-honey);">LIGHT-MEDIUM</span>
+              </div>
+              <div class="card-bean-name">
+                <span>山脊蜜处理</span>
+                <span class="card-price-badge">¥72 / 200g</span>
+              </div>
+              <div class="card-specs">
+                <div class="spec-row">
+                  <span class="spec-key">产地</span>
+                  <span class="spec-val">哥伦比亚 惠兰</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-key">处理法</span>
+                  <span class="spec-val">蜜处理</span>
+                </div>
+                <div class="spec-row">
+                  <span class="spec-key">风味描述</span>
+                  <span class="spec-val">红苹果、焦糖甜感、奶油口感</span>
+                </div>
+              </div>
+            </div>
+            <button type="button" class="card-select-btn" onclick="chooseBeanAndScroll(2)">选入月度订阅（山脊蜜处理）</button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. Subscription Architecture & Live Seal Receipt -->
+    <section class="section" id="subscription">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <span class="section-kicker">SUBSCRIPTION · 只做订阅制卖豆</span>
+            <h2 class="section-title">按月寄送，每期 1 袋 200g 起。</h2>
+          </div>
+          <p class="section-desc">
+            根据日常冲煮消耗选择单袋或双袋尝鲜组合，支持每 2 周、每月、每 6 周三种寄送节奏。
+          </p>
+        </div>
+
+        <div class="sub-architecture">
+          <div class="sub-plans-panel">
+            <div>
+              <span class="ctrl-label" style="display:block; margin-bottom: 10px;">STEP 01 · 选择订阅价格方案</span>
+              <div class="plan-cards-row">
+                <button type="button" class="plan-option-card active" id="subCardSingle" onclick="syncPlan('single')">
+                  <div class="plan-opt-top">
+                    <span>SINGLE BAG · 单袋订阅价</span>
+                    <span>每期 1 袋 200g</span>
+                  </div>
+                  <div class="plan-opt-price">¥62 / 月起</div>
+                  <p class="plan-opt-desc">按月寄送，每期 1 袋 200g。从云雾水洗、火塘日晒、山脊蜜处理中任选当期豆款。</p>
+                </button>
+
+                <button type="button" class="plan-option-card" id="subCardDouble" onclick="syncPlan('double')">
+                  <div class="plan-opt-top">
+                    <span>TASTING DUO · 双袋尝鲜组合</span>
+                    <span>200g × 2 袋</span>
+                  </div>
+                  <div class="plan-opt-price">¥118 / 月</div>
+                  <p class="plan-opt-desc">双袋尝鲜组合，同期对比不同产地与处理法（水洗 / 日晒 / 蜜处理）的浅中烘本味。</p>
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <span class="ctrl-label" style="display:block; margin-bottom: 10px;">STEP 02 · 选择当期首发豆款（200g / 袋）</span>
+              <div class="cadence-selector-row">
+                <button type="button" class="cadence-card active" data-bean-card="0" onclick="selectBean(0)">
+                  <div class="cadence-name">01 云雾水洗</div>
+                  <div class="cadence-note">埃塞 耶加雪菲 · 水洗 (¥68)</div>
+                </button>
+                <button type="button" class="cadence-card" data-bean-card="1" onclick="selectBean(1)">
+                  <div class="cadence-name">02 火塘日晒</div>
+                  <div class="cadence-note">巴西 喜拉多 · 日晒 (¥58)</div>
+                </button>
+                <button type="button" class="cadence-card" data-bean-card="2" onclick="selectBean(2)">
+                  <div class="cadence-name">03 山脊蜜处理</div>
+                  <div class="cadence-note">哥伦比亚 惠兰 · 蜜处理 (¥72)</div>
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <span class="ctrl-label" style="display:block; margin-bottom: 10px;">STEP 03 · 选择可选节奏（每 2 周 / 每月 / 每 6 周）</span>
+              <div class="cadence-selector-row">
+                <button type="button" class="cadence-card" data-cadence-card="每 2 周" onclick="syncCadence('每 2 周')">
+                  <div class="cadence-name">每 2 周</div>
+                  <div class="cadence-note">高频手冲日常节奏</div>
+                </button>
+                <button type="button" class="cadence-card active" data-cadence-card="每月" onclick="syncCadence('每月')">
+                  <div class="cadence-name">每月</div>
+                  <div class="cadence-note">标准按月寄送节奏</div>
+                </button>
+                <button type="button" class="cadence-card" data-cadence-card="每 6 周" onclick="syncCadence('每 6 周')">
+                  <div class="cadence-name">每 6 周</div>
+                  <div class="cadence-note">从容慢饮探索节奏</div>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Live Physical Seal Receipt -->
+          <aside class="seal-receipt" aria-label="半山烘焙订阅封条预览">
+            <div>
+              <div class="receipt-top">
+                <span>半山烘焙 · 成都</span>
+                <span>SUBSCRIPTION SEAL</span>
+              </div>
+              <div class="receipt-band" id="receiptBand"></div>
+              <div class="receipt-body">
+                <div class="receipt-title" id="receiptBeanTitle">云雾水洗（埃塞俄比亚 耶加雪菲）</div>
+                <div class="receipt-line">
+                  <span>处理法与风味</span>
+                  <span id="receiptFlavor">水洗 · 茉莉花香、柠檬酸质、红茶尾韵</span>
+                </div>
+                <div class="receipt-line">
+                  <span>订阅方式</span>
+                  <span id="receiptBagSpec">按月寄送，每期 1 袋 200g</span>
+                </div>
+                <div class="receipt-line">
+                  <span>可选节奏</span>
+                  <span id="receiptCadence">每月</span>
+                </div>
+                <div class="receipt-line">
+                  <span>烘焙与标注</span>
+                  <span>小批量浅中烘 · 标注烘焙日期与风味描述</span>
+                </div>
+                <div class="receipt-total">
+                  <span class="receipt-total-label">订阅价格</span>
+                  <span class="receipt-total-price" id="receiptPrice">¥62 / 月起</span>
+                </div>
+              </div>
+            </div>
+            <button type="button" class="receipt-btn" id="receiptConfirmBtn" onclick="confirmSubscription()">
+              <span id="receiptBtnText">生成本次半山订阅契约</span>
+              <span aria-hidden="true">→</span>
+            </button>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Roastery Philosophy -->
+    <section class="section" id="philosophy">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <span class="section-kicker">ROASTERY ETHOS · 成都半山烘焙工作室</span>
+            <h2 class="section-title">不靠修辞修饰，只靠小批量浅中烘保留产地本味。</h2>
+          </div>
+        </div>
+
+        <div class="philosophy-grid">
+          <div class="phil-card">
+            <span class="phil-num">PRINCIPLE 01</span>
+            <h3 class="phil-title">豆子的产地和处理法自己会说话</h3>
+            <p class="phil-text">
+              无论是埃塞俄比亚耶加雪菲的水洗茉莉花香与柠檬酸质、巴西喜拉多的日晒巧克力烤坚果醇厚，还是哥伦比亚惠兰的蜜处理红苹果焦糖甜感，风味皆源自风土与处理法本身。
+            </p>
+          </div>
+          <div class="phil-card">
+            <span class="phil-num">PRINCIPLE 02</span>
+            <h3 class="phil-title">烘焙风格偏浅中烘</h3>
+            <p class="phil-text">
+              工作室坚持偏浅中烘的烘焙风格，尽量保留产地本味，每支豆子按小批量烘焙，让酸质、甜感与尾韵清晰可辨。
+            </p>
+          </div>
+          <div class="phil-card">
+            <span class="phil-num">PRINCIPLE 03</span>
+            <h3 class="phil-title">只做订阅制卖豆，按月寄送到家</h3>
+            <p class="phil-text">
+              每袋 200g 咖啡豆均清晰标注烘焙日期与风味描述，支持单袋订阅（¥62/月起）与双袋尝鲜组合（¥118/月），按每 2 周、每月或每 6 周节奏寄送到家。
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>半山烘焙 · 成都小型精品咖啡豆烘焙工作室 · 按月寄送，每期 1 袋 200g</span>
+      <span>说明：这是样例（本页面展示内容均为固定素材样例演示）</span>
+    </div>
+  </footer>
+
+  <script>
+    const beans = [
+      {
+        name: '云雾水洗',
+        originShort: '埃塞俄比亚 耶加雪菲',
+        originFull: '埃塞俄比亚 耶加雪菲 · 水洗处理法',
+        processCode: 'PROCESS: WASHED / 水洗',
+        flavors: ['茉莉花香', '柠檬酸质', '红茶尾韵'],
+        flavorStr: '水洗 · 茉莉花香、柠檬酸质、红茶尾韵',
+        price: '¥68 / 200g',
+        color: '#67B7F7',
+        pathMain: 'M 0 100 C 120 26, 220 146, 360 70 C 480 16, 620 136, 800 58',
+        pathSec: 'M 0 116 Q 100 42, 200 96 T 400 80 T 600 100 T 800 66',
+        pts: [[165, 74], [385, 58], [635, 90]]
+      },
+      {
+        name: '火塘日晒',
+        originShort: '巴西 喜拉多',
+        originFull: '巴西 喜拉多 · 日晒处理法',
+        processCode: 'PROCESS: NATURAL / 日晒',
+        flavors: ['巧克力', '烤坚果', '低酸醇厚'],
+        flavorStr: '日晒 · 巧克力、烤坚果、低酸醇厚',
+        price: '¥58 / 200g',
+        color: '#F59E0B',
+        pathMain: 'M 0 130 C 160 120, 260 50, 420 88 C 560 120, 660 52, 800 82',
+        pathSec: 'M 0 140 Q 150 80, 320 110 T 620 90 T 800 100',
+        pts: [[210, 88], [420, 88], [665, 70]]
+      },
+      {
+        name: '山脊蜜处理',
+        originShort: '哥伦比亚 惠兰',
+        originFull: '哥伦比亚 惠兰 · 蜜处理法',
+        processCode: 'PROCESS: HONEY / 蜜处理',
+        flavors: ['红苹果', '焦糖甜感', '奶油口感'],
+        flavorStr: '蜜处理 · 红苹果、焦糖甜感、奶油口感',
+        price: '¥72 / 200g',
+        color: '#F43F5E',
+        pathMain: 'M 0 120 L 155 62 L 310 100 L 490 42 L 650 88 L 800 48',
+        pathSec: 'M 0 136 L 160 86 L 320 118 L 495 66 L 660 106 L 800 72',
+        pts: [[155, 62], [490, 42], [650, 88]]
+      }
+    ];
+
+    let activeBeanIdx = 0;
+    let activePlan = 'single';
+    let activeCadence = '每月';
+
+    function renderAll() {
+      const b = beans[activeBeanIdx];
+      document.documentElement.style.setProperty('--active-accent', b.color);
+
+      // Console header & tags
+      document.getElementById('wbOrigin').textContent = b.originFull;
+      document.getElementById('wbTitle').textContent = b.name;
+      document.getElementById('stageProcessCode').textContent = b.processCode;
+      document.getElementById('wbPriceRef').textContent = `单袋价格：${b.price}`;
+      document.getElementById('wbFlavorTags').innerHTML =
+        b.flavors.map(f => `<span class="flavor-tag">${f}</span>`).join('');
+
+      // SVG wave, drop lines, and node callout labels
+      document.querySelectorAll('#waveGrad stop').forEach(s => s.setAttribute('stop-color', b.color));
+      document.getElementById('waveMain').setAttribute('d', b.pathMain);
+      document.getElementById('waveSec').setAttribute('d', b.pathSec);
+      document.getElementById('waveSec').setAttribute('stroke', b.color + '44');
+
+      ['pt1', 'pt2', 'pt3'].forEach((id, i) => {
+        const cx = b.pts[i][0];
+        const cy = b.pts[i][1];
+        const el = document.getElementById(id);
+        el.setAttribute('cx', cx);
+        el.setAttribute('cy', cy);
+        el.setAttribute('fill', b.color);
+
+        const drop = document.getElementById('drop' + (i + 1));
+        drop.setAttribute('x1', cx);
+        drop.setAttribute('x2', cx);
+        drop.setAttribute('y1', cy);
+        drop.setAttribute('stroke', b.color + '44');
+
+        const lbl = document.getElementById('lbl' + (i + 1));
+        lbl.style.left = (cx / 800 * 100).toFixed(1) + '%';
+        lbl.style.top = ((cy - 8) / 192 * 100).toFixed(1) + '%';
+        lbl.textContent = `0${i + 1} ${b.flavors[i]}`;
+      });
+
+      const priceStr = activePlan === 'single' ? '¥62 / 月起' : '¥118 / 月';
+      const specStr = activePlan === 'single' ? '按月寄送，每期 1 袋 200g' : '双袋尝鲜组合（每期 200g × 2 袋）';
+
+      document.getElementById('consolePriceMain').textContent = priceStr;
+      document.getElementById('consoleSubSummary').textContent =
+        `${b.name} · ${activeCadence}（${activePlan === 'single' ? '1 袋 200g' : '双袋尝鲜'}）`;
+
+      // Receipt
+      document.getElementById('receiptBand').style.background = b.color;
+      document.getElementById('receiptBeanTitle').textContent = `${b.name}（${b.originShort}）`;
+      document.getElementById('receiptFlavor').textContent = b.flavorStr;
+      document.getElementById('receiptBagSpec').textContent = specStr;
+      document.getElementById('receiptCadence').textContent = activeCadence;
+      document.getElementById('receiptPrice').textContent = priceStr;
+      document.getElementById('receiptBtnText').textContent = '生成本次半山订阅契约';
+    }
+
+    function selectBean(idx) {
+      activeBeanIdx = idx;
+      document.querySelectorAll('[data-bean-tab]').forEach((btn, i) => {
+        btn.classList.toggle('active', i === idx);
+        btn.setAttribute('aria-selected', i === idx ? 'true' : 'false');
+      });
+      document.querySelectorAll('[data-bean-card]').forEach((btn, i) => {
+        btn.classList.toggle('active', i === idx);
+      });
+      renderAll();
+    }
+
+    function syncPlan(plan) {
+      activePlan = plan;
+      document.getElementById('consolePlanSingle').classList.toggle('active', plan === 'single');
+      document.getElementById('consolePlanDouble').classList.toggle('active', plan === 'double');
+      document.getElementById('subCardSingle').classList.toggle('active', plan === 'single');
+      document.getElementById('subCardDouble').classList.toggle('active', plan === 'double');
+      renderAll();
+    }
+
+    function syncCadence(cadence) {
+      activeCadence = cadence;
+      document.querySelectorAll('[data-cadence]').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-cadence') === cadence);
+      });
+      document.querySelectorAll('[data-cadence-card]').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-cadence-card') === cadence);
+      });
+      renderAll();
+    }
+
+    function chooseBeanAndScroll(idx) {
+      selectBean(idx);
+      document.getElementById('subscription').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function confirmSubscription() {
+      const b = beans[activeBeanIdx];
+      const priceStr = activePlan === 'single' ? '¥62/月起' : '¥118/月';
+      document.getElementById('receiptBtnText').textContent =
+        `已锁定：${b.name} · ${activeCadence}（${priceStr}）`;
+    }
+  </script>
+</body>
+</html>
