@@ -24,7 +24,7 @@
 | e2-A-codex | ❌ 失败 | [协调者] 请求 `gpt-5.6-terra`（ultra）；Orca `agent_readiness` 超时发生在任务输入下发之前：Codex 0.163.0 界面停在空白输入框、无任何 Task 运行（非 unsupported-effort 报错）；16:47:07Z 即结束（约 66 秒）。无产物：分支 `LJC-god/e2-A-codex` 停在 `2563e7a` |
 | e2-B-codex | ❌ 失败 | 同上机制（16:47:09Z 结束）；分支 `LJC-god/e2-B-codex` 停在 `2563e7a` |
 | e2-C-codex | ❌ 失败 | 同上机制（16:47:08Z 结束）；分支 `LJC-god/e2-C-codex` 停在 `2563e7a` |
-| e2-package | ✅ 本任务 | 见 §5–§8；提交 SHA 见 worker_done |
+| e2-package | ✅ 完成 | Orca 17:29:08Z→17:41:36Z，实际 12m28s；OMP `zhipu-coding-plan/glm-5.3`；原提交 `cc6d058`，见 §5–§8 |
 
 - 3 个 codex 失败均为**就绪超时、任务从未启动**，按用户指令**不重跑**；失败原因以协调者证据为准，打包方不猜测补充。
 - 6 个页面任务中 3 成功（B 另带不完整交接警告）、3 失败 → 每场景恰有 1 个真实槽位 + 1 个中性空缺槽位，**成对模型对比在本轮不可实现**（协调者确认），盲评页以空缺卡如实呈现。
@@ -42,7 +42,7 @@
 
 ## 3. 时间线（Orca 系统时间 / 作者自估 / 打包方实测，逐项区分）
 
-**[协调者] Orca 实际（dispatch→done）**：prep 24m20s；images 任务 16m29:30Z→16m45:29Z（生成 10m53s）；A 40m46s；B 30m22s；C 42m39s；3×codex 各约 66 秒（就绪超时）；打包 dispatch 创建 17:29:08Z。
+**[协调者] Orca 实际（dispatch→done）**：prep 24m20s；images 任务 16:29:30Z→16:45:29Z（15m59s；生成 10m53s）；A 40m46s；B 30m22s；C 42m39s；Codex A/B/C 分别约 66/68/67 秒（就绪超时）；打包 17:29:08Z→17:41:36Z（12m28s）。
 
 **[运行日志自述]（协调者判定部分不可靠）**：A 自估约 38 分钟、C 自述约 39.5 分钟——均为「回执→验证」口径，与 Orca 实际（40m46s / 42m39s）不一致，以 Orca 为准；prep worker 自估 50 分钟被 Orca 24m20s 否定；B 无自述时间线。
 
@@ -89,14 +89,14 @@
 - 窄屏 390×844：无横向溢出；6 面板 / 3 空缺卡 / 3 视频正常。
 - 错误：console=0、pageErrors=0；`requestfailed` 3 条 `net::ERR_ABORTED`，均为自动连播 `play()` 打断 metadata 预取的浏览器常规行为，同一 URL 随后均达 `readyState=4` 并完成播放，非页面缺陷。
 - 泄漏扫描（仅扫 `runs/e2-compare.html` 单文件文本；映射文件在任何扫描前按文件名排除、从未读入）：运行 ID/模型名/`runs/` 链接/绝对路径等模式 **0 命中**。
-- 视觉核验（实际看图而非仅元数据）：顶部（场景 A 甲位播放中 0:11/26s、乙位空缺卡、同步按钮）、场景 A 播放特写（原生进度条 +「播放中 2.4s / 26.0s」）、附录图库（15 图、选用状态标注）均亲眼查看，布局无破损。
+- 视觉核验（实际看图而非仅元数据）：顶部（播放中的录像、空缺卡、同步按钮）、场景 A 播放特写（原生进度条 +「播放中 2.4s / 26.0s」）、附录图库（15 图、选用状态标注）均亲眼查看，布局无破损。
 
 **[协调者] 根浏览器复检（17:35:53Z）**：在 Orca 浏览器以 file:// 打开本盲评页，3 段宽屏视频 `readyState=4` 且点击自动连播后 `currentTime` 前进，15 张图库图片全部加载，视觉检查布局中性正常——独立复核通过。
 
 ## 8. reduced-motion 核验情况（转录各运行证据 [运行日志自述]；打包方未重跑）
 
-- e2-A-agy：`recordings/reduced-motion/` 存在（宽窄各 2 张关键截图）；run-log §6 自述 `--reduced-motion` 录制 exit 0、静态回退验证通过。
-- e2-C-agy：`recordings/reduced-motion/` 存在（宽窄各 2 张）；verification.json 自述 reduce 下 `animationName==="none"`、无视差缩放、前景文案保持可见。
+- e2-A-agy：`recordings/reduced-motion/` 存在（宽窄各 4 张关键截图，另各 1 段 WebM）；run-log §6 自述 `--reduced-motion` 录制 exit 0、静态回退验证通过。
+- e2-C-agy：`recordings/reduced-motion/` 存在（宽窄各 4 张关键截图，另各 1 段 WebM）；verification.json 自述 reduce 下 `animationName==="none"`、无视差缩放、前景文案保持可见。
 - e2-B-agy：无独立 reduced-motion 录制目录；self-review §四.4 自述经 Playwright 实测降级（关平滑滚动/粒子/过渡，跨幕直切）。
 - 本次 delivery 录像为标准模式（未加 `--reduced-motion`），与任务口径一致。
 
@@ -113,3 +113,7 @@
 ## 10. 提交内容（本任务）
 
 仅自有路径：`runs/e2-compare.html`、`runs/e2-mapping.json`、`runs/e2-summary.md`、`runs/e2-view/`（24 个匿名媒体文件）、`runs/e2-{A,B,C}-agy/recordings/delivery/`（各 2 webm + 8 PNG + report.json）。提交 SHA 见 worker_done 汇报；推送由协调者执行。
+
+## 11. 协调者最终核对
+
+打包提交完成后，协调者仅修正本汇报中的时间格式、截图数量和可能暗示匿名槽位来源的具体描述，并补入实际打包耗时；未改动页面代码、图片或原始运行日志。最终九个 Task 均已结束、九个 worker 终端均已释放。打包时首次因缺本地 Playwright 失败，执行 npm ci 后恢复；这属于取证环境修复，未重跑任何页面生成任务。推送目标仅为 test/exp-cinematic，main 不在推送范围内。
