@@ -253,6 +253,20 @@
 - **产品界面：** 只用于反馈和状态变化；悬停、弹层、乐观更新。不做滚动特效和视差。
 - **始终：** 尊重 `prefers-reduced-motion`；只过渡 transform、opacity 等，不写 `transition: all`。
 
+**用户的原则（2026-10-21）：动效要么帮用户理解页面，要么突出真正重要的内容；不需要所有区块都动起来，宁可少用。** 一页里通常只有 1–3 处值得动，程度按 DESIGN.md 的动效档位。
+
+**动效组件来源：Magic UI**（https://github.com/magicuidesign/magicui，`efe76fc` 时有 75 个组件）。它是 React + Tailwind 的组件库，通过 shadcn 安装（`npx shadcn@latest add @magicui/<组件名>`），依赖 motion。项目是 React 时直接用；单文件 HTML 原型借它的做法，用 CSS、Web Animations 或 GSAP 重写，不硬引入整套依赖。按用途挑：
+
+| 用途 | 适合的组件（举例） |
+| --- | --- |
+| 帮用户理解过程或关系 | animated-beam（东西之间如何流动）、animated-list（一连串事件）、terminal / typing-animation（展示一个真实过程）、arc-timeline、file-tree、code-comparison |
+| 帮用户理解变化 | number-ticker（数值变化）、animated-circular-progress-bar、scroll-progress |
+| 引导阅读顺序 | blur-fade、text-reveal、box-reveal（标题先到，正文跟上，只播一次） |
+| 突出唯一重要的东西 | highlighter（一句关键话）、border-beam / shine-border（只给一个关键卡片或主操作） |
+| 展示产品本身 | safari、iphone-15-pro 设备框、hero-video-dialog |
+
+**最容易变成 AI 模板味、要慎用的：** aurora-text、animated-gradient-text、shimmer / rainbow / shiny 按钮、meteors、particles、sparkles-text、retro-grid、warp-background、globe、icon-cloud、orbiting-circles、confetti、cool-mode、marquee 的 Logo 滚动墙、neon-gradient-card、自定义光标。它们本身不坏，但到处都是；只有在内容真的需要、而且全站只用一次时才用。
+
 ## 9. 按页面类型调音量
 
 同一个品味，在不同页面上"音量"不同。

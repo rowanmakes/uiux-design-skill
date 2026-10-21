@@ -62,7 +62,12 @@ description: 从产品描述或现有界面出发，做出让人眼前一亮、�
 
 **7 · 看画面，改一轮。** 截图后亲眼看：哪里不像北极星说的样子、哪里落回了默认外观、哪里挤了、哪里空得寒酸，改完再截图确认。动效要实际播放着看，不能只看静态截图。
 
-**8 · 交付前检查。** 这时候才读检查类文件：`references/interaction.md`（交互、反馈、状态、表单、可访问性）、`taste.md` 与对应页面类型文件末尾的自检清单、`references/review-and-evidence.md`（问题卡与证据边界）。必须修的问题修掉；审美建议记下来交给用户。
+**8 · 交付前检查。** 分三层，最好由一个没参与制作的 agent 来做（只给它网址、DESIGN.md 和简报）：
+1. **打开真实页面，对照 `DESIGN.md` 检查：** 视觉层级、间距、移动端适配，以及各页面之间是否一致（同一个世界、同一套组件和动效档位）。截图和录屏为证，不读代码代替看画面。
+2. **用外部技能检查表达与质量：** impeccable（https://github.com/pbakaus/impeccable）的 `critique`（设计判断与评分）和 `audit`（可访问性、性能、响应式），必要时 `polish` 做最后一遍；taste-skill（https://github.com/Leonxlnx/taste-skill）的 `references/critique.md` 检查设计表达和细节。只用它们的检查部分，不让它们按自己的风格重做页面。它们和我们的规则冲突时以 `DESIGN.md` 和用户的品味为准，例如 taste-skill 要求页面至少有 8 个在动的元素、每个区块都有出场动画、至少 4 张真实图片，这和"少用动效"冲突，不采用。
+3. **读我们自己的检查文件：** `references/interaction.md`（交互、反馈、状态、表单、可访问性）、`taste.md` 与对应页面类型文件末尾的自检清单、`references/review-and-evidence.md`（问题卡与证据边界）。
+
+必须修的问题修掉；审美建议记下来交给用户。
 
 ## 诚实规则
 

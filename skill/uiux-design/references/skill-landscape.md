@@ -50,3 +50,12 @@
 - 从零做品牌站：no-slop-design 或 Taste Skill 二选一做主探索，不同时加载多套冲突的风格规则。
 - 建设品牌系统：先确认定位、已有资产、产品场景，再借 Baoyu 的系统整理方法，brandkit 辅助看方向。
 - 比较技能谁更有效：每个独立一组，固定简报、内容、模型与预算，记录实际加载的版本、截图、修改轮次。
+
+## 2026-10-21 补充：用户指定的动效与检查来源
+
+| 来源 · 快照 | 用途 | 注意 |
+| --- | --- | --- |
+| [Magic UI](https://github.com/magicuidesign/magicui) · `efe76fc` | 75 个动效组件，React + Tailwind + shadcn，依赖 motion | 按用途挑（`taste.md` 第 8 节）；不少组件是 AI 落地页的常见套路 |
+| [impeccable](https://github.com/pbakaus/impeccable) · `89097b9`（4.7.0） | 交付前用 `critique`、`audit`、`polish` 检查 | 只用检查部分 |
+| [taste-skill](https://github.com/Leonxlnx/taste-skill) · `6010f91` | 交付前用 `references/critique.md`（14 遍检查）看设计表达与细节 | 它要求至少 8 个移动元素、每个区块出场动画、至少 4 张真实图片，与用户"少用动效"冲突，不采用 |
+| [awesome-design-md](https://github.com/VoltAgent/awesome-design-md) · `3b60532` | 84 份 DESIGN.md 种子；网站 getdesign.md 有 550 多份 | 三个方向用三份不同种子，防止撞脸 |
