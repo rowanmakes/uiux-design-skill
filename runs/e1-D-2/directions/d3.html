@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>半山烘焙 · 成都小型精品咖啡豆烘焙工作室（方向三 v2：纵排与半山阶梯斜向骨架）</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@700;800&family=ZCOOL+XiaoWei&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #111827; /* 成都半山暮色深靛青 */
+      --bg-card: #182235;
+      --ink: #EEF0EC;
+      --ink-muted: #93A1B8;
+      --cinnabar: #E25B45; /* 烘焙火塘朱砂印记 */
+      --gold-line: rgba(238, 240, 236, 0.14);
+      --font-display: 'ZCOOL XiaoWei', 'STSong', 'Songti SC', serif;
+      --font-en: 'Syne', sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-display);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    body {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background-image:
+        radial-gradient(circle at 82% 20%, rgba(226, 91, 69, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 18% 80%, rgba(92, 138, 204, 0.12) 0%, transparent 50%);
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--cinnabar);
+      outline-offset: 3px;
+    }
+
+    /* Diagonal Mountain Contour Background SVG */
+    .slope-backdrop {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .header-strip {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 20px 36px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--gold-line);
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+
+    .stamp-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .cinnabar-seal {
+      background: var(--cinnabar);
+      color: #FFFFFF;
+      padding: 3px 8px;
+      font-family: var(--font-display);
+      font-size: 13px;
+      letter-spacing: 0.12em;
+    }
+
+    /* Main Stage: Vertical-RL & Diagonal Stepped Architecture */
+    .vertical-stage {
+      position: relative;
+      z-index: 2;
+      flex: 1;
+      width: 100%;
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 24px 36px 20px;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 40px;
+      align-items: center;
+    }
+
+    /* Left: Diagonal Stepped 3-Bean Vertical Slips + Subscription Ledger */
+    .diagonal-slips-zone {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .slips-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    /* Stepped Diagonal Offset: Mountain Slope Effect */
+    .bean-slip:nth-child(1) {
+      transform: translateY(0px);
+    }
+    .bean-slip:nth-child(2) {
+      transform: translateY(28px);
+    }
+    .bean-slip:nth-child(3) {
+      transform: translateY(56px);
+    }
+
+    .bean-slip {
+      background: rgba(24, 34, 53, 0.88);
+      border: 1px solid var(--gold-line);
+      padding: 22px 20px;
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      min-height: 340px;
+      box-shadow: 0 20px 45px rgba(5, 9, 18, 0.45);
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .bean-slip:hover {
+      border-color: var(--cinnabar);
+    }
+
+    .bean-slip::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 20px;
+      width: 28px;
+      height: 3px;
+      background: var(--cinnabar);
+    }
+
+    /* Vertical Chinese Title inside each slip */
+    .slip-vertical-main {
+      writing-mode: vertical-rl;
+      text-orientation: upright;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-left: 1px solid var(--gold-line);
+      padding-left: 14px;
+    }
+
+    .slip-name {
+      font-size: 28px;
+      letter-spacing: 0.14em;
+      color: var(--ink);
+      font-weight: 400;
+    }
+
+    .slip-process-stamp {
+      display: inline-block;
+      border: 1px solid var(--cinnabar);
+      color: var(--cinnabar);
+      font-size: 12px;
+      padding: 6px 3px;
+      letter-spacing: 0.15em;
+    }
+
+    .slip-meta-col {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1;
+    }
+
+    .slip-index {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--cinnabar);
+      letter-spacing: 0.08em;
+    }
+
+    .slip-origin {
+      font-size: 14px;
+      color: var(--ink-muted);
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
+    .slip-flavor-box {
+      margin-top: auto;
+      padding-top: 14px;
+      border-top: 1px dashed var(--gold-line);
+    }
+
+    .slip-flavor-label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--ink-muted);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .slip-flavor-text {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--ink);
+    }
+
+    .slip-price {
+      margin-top: 14px;
+      font-family: var(--font-mono);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    /* Subscription Horizontal Anchor Bar below Diagonal Slips */
+    .sub-ledger {
+      margin-top: 56px;
+      border: 1px solid var(--gold-line);
+      background: rgba(17, 24, 39, 0.92);
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .ledger-info {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .ledger-title {
+      font-size: 16px;
+      color: var(--ink);
+    }
+
+    .ledger-sub {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--ink-muted);
+    }
+
+    .ledger-cta {
+      background: var(--cinnabar);
+      color: #FFFFFF;
+      text-decoration: none;
+      padding: 11px 22px;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Right: Vertical-RL Monumental Manifesto Stele */
+    .manifesto-stele {
+      height: 640px;
+      border: 1px solid var(--gold-line);
+      background: rgba(24, 34, 53, 0.55);
+      padding: 28px 24px;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 18px;
+    }
+
+    .stele-kicker {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      color: var(--cinnabar);
+    }
+
+    .stele-h1 {
+      font-size: 40px;
+      line-height: 1.28;
+      letter-spacing: 0.12em;
+      color: var(--ink);
+      font-weight: 400;
+    }
+
+    .stele-h1 strong {
+      color: var(--cinnabar);
+      font-weight: 400;
+    }
+
+    .stele-copy {
+      font-size: 13.5px;
+      line-height: 1.95;
+      letter-spacing: 0.06em;
+      color: var(--ink-muted);
+      max-height: 560px;
+      border-right: 1px solid var(--gold-line);
+      padding-right: 14px;
+    }
+
+    .footer-strip {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 10px 36px 16px;
+      border-top: 1px solid var(--gold-line);
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--ink-muted);
+    }
+
+    @media (max-width: 960px) {
+      .header-strip {
+        padding: 14px 18px 10px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+      .vertical-stage {
+        grid-template-columns: 1fr;
+        padding: 16px 18px;
+        gap: 20px;
+      }
+      .manifesto-stele {
+        order: -1;
+        height: 290px;
+        width: 100%;
+        padding: 18px 16px;
+      }
+      .stele-h1 {
+        font-size: 24px;
+      }
+      .stele-copy {
+        font-size: 12px;
+        line-height: 1.65;
+      }
+      .slips-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .bean-slip:nth-child(1),
+      .bean-slip:nth-child(2),
+      .bean-slip:nth-child(3) {
+        transform: none;
+        min-height: auto;
+      }
+      .sub-ledger {
+        margin-top: 8px;
+      }
+      .footer-strip {
+        padding: 12px 18px 16px;
+        flex-direction: column;
+        gap: 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Diagonal Mountain Slope Lines -->
+  <svg class="slope-backdrop" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true">
+    <line x1="0" y1="220" x2="1440" y2="620" stroke="rgba(238, 240, 236, 0.06)" stroke-width="1"/>
+    <line x1="0" y1="280" x2="1440" y2="680" stroke="rgba(226, 91, 69, 0.16)" stroke-width="1" stroke-dasharray="5 5"/>
+    <line x1="0" y1="340" x2="1440" y2="740" stroke="rgba(238, 240, 236, 0.04)" stroke-width="1"/>
+  </svg>
+
+  <header class="header-strip">
+    <a href="#stage" class="stamp-brand">
+      <span class="cinnabar-seal">半山烘焙</span>
+      <span>CHENGDU · 成都小型精品咖啡豆烘焙工作室</span>
+    </a>
+    <span>浅中烘 · 按月寄送 · 每期 1 袋 200g</span>
+  </header>
+
+  <main class="vertical-stage" id="stage">
+    <!-- Left: Stepped Diagonal Slips for the 3 Beans + Subscription Ledger -->
+    <div class="diagonal-slips-zone">
+      <section class="slips-row" aria-label="三款当期咖啡豆阶梯笺">
+        <article class="bean-slip">
+          <div class="slip-meta-col">
+            <div>
+              <span class="slip-index">NO.01 / 海拔云雾阶</span>
+              <div class="slip-origin">埃塞俄比亚 耶加雪菲</div>
+            </div>
+            <div class="slip-flavor-box">
+              <span class="slip-flavor-label">FLAVOR NOTES</span>
+              <p class="slip-flavor-text">茉莉花香、柠檬酸质、红茶尾韵</p>
+              <div class="slip-price">¥68 / 200g</div>
+            </div>
+          </div>
+          <div class="slip-vertical-main">
+            <h2 class="slip-name">云雾水洗</h2>
+            <span class="slip-process-stamp">水洗</span>
+          </div>
+        </article>
+
+        <article class="bean-slip">
+          <div class="slip-meta-col">
+            <div>
+              <span class="slip-index">NO.02 / 暖谷火塘阶</span>
+              <div class="slip-origin">巴西 喜拉多</div>
+            </div>
+            <div class="slip-flavor-box">
+              <span class="slip-flavor-label">FLAVOR NOTES</span>
+              <p class="slip-flavor-text">巧克力、烤坚果、低酸醇厚</p>
+              <div class="slip-price">¥58 / 200g</div>
+            </div>
+          </div>
+          <div class="slip-vertical-main">
+            <h2 class="slip-name">火塘日晒</h2>
+            <span class="slip-process-stamp">日晒</span>
+          </div>
+        </article>
+
+        <article class="bean-slip">
+          <div class="slip-meta-col">
+            <div>
+              <span class="slip-index">NO.03 / 峻岭山脊阶</span>
+              <div class="slip-origin">哥伦比亚 惠兰</div>
+            </div>
+            <div class="slip-flavor-box">
+              <span class="slip-flavor-label">FLAVOR NOTES</span>
+              <p class="slip-flavor-text">红苹果、焦糖甜感、奶油口感</p>
+              <div class="slip-price">¥72 / 200g</div>
+            </div>
+          </div>
+          <div class="slip-vertical-main">
+            <h2 class="slip-name">山脊蜜处理</h2>
+            <span class="slip-process-stamp">蜜处理</span>
+          </div>
+        </article>
+      </section>
+
+      <section class="sub-ledger" aria-label="订阅信息">
+        <div class="ledger-info">
+          <div class="ledger-title">订阅价格：¥62 / 月起（单袋订阅价） · ¥118 / 月（双袋尝鲜组合）</div>
+          <div class="ledger-sub">订阅方式：按月寄送，每期 1 袋 200g ｜ 可选节奏：每 2 周 / 每月 / 每 6 周</div>
+        </div>
+        <a href="#subscribe" class="ledger-cta" id="subscribe">
+          <span>开启半山按月订阅</span>
+          <span aria-hidden="true">→</span>
+        </a>
+      </section>
+    </div>
+
+    <!-- Right: Vertical-RL Manifesto Stele -->
+    <aside class="manifesto-stele" aria-label="半山烘焙竖排宣言">
+      <span class="stele-kicker">CHENGDU ROASTERY</span>
+      <h1 class="stele-h1">豆子的产地和<strong>处理法</strong><br>自己会说话。</h1>
+      <p class="stele-copy">
+        半山烘焙是成都一家小型精品咖啡豆烘焙工作室，只做订阅制卖豆：每支豆子按小批量烘焙，标注烘焙日期与风味描述，按月寄送到家。工作室相信“豆子的产地和处理法自己会说话”，烘焙风格偏浅中烘，尽量保留产地本味。
+      </p>
+    </aside>
+  </main>
+
+  <footer class="footer-strip">
+    <span>半山烘焙 · 成都小型精品咖啡豆烘焙工作室</span>
+    <span>说明：这是样例（页面演示内容均为固定素材样例）</span>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>半山烘焙 · 成都小型精品咖啡豆烘焙工作室（方向二：居中单一物件）</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F4F6F4;
+      --ink: #111412;
+      --ink-secondary: #5B645E;
+      --ink-muted: #88928B;
+      --pine: #1F4E3D;
+      --pine-soft: #E5ECE9;
+      --line: rgba(17, 20, 18, 0.09);
+      --font-serif: 'Newsreader', 'Noto Serif SC', Georgia, serif;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background-image: radial-gradient(circle at 50% 44%, #FFFFFF 0%, #F4F6F4 68%);
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--pine);
+      outline-offset: 3px;
+    }
+
+    /* Ultra-clean Apple-like top bar */
+    .nav {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 22px 32px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--ink-secondary);
+    }
+
+    .nav-brand {
+      font-family: var(--font-serif);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+
+    .nav-center {
+      display: flex;
+      gap: 28px;
+    }
+
+    .nav-center span {
+      color: var(--ink-secondary);
+    }
+
+    .nav-right {
+      font-size: 12px;
+      color: var(--pine);
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    /* Centered Single Object Stage */
+    .hero {
+      flex: 1;
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 10px 24px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 18px;
+    }
+
+    .hero-head {
+      max-width: 680px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .kicker {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--pine);
+      font-weight: 600;
+    }
+
+    h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(30px, 3.5vw, 46px);
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.015em;
+      color: var(--ink);
+    }
+
+    .sub-intro {
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--ink-secondary);
+      max-width: 620px;
+    }
+
+    /* Sculptural Single Pouch + Interactive Seal Switcher */
+    .object-stage {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      margin: 2px 0;
+    }
+
+    .pouch-wrapper {
+      position: relative;
+      width: 310px;
+      height: 360px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      filter: drop-shadow(0 28px 42px rgba(17, 20, 18, 0.12)) drop-shadow(0 4px 10px rgba(17, 20, 18, 0.06));
+    }
+
+    /* Physical Seal Overlay inside the Sculpted Pouch */
+    .seal-card {
+      position: absolute;
+      top: 104px;
+      width: 212px;
+      background: #FAFBF9;
+      border: 1px solid rgba(17, 20, 18, 0.14);
+      padding: 14px 15px 13px;
+      text-align: left;
+      box-shadow: 0 6px 18px rgba(17, 20, 18, 0.06);
+      transition: border-color 0.25s ease;
+    }
+
+    .seal-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 6px;
+      margin-bottom: 8px;
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+    }
+
+    .seal-band {
+      height: 3px;
+      width: 100%;
+      background: var(--pine);
+      margin-bottom: 8px;
+      transition: background 0.25s ease;
+    }
+
+    .seal-bean-name {
+      font-family: var(--font-serif);
+      font-size: 19px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 3px;
+    }
+
+    .seal-origin {
+      font-size: 11px;
+      color: var(--ink-secondary);
+      margin-bottom: 9px;
+    }
+
+    .seal-notes {
+      font-size: 11px;
+      line-height: 1.5;
+      color: var(--ink);
+      padding: 6px 8px;
+      background: var(--pine-soft);
+      border-radius: 4px;
+      margin-bottom: 9px;
+    }
+
+    .seal-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10px;
+      color: var(--ink-secondary);
+      border-top: 1px solid var(--line);
+      padding-top: 6px;
+    }
+
+    .seal-price {
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    /* Seal Switcher Pills (All 3 beans clearly visible & selectable) */
+    .seal-switcher {
+      display: inline-flex;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 5px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      box-shadow: 0 4px 14px rgba(17, 20, 18, 0.04);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .seal-pill {
+      border: none;
+      background: transparent;
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      color: var(--ink-secondary);
+      cursor: pointer;
+      transition: all 0.18s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .seal-pill.active {
+      background: var(--ink);
+      color: #FFFFFF;
+      font-weight: 500;
+    }
+
+    .seal-pill-price {
+      opacity: 0.72;
+      font-size: 11px;
+    }
+
+    /* Subscription Action Strip */
+    .cta-row {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background: var(--pine);
+      color: #FFFFFF;
+      text-decoration: none;
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 500;
+      transition: opacity 0.2s ease;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--ink);
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 500;
+      border: 1px solid rgba(17, 20, 18, 0.22);
+    }
+
+    .sub-terms {
+      font-size: 12px;
+      color: var(--ink-secondary);
+    }
+
+    .footer {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 10px 32px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--ink-muted);
+      border-top: 1px solid var(--line);
+    }
+
+    @media (max-width: 768px) {
+      .nav {
+        padding: 16px 18px 10px;
+      }
+      .nav-center {
+        display: none;
+      }
+      .hero {
+        padding: 12px 16px 18px;
+      }
+      .pouch-wrapper {
+        width: 280px;
+        height: 330px;
+      }
+      .seal-card {
+        top: 94px;
+        width: 196px;
+        padding: 12px;
+      }
+      .footer {
+        padding: 12px 18px 16px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <a href="#top" class="nav-brand">半山烘焙</a>
+    <div class="nav-center">
+      <span>成都小型精品咖啡豆烘焙工作室</span>
+      <span>浅中烘 · 小批量烘焙</span>
+      <span>按月寄送到家</span>
+    </div>
+    <a href="#subscribe" class="nav-right">订阅 ¥62 / 月起</a>
+  </header>
+
+  <main class="hero" id="top">
+    <div class="hero-head">
+      <span class="kicker">CHENGDU · 豆子的产地和处理法自己会说话</span>
+      <h1>只做订阅制卖豆，保留产地本味。</h1>
+      <p class="sub-intro">
+        半山烘焙是成都一家小型精品咖啡豆烘焙工作室，只做订阅制卖豆：每支豆子按小批量烘焙，标注烘焙日期与风味描述，按月寄送到家。工作室相信“豆子的产地和处理法自己会说话”，烘焙风格偏浅中烘，尽量保留产地本味。
+      </p>
+    </div>
+
+    <!-- Single Sculptural Object: 200g Matte Coffee Pouch with Switchable Origin Seal -->
+    <section class="object-stage" aria-label="200g 浅中烘咖啡豆袋与三款豆子封条">
+      <div class="pouch-wrapper">
+        <svg viewBox="0 0 320 380" width="100%" height="100%" aria-hidden="true">
+          <defs>
+            <linearGradient id="bagBody" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#222724"/>
+              <stop offset="48%" stop-color="#181C1A"/>
+              <stop offset="100%" stop-color="#0E110F"/>
+            </linearGradient>
+            <linearGradient id="bagCrease" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="rgba(255,255,255,0.12)"/>
+              <stop offset="15%" stop-color="rgba(255,255,255,0)"/>
+              <stop offset="85%" stop-color="rgba(0,0,0,0.25)"/>
+              <stop offset="100%" stop-color="rgba(255,255,255,0.08)"/>
+            </linearGradient>
+          </defs>
+          <!-- Top Heat Seal Crimps -->
+          <rect x="38" y="14" width="244" height="24" rx="3" fill="#1B201D" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+          <line x1="44" y1="22" x2="276" y2="22" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+          <line x1="44" y1="28" x2="276" y2="28" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+          <!-- Tear Notch -->
+          <path d="M38 32 L44 35 L38 38 Z" fill="#F4F6F4"/>
+          <path d="M282 32 L276 35 L282 38 Z" fill="#F4F6F4"/>
+          <!-- Main Sculpted Pouch Body -->
+          <path d="M38 38 L282 38 L294 348 C294 358 286 364 276 364 L44 364 C34 364 26 358 26 348 Z" fill="url(#bagBody)"/>
+          <path d="M38 38 L282 38 L294 348 C294 358 286 364 276 364 L44 364 C34 364 26 358 26 348 Z" fill="url(#bagCrease)"/>
+          <!-- Zip Lock Ridge -->
+          <line x1="40" y1="54" x2="280" y2="54" stroke="rgba(255,255,255,0.14)" stroke-width="1.5"/>
+          <!-- One-Way Degassing Valve -->
+          <circle cx="160" cy="78" r="10" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+          <circle cx="160" cy="78" r="2.5" fill="rgba(255,255,255,0.2)"/>
+          <!-- Bottom Gusset Curve -->
+          <path d="M34 356 Q160 332 286 356" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+        </svg>
+
+        <!-- Switchable Origin Seal On the Pouch -->
+        <div class="seal-card" id="sealCard">
+          <div class="seal-top">
+            <span>半山烘焙 · 浅中烘</span>
+            <span id="sealIndex">LOT #01</span>
+          </div>
+          <div class="seal-band" id="sealBand"></div>
+          <div class="seal-bean-name" id="sealName">云雾水洗</div>
+          <div class="seal-origin" id="sealOrigin">埃塞俄比亚 耶加雪菲 · 水洗</div>
+          <div class="seal-notes" id="sealNotes">风味：茉莉花香、柠檬酸质、红茶尾韵</div>
+          <div class="seal-footer">
+            <span>净含量 200g</span>
+            <span class="seal-price" id="sealPrice">¥68 / 200g</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- All 3 Beans Switcher -->
+      <div class="seal-switcher" role="tablist" aria-label="切换三款豆子封条">
+        <button type="button" class="seal-pill active" role="tab" aria-selected="true" onclick="switchSeal(0, this)">
+          <span>01 云雾水洗（埃塞 水洗）</span>
+          <span class="seal-pill-price">¥68/200g</span>
+        </button>
+        <button type="button" class="seal-pill" role="tab" aria-selected="false" onclick="switchSeal(1, this)">
+          <span>02 火塘日晒（巴西 日晒）</span>
+          <span class="seal-pill-price">¥58/200g</span>
+        </button>
+        <button type="button" class="seal-pill" role="tab" aria-selected="false" onclick="switchSeal(2, this)">
+          <span>03 山脊蜜处理（哥伦比亚 蜜处理）</span>
+          <span class="seal-pill-price">¥72/200g</span>
+        </button>
+      </div>
+    </section>
+
+    <div class="cta-row" id="subscribe">
+      <div class="cta-buttons">
+        <a href="#subscribe" class="btn-primary">单袋按月订阅 · ¥62 / 月起（每期 1 袋 200g）</a>
+        <a href="#subscribe" class="btn-secondary">双袋尝鲜组合 · ¥118 / 月</a>
+      </div>
+      <p class="sub-terms">可选节奏：每 2 周 / 每月 / 每 6 周 · 按小批量烘焙，标注烘焙日期与风味描述</p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <span>半山烘焙 · 成都小型精品咖啡豆烘焙工作室</span>
+    <span>说明：这是样例（页面演示内容均为固定素材样例）</span>
+  </footer>
+
+  <script>
+    const seals = [
+      {
+        lot: 'LOT #01',
+        name: '云雾水洗',
+        origin: '埃塞俄比亚 耶加雪菲 · 水洗',
+        notes: '风味：茉莉花香、柠檬酸质、红茶尾韵',
+        price: '¥68 / 200g',
+        band: '#1F4E3D',
+        soft: '#E5ECE9'
+      },
+      {
+        lot: 'LOT #02',
+        name: '火塘日晒',
+        origin: '巴西 喜拉多 · 日晒',
+        notes: '风味：巧克力、烤坚果、低酸醇厚',
+        price: '¥58 / 200g',
+        band: '#5C3A21',
+        soft: '#EFE9E4'
+      },
+      {
+        lot: 'LOT #03',
+        name: '山脊蜜处理',
+        origin: '哥伦比亚 惠兰 · 蜜处理',
+        notes: '风味：红苹果、焦糖甜感、奶油口感',
+        price: '¥72 / 200g',
+        band: '#7C2D38',
+        soft: '#F2E7E9'
+      }
+    ];
+
+    function switchSeal(idx, btn) {
+      const s = seals[idx];
+      document.getElementById('sealIndex').textContent = s.lot;
+      document.getElementById('sealName').textContent = s.name;
+      document.getElementById('sealOrigin').textContent = s.origin;
+      document.getElementById('sealNotes').textContent = s.notes;
+      document.getElementById('sealPrice').textContent = s.price;
+      document.getElementById('sealBand').style.background = s.band;
+      document.getElementById('sealNotes').style.background = s.soft;
+
+      document.querySelectorAll('.seal-pill').forEach(p => {
+        p.classList.remove('active');
+        p.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('active');
+      btn.setAttribute('aria-selected', 'true');
+    }
+  </script>
+</body>
+</html>

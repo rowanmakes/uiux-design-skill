@@ -1,0 +1,249 @@
+{
+  "file": "d1.html",
+  "viewports": {
+    "wide": {
+      "width": 1440,
+      "height": 900,
+      "horizontalOverflow": false
+    },
+    "narrow": {
+      "width": 390,
+      "height": 844,
+      "horizontalOverflow": false
+    }
+  },
+  "consoleErrors": [],
+  "pageErrors": [],
+  "externalRequests": [
+    "[wide] https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap",
+    "[wide] https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2",
+    "[wide] https://fonts.gstatic.com/s/plusjakartasans/v12/LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.116.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.115.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.106.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.103.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.118.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.117.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.114.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.119.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.109.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.111.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.110.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.113.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.101.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.104.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.112.woff2",
+    "[wide] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.108.woff2",
+    "[narrow] https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap",
+    "[narrow] https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbv2o-flEEny0FZhsfKu5WU4zr3E_BX0PnT8RD8yKwBNntkaToggR7BYRbKPxDcwg.woff2",
+    "[narrow] https://fonts.gstatic.com/s/plusjakartasans/v12/LDIoaomQNQcsA88c7O9yZ4KMCoOg4Ko20yw.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.116.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.115.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.106.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.103.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.119.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.118.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.117.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.114.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.109.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.111.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.110.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.113.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.101.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.104.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.112.woff2",
+    "[narrow] https://fonts.gstatic.com/s/notosanssc/v41/k3kXo84MPvpLmixcA63oeALhLOCT-xWNm8Hqd37g1OkDRZe7lR4sg1IzSy-MNbE9VH8V.108.woff2"
+  ],
+  "tabStops": [
+    {
+      "tag": "a",
+      "text": "半山烘焙\nCHENGDU · 浅中烘订阅制",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "当期三豆",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "按月订阅",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "开启订阅 ¥62/月起",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "#01 · WASHED\n¥68 / 200g\n云雾水洗\n埃塞俄比亚 耶加雪菲\n",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "#02 · NATURAL\n¥58 / 200g\n火塘日晒\n巴西 喜拉多\n日晒\n",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "#03 · HONEY\n¥72 / 200g\n山脊蜜处理\n哥伦比亚 惠兰\n蜜处理",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "单袋订阅 ¥62/月起",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "双袋尝鲜组合 ¥118/月",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每 2 周",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每月",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每 6 周",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "订阅此方案\n→",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙\nCHENGDU · 浅中烘订阅制",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "当期三豆",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "按月订阅",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "开启订阅 ¥62/月起",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "#01 · WASHED\n¥68 / 200g\n云雾水洗\n埃塞俄比亚 耶加雪菲\n",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "#02 · NATURAL\n¥58 / 200g\n火塘日晒\n巴西 喜拉多\n日晒\n",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "#03 · HONEY\n¥72 / 200g\n山脊蜜处理\n哥伦比亚 惠兰\n蜜处理",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "单袋订阅 ¥62/月起",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "双袋尝鲜组合 ¥118/月",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每 2 周",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每月",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每 6 周",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "订阅此方案\n→",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙\nCHENGDU · 浅中烘订阅制",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "当期三豆",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "按月订阅",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "开启订阅 ¥62/月起",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "#01 · WASHED\n¥68 / 200g\n云雾水洗\n埃塞俄比亚 耶加雪菲\n",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "#02 · NATURAL\n¥58 / 200g\n火塘日晒\n巴西 喜拉多\n日晒\n",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "#03 · HONEY\n¥72 / 200g\n山脊蜜处理\n哥伦比亚 惠兰\n蜜处理",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "单袋订阅 ¥62/月起",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "双袋尝鲜组合 ¥118/月",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每 2 周",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每月",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每 6 周",
+      "visibleFocusStyle": true
+    }
+  ]
+}

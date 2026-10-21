@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>半山烘焙 · 成都小型精品咖啡豆烘焙工作室（方向三 v1：满版巨型裁切文字）</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+SC:wght@500;700;900&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #161210;
+      --ink: #F3EDE4;
+      --ink-muted: #9E9286;
+      --amber: #E07A38;
+      --line: rgba(243, 237, 228, 0.14);
+      --font-display: 'Syne', 'Noto Sans SC', sans-serif;
+      --font-sans: 'Noto Sans SC', sans-serif;
+      --font-mono: 'IBM Plex Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    body {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--amber);
+      outline-offset: 2px;
+    }
+
+    .monumental-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      user-select: none;
+    }
+
+    .giant-word-top {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: 27vw;
+      line-height: 0.76;
+      letter-spacing: -0.06em;
+      color: rgba(243, 237, 228, 0.055);
+      margin-left: -2.5vw;
+      margin-top: -3.2vw;
+      white-space: nowrap;
+    }
+
+    .giant-word-bottom {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 13.5vw;
+      line-height: 0.8;
+      letter-spacing: -0.04em;
+      color: rgba(224, 122, 56, 0.08);
+      text-align: right;
+      margin-right: -1.8vw;
+      margin-bottom: -2.2vw;
+      white-space: nowrap;
+    }
+
+    .ridge-svg {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .topbar, .main-content, .bottom-bar {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1380px;
+      margin: 0 auto;
+    }
+
+    .topbar {
+      padding: 22px 32px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-pill {
+      background: var(--amber);
+      color: #161210;
+      font-weight: 600;
+      padding: 3px 9px;
+      font-size: 11px;
+    }
+
+    .topbar-right {
+      color: var(--ink-muted);
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 18px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .statement-zone {
+      position: relative;
+      padding-top: 4px;
+    }
+
+    .statement-kicker {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--amber);
+      letter-spacing: 0.14em;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .monumental-h1 {
+      font-weight: 900;
+      font-size: clamp(42px, 6.8vw, 96px);
+      line-height: 0.96;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-left: -4px;
+    }
+
+    .monumental-h1 .accent-stroke {
+      color: var(--amber);
+    }
+
+    .brand-verbatim {
+      margin-top: 16px;
+      max-width: 680px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: #D2C7B9;
+      background: rgba(22, 18, 16, 0.78);
+      border-left: 3px solid var(--amber);
+      padding: 10px 16px;
+    }
+
+    .ridge-nodes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr) 1.15fr;
+      border: 1px solid var(--line);
+      background: rgba(22, 18, 16, 0.88);
+      backdrop-filter: blur(8px);
+    }
+
+    .bean-node {
+      padding: 20px 22px;
+      border-right: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .node-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--amber);
+    }
+
+    .node-title {
+      font-size: 22px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+
+    .node-origin {
+      font-size: 12px;
+      color: var(--ink-muted);
+    }
+
+    .node-flavor {
+      font-size: 13px;
+      color: var(--ink);
+      line-height: 1.5;
+      padding-top: 10px;
+      border-top: 1px dashed rgba(243, 237, 228, 0.12);
+    }
+
+    .sub-node {
+      padding: 20px 24px;
+      background: rgba(224, 122, 56, 0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .sub-node-title {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--amber);
+    }
+
+    .sub-price-big {
+      font-family: var(--font-mono);
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .sub-meta-list {
+      font-size: 12px;
+      color: #D2C7B9;
+      line-height: 1.6;
+      list-style: none;
+    }
+
+    .sub-cta {
+      display: inline-flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding: 11px 16px;
+      background: var(--amber);
+      color: #161210;
+      font-weight: 700;
+      font-size: 13px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .bottom-bar {
+      padding: 12px 32px 18px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--ink-muted);
+    }
+
+    @media (max-width: 960px) {
+      .topbar {
+        padding: 16px 18px 12px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+      .main-content {
+        padding: 16px 18px;
+      }
+      .ridge-nodes-grid {
+        grid-template-columns: 1fr;
+      }
+      .bean-node {
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+      }
+      .bottom-bar {
+        padding: 12px 18px 16px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="monumental-bg" aria-hidden="true">
+    <div class="giant-word-top">半山烘焙</div>
+    <div class="giant-word-bottom">LIGHT-MEDIUM ROAST</div>
+  </div>
+
+  <svg class="ridge-svg" viewBox="0 0 1440 900" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M -40 640 L 420 430 L 890 480 L 1480 210" fill="none" stroke="rgba(224, 122, 56, 0.35)" stroke-width="1.5"/>
+    <path d="M -40 665 L 420 455 L 890 505 L 1480 235" fill="none" stroke="rgba(243, 237, 228, 0.08)" stroke-width="1" stroke-dasharray="6 6"/>
+  </svg>
+
+  <header class="topbar">
+    <div class="topbar-left">
+      <span class="brand-pill">半山烘焙</span>
+      <span>CHENGDU · 成都小型精品咖啡豆烘焙工作室</span>
+    </div>
+    <div class="topbar-right">只做订阅制卖豆 · 按月寄送 · 每期 1 袋 200g</div>
+  </header>
+
+  <main class="main-content">
+    <section class="statement-zone" aria-label="核心宣言">
+      <span class="statement-kicker">01 — 03 TERROIR &amp; PROCESS SPEAK FOR THEMSELVES</span>
+      <h1 class="monumental-h1">
+        豆子的产地和<br>
+        <span class="accent-stroke">处理法</span>自己会说话。
+      </h1>
+      <p class="brand-verbatim">
+        半山烘焙是成都一家小型精品咖啡豆烘焙工作室，只做订阅制卖豆：每支豆子按小批量烘焙，标注烘焙日期与风味描述，按月寄送到家。工作室相信“豆子的产地和处理法自己会说话”，烘焙风格偏浅中烘，尽量保留产地本味。
+      </p>
+    </section>
+
+    <section class="ridge-nodes-grid" aria-label="三款咖啡豆与按月订阅方案">
+      <article class="bean-node">
+        <div>
+          <div class="node-head">
+            <span>#01 · 水洗</span>
+            <span>¥68 / 200g</span>
+          </div>
+          <h2 class="node-title">云雾水洗</h2>
+          <div class="node-origin">埃塞俄比亚 耶加雪菲</div>
+        </div>
+        <p class="node-flavor">茉莉花香、柠檬酸质、红茶尾韵</p>
+      </article>
+
+      <article class="bean-node">
+        <div>
+          <div class="node-head">
+            <span>#02 · 日晒</span>
+            <span>¥58 / 200g</span>
+          </div>
+          <h2 class="node-title">火塘日晒</h2>
+          <div class="node-origin">巴西 喜拉多</div>
+        </div>
+        <p class="node-flavor">巧克力、烤坚果、低酸醇厚</p>
+      </article>
+
+      <article class="bean-node">
+        <div>
+          <div class="node-head">
+            <span>#03 · 蜜处理</span>
+            <span>¥72 / 200g</span>
+          </div>
+          <h2 class="node-title">山脊蜜处理</h2>
+          <div class="node-origin">哥伦比亚 惠兰</div>
+        </div>
+        <p class="node-flavor">红苹果、焦糖甜感、奶油口感</p>
+      </article>
+
+      <aside class="sub-node" aria-label="订阅信息">
+        <div>
+          <div class="sub-node-title">SUBSCRIPTION · 订阅方式</div>
+          <div class="sub-price-big">¥62 / 月起</div>
+          <ul class="sub-meta-list">
+            <li>• 单袋订阅价：¥62 / 月起（每期 1 袋 200g）</li>
+            <li>• 双袋尝鲜组合：¥118 / 月</li>
+            <li>• 可选节奏：每 2 周 / 每月 / 每 6 周</li>
+          </ul>
+        </div>
+        <a href="#subscribe" class="sub-cta" id="subscribe">
+          <span>立即按月订阅豆子</span>
+          <span aria-hidden="true">→</span>
+        </a>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="bottom-bar">
+    <span>半山烘焙 · 浅中烘小批量烘焙 · 标注烘焙日期与风味描述</span>
+    <span>说明：这是样例（页面演示内容均为固定素材样例）</span>
+  </footer>
+</body>
+</html>

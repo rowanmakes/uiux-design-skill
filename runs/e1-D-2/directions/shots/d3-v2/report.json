@@ -1,0 +1,198 @@
+{
+  "file": "d3.html",
+  "viewports": {
+    "wide": {
+      "width": 1440,
+      "height": 900,
+      "horizontalOverflow": false
+    },
+    "narrow": {
+      "width": 390,
+      "height": 844,
+      "horizontalOverflow": false
+    }
+  },
+  "consoleErrors": [],
+  "pageErrors": [],
+  "externalRequests": [
+    "[wide] https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@700;800&family=ZCOOL+XiaoWei&display=swap",
+    "[wide] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.115.woff2",
+    "[wide] https://fonts.gstatic.com/s/ibmplexmono/v20/-F63fjptAgt5VM-kVkqdyU8n1i8q1w.woff2",
+    "[wide] https://fonts.gstatic.com/s/ibmplexmono/v20/-F6qfjptAgt5VM-kVkqdyU8n3vAOwlBFgg.woff2",
+    "[wide] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.116.woff2",
+    "[wide] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.117.woff2",
+    "[wide] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.119.woff2",
+    "[wide] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1UFWaHg.woff2",
+    "[wide] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.106.woff2",
+    "[wide] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.103.woff2",
+    "[wide] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.118.woff2",
+    "[wide] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.114.woff2",
+    "[wide] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.111.woff2",
+    "[wide] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.108.woff2",
+    "[wide] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.113.woff2",
+    "[wide] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.112.woff2",
+    "[wide] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.110.woff2",
+    "[wide] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.104.woff2",
+    "[wide] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.101.woff2",
+    "[wide] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.105.woff2",
+    "[wide] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.109.woff2",
+    "[narrow] https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@700;800&family=ZCOOL+XiaoWei&display=swap",
+    "[narrow] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.115.woff2",
+    "[narrow] https://fonts.gstatic.com/s/ibmplexmono/v20/-F63fjptAgt5VM-kVkqdyU8n1i8q1w.woff2",
+    "[narrow] https://fonts.gstatic.com/s/ibmplexmono/v20/-F6qfjptAgt5VM-kVkqdyU8n3vAOwlBFgg.woff2",
+    "[narrow] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.116.woff2",
+    "[narrow] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.117.woff2",
+    "[narrow] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.119.woff2",
+    "[narrow] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1UFWaHg.woff2",
+    "[narrow] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.106.woff2",
+    "[narrow] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.103.woff2",
+    "[narrow] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.118.woff2",
+    "[narrow] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.114.woff2",
+    "[narrow] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.111.woff2",
+    "[narrow] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.110.woff2",
+    "[narrow] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.109.woff2",
+    "[narrow] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.108.woff2",
+    "[narrow] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.113.woff2",
+    "[narrow] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.112.woff2",
+    "[narrow] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.104.woff2",
+    "[narrow] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.101.woff2",
+    "[narrow] https://fonts.gstatic.com/s/zcoolxiaowei/v15/i7dMIFFrTRywPpUVX9_RJyM1YFf4BQ6OHB3qE7y2ys6XIzxYv88CVLJlObJGMqmkzaJnjA.105.woff2"
+  ],
+  "tabStops": [
+    {
+      "tag": "a",
+      "text": "半山烘焙\nCHENGDU · 成都小型精品咖啡豆烘焙工作室",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "开启半山按月订阅\n→",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙\nCHENGDU · 成都小型精品咖啡豆烘焙工作室",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "开启半山按月订阅\n→",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙\nCHENGDU · 成都小型精品咖啡豆烘焙工作室",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "开启半山按月订阅\n→",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙\nCHENGDU · 成都小型精品咖啡豆烘焙工作室",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "开启半山按月订阅\n→",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙\nCHENGDU · 成都小型精品咖啡豆烘焙工作室",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "开启半山按月订阅\n→",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙\nCHENGDU · 成都小型精品咖啡豆烘焙工作室",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "开启半山按月订阅\n→",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙\nCHENGDU · 成都小型精品咖啡豆烘焙工作室",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "开启半山按月订阅\n→",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙\nCHENGDU · 成都小型精品咖啡豆烘焙工作室",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "开启半山按月订阅\n→",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙\nCHENGDU · 成都小型精品咖啡豆烘焙工作室",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "开启半山按月订阅\n→",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙\nCHENGDU · 成都小型精品咖啡豆烘焙工作室",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "开启半山按月订阅\n→",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙\nCHENGDU · 成都小型精品咖啡豆烘焙工作室",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "开启半山按月订阅\n→",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙\nCHENGDU · 成都小型精品咖啡豆烘焙工作室",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "开启半山按月订阅\n→",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙\nCHENGDU · 成都小型精品咖啡豆烘焙工作室",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "开启半山按月订阅\n→",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙\nCHENGDU · 成都小型精品咖啡豆烘焙工作室",
+      "visibleFocusStyle": true
+    }
+  ]
+}
