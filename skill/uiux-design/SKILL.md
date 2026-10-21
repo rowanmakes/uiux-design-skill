@@ -69,6 +69,8 @@ description: 从产品描述或现有界面出发，做出有辨识度、可落�
 
 用户或品牌没有指定风格时，默认方向是"留白、干净、简约、大气、干练"的高级感。它恰好也是模型最容易滑进去的默认外观，所以只写这几个词不够：动手前先读 `references/taste.md`，按其中的参数、骨架、素材和中文规则执行，交付前过一遍它的自检清单。
 
+做手机 App 或桌面客户端时，再读 `references/app.md`：平台规范先于创意，`taste.md` 的网页参数（大留白、首屏骨架、滚动叙事）不能直接套。
+
 ## 风格建议是提醒，不是法律
 
 "避免默认字体、卡片堆叠、紫色渐变"这类规则能帮你警觉模板味，但不能升级成全局禁令：Wise 和 Linear 都有理由继续用 Inter。判断标准始终是：这个选择是否帮用户更容易理解、比较和行动，是否符合品牌约束。
@@ -92,6 +94,7 @@ description: 从产品描述或现有界面出发，做出有辨识度、可落�
 ## 何时读参考文件
 
 - 任何新视觉设计或视觉改版（官网、落地页、作品集、界面重做）→ `references/taste.md`
+- 手机 App（Flutter、React Native 等跨平台）或桌面套壳客户端（Electron、Tauri 等）→ `references/app.md`
 - 需要把品牌词转成界面动作、选表达强度、写状态文案 → `references/brand-to-interface.md`
 - 需要可用性原则、UX 定律的正确用法、可访问性清单 → `references/ux-foundations.md`
 - 做评审、写问题卡、判断证据够不够 → `references/review-and-evidence.md`
