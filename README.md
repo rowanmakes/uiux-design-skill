@@ -1,1 +1,40 @@
 # uiux-design-skill
+
+我自己的 UI/UX 设计 Skill：从产品描述出发，做出留白、干净、简约、大气、干练，而且一眼不像 AI 模板的界面。
+
+**当前状态：v0.2 草稿，还没有经过任何生成测试。** 下一步是跑基线对照（见 `docs/playbook.md`）。
+
+## 目录
+
+```
+skill/uiux-design/          Skill 本体，整个目录复制到 agent 的 skills 文件夹即可
+  SKILL.md                  主流程
+  references/
+    taste.md                品味：把"高级感"写成参数、骨架、素材、中文规则和自检
+    brand-to-interface.md   定位、品牌原则转界面、案例
+    ux-foundations.md       可用性原则、设计定律的正确用法、可访问性
+    review-and-evidence.md  双线评审、问题卡、证据边界
+    skill-landscape.md      外部设计技能清单与评估状态
+evals/evals.json            4 个测试简报
+docs/playbook.md            本地 agent 测试与迭代手册（含提示词）
+docs/research/              原始笔记与外部技能调研
+scripts/shot.mjs            宽窄屏截图与机检脚本（Playwright）
+CHANGELOG.md                每次改动的现象、假设、改动与结果
+```
+
+## 安装
+
+```bash
+# Claude Code
+cp -r skill/uiux-design ~/.claude/skills/uiux-design
+# Codex
+cp -r skill/uiux-design ~/.codex/skills/uiux-design
+```
+
+测试时注意隔离：跑"无技能"基线时，用户级技能目录里不能有它。
+
+## 工作原则
+
+- 一次只改一处，先有证据再改。
+- 结论只写"初步信号"，样本足够、可复现之前不说"更强"。
+- 留出简报 05 不参与调参，只在最后验证用一次。
