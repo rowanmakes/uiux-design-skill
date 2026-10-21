@@ -1,0 +1,143 @@
+{
+  "run": "e2-C-agy",
+  "brand": "半山烘焙",
+  "outputHtml": "runs/e2-C-agy/output/index.html",
+  "assetsCopied": [
+    "runs/e2-C-agy/output/assets/hero-02.webp",
+    "runs/e2-C-agy/output/assets/01.webp",
+    "runs/e2-C-agy/output/assets/02.webp",
+    "runs/e2-C-agy/output/assets/03.webp"
+  ],
+  "tasteCompliance": {
+    "section": "1.5 以图为主的镜头叙事页面",
+    "heroMinimalism": {
+      "onePrimaryScene": "assets/hero-02.webp (selected via assets/hero/selection.json)",
+      "oneHeadlineSentence": "豆子的产地和处理法，自己会说话。",
+      "oneActionButton": "走入半山当季豆单",
+      "noHeroCardsOrStatRibbons": true,
+      "brandMarkPosition": "top-left dark forest shadow safe zone on both 1440x900 and 390x844"
+    },
+    "atmosphereAndLight": {
+      "directionalSunGlowPeriod": "8s (within 6–10s rule)",
+      "valleyMistDriftPeriods": ["42s", "54s", "36s"],
+      "mistPeriodRange": "within 30–60s rule",
+      "backlitDustMoteCount": 12,
+      "backlitDustMotePeriodRange": "8.6s–13.6s (within 8–14s rule)",
+      "filmGrainOpacity": 0.14,
+      "filmGrainRange": "within 0.08–0.25 rule"
+    },
+    "scrollDrivenCamera": {
+      "scenes": [
+        "00: 山脊暮光 (assets/hero-02.webp)",
+        "01: 云雾高坡 (assets/01.webp) — 品牌简介 + 云雾水洗",
+        "02: 木床日晒 (assets/02.webp) — 火塘日晒 + 山脊蜜处理",
+        "03: 按月封袋 (assets/03.webp) — 订阅方式、价格方案、节奏、当期豆款与预约闭环"
+      ],
+      "scrollMechanism": "Real window.scrollY continuous smoothstep crossfade + subtle camera push/parallax across 400vh document height"
+    }
+  },
+  "recordingAndInspectionRounds": {
+    "videoObservationMethod": {
+      "method": "Headless Chromium HTML5 <video> playback verification (playedOk: true) combined with 12-timestamp continuous frame sampling (0.5s, 2.5s, 4.5s, 6.5s, 8.5s, 10.5s, 12.5s, 14.5s, 16.5s, 18.5s, 21.0s, 23.5s) rendered into 3x4 contact sheets via runs/e2-C-agy/inspect-video.mjs, plus direct visual inspection of all 4 scroll-position PNG screenshots per viewport.",
+      "truthfulLimitationNote": "Direct native .webm video streaming is not supported by the image-only read_file tool; therefore, continuous temporal behavior was verified by programmatically playing each .webm in Chromium (<video>.play() -> playedOk: true) and visually inspecting 12 sampled timestamps across the 3s hold + 20s scroll + 2s pause timeline alongside the 4 full-resolution keyframe PNGs."
+    },
+    "rounds": [
+      {
+        "round": "initial",
+        "dir": "runs/e2-C-agy/recordings/initial",
+        "videos": [
+          "runs/e2-C-agy/recordings/initial/1440x900-scroll.webm",
+          "runs/e2-C-agy/recordings/initial/390x844-scroll.webm"
+        ],
+        "contactSheets": [
+          "runs/e2-C-agy/recordings/initial/frames/1440x900-contact-sheet.png",
+          "runs/e2-C-agy/recordings/initial/frames/390x844-contact-sheet.png"
+        ],
+        "findings": [
+          "1. On 1440x900, the foreground panels used a 4-sided bordered box that felt slightly card-like rather than an open architectural left-border narrative anchored in the dark forest shadow.",
+          "2. During scroll transitions (visible in 02-third and 03-two-thirds screenshots and contact-sheet frames t=10.5s, t=16.5s), the outgoing/incoming section kept a 0.15 minimum opacity, leaving faint ghost boxes at the top/bottom edges of the viewport.",
+          "3. On 390x844-01-start.png, .act-hero used align-items: flex-end on mobile, pushing the brand mark '半山烘焙 成都' to the top-right over the bright setting sun instead of the top-left dark shadow.",
+          "4. On 390x844, the bottom sheet covered ~68% of the viewport height in Act II and Act III, partially obscuring the drying beds in 02.webp and the kraft coffee bag in 03.webp."
+        ]
+      },
+      {
+        "round": "round-1",
+        "dir": "runs/e2-C-agy/recordings/round-1",
+        "videos": [
+          "runs/e2-C-agy/recordings/round-1/1440x900-scroll.webm",
+          "runs/e2-C-agy/recordings/round-1/390x844-scroll.webm"
+        ],
+        "contactSheets": [
+          "runs/e2-C-agy/recordings/round-1/frames/1440x900-contact-sheet.png",
+          "runs/e2-C-agy/recordings/round-1/frames/390x844-contact-sheet.png"
+        ],
+        "fixesApplied": [
+          "Replaced 4-sided card borders with an open left-border architectural layout in the left-third dark shadow + roast spectrum bars + horizontal sightline pointers linking text to the sunlit scene.",
+          "Updated foreground scroll fade curve to 1 - smoothstep(0.09, 0.20, distance) so off-screen chapters fade completely to 0 opacity with zero ghost artifacts.",
+          "Fixed mobile .act-hero alignment to stretch so '半山烘焙 成都' sits cleanly in the top-left dark forest shadow.",
+          "Added upper-half focal framing for mobile images and mobile scene tags."
+        ],
+        "findings": [
+          "Desktop 1440x900 was clean across all 4 scenes and all 12 contact-sheet timestamps.",
+          "On mobile 390x844-04-end.png, the Act III subscription panel was still ~610px tall, covering the 200g kraft coffee bag in 03.webp, and the long input placeholder ('填写手机号或邮箱，如 138****0000') was slightly clipped on the right inside the 390px viewport."
+        ]
+      },
+      {
+        "round": "final",
+        "dir": "runs/e2-C-agy/recordings/final",
+        "videos": [
+          "runs/e2-C-agy/recordings/final/1440x900-scroll.webm",
+          "runs/e2-C-agy/recordings/final/390x844-scroll.webm"
+        ],
+        "contactSheets": [
+          "runs/e2-C-agy/recordings/final/frames/1440x900-contact-sheet.png",
+          "runs/e2-C-agy/recordings/final/frames/390x844-contact-sheet.png"
+        ],
+        "fixesApplied": [
+          "Compacted mobile Act III subscription layout and adjusted #frame-03 img mobile framing (height: 56vh; object-position: 76% 82%) so the 200g kraft coffee bag, steaming cup, and coffee beans on the wooden table remain clearly visible above the subscription panel on 390x844-04-end.png.",
+          "Shortened the contact input placeholder to '手机号或常用邮箱' so it never clips on 390px viewports."
+        ],
+        "findings": [
+          "All 4 scenes on both 1440x900 and 390x844 show unobstructed primary visual subjects (setting sun, misty terraces, raised drying beds, and wooden table with 200g kraft bag & steaming cup), smooth scroll-driven transitions across all 12 sampled timestamps, and zero text truncation or overlap."
+        ]
+      },
+      {
+        "round": "reduced-motion",
+        "dir": "runs/e2-C-agy/recordings/reduced-motion",
+        "videos": [
+          "runs/e2-C-agy/recordings/reduced-motion/1440x900-scroll.webm",
+          "runs/e2-C-agy/recordings/reduced-motion/390x844-scroll.webm"
+        ],
+        "findings": [
+          "Verified under prefers-reduced-motion: reduce on both 1440x900 and 390x844: CSS keyframe animations (sun-source-glow, mist-band-1..3, mote) report animationName: 'none', camera scenes switch cleanly by chapter without scale/parallax motion, and all narrative copy and interactive controls remain 100% visible (opacity: 1) and accessible."
+        ]
+      }
+    ]
+  },
+  "contentAndInteractiveVerification": {
+    "verbatimBrandIntro": true,
+    "threeBeansComplete": true,
+    "subscriptionRulesComplete": true,
+    "zeroEnglishLeaks": true,
+    "singleFooterDisclosure": {
+      "presentInFooter": true,
+      "occurrencesInDocument": 1
+    },
+    "interactiveFlows": {
+      "heroCtaScrollsToActI": true,
+      "inSceneBeanSelectionSyncsWithConfigurator": true,
+      "planToggleSingleAndDouble": true,
+      "cadenceToggle2wMonth6w": true,
+      "emptySubmitShowsChineseValidation": true,
+      "validSubmitShowsConfirmationSlip": true,
+      "editAndUndoRestoreFormState": true
+    },
+    "runtimeErrors": {
+      "consoleErrors": 0,
+      "pageErrors": 0,
+      "failedRequests": 0,
+      "horizontalOverflow1440": false,
+      "horizontalOverflow390": false
+    }
+  }
+}
