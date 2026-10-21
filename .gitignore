@@ -1,5 +1,2 @@
 node_modules/
-runs/*/shots/
-runs/*/output/
-blind/
 .DS_Store

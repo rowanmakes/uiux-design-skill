@@ -1,0 +1,150 @@
+{
+  "file": "test/smoke/index.html",
+  "viewports": {
+    "wide": {
+      "horizontalOverflow": false
+    },
+    "narrow": {
+      "horizontalOverflow": false
+    }
+  },
+  "consoleErrors": [],
+  "externalRequests": [],
+  "tabStops": [
+    {
+      "tag": "button",
+      "text": "订阅占位按钮一",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "订阅占位按钮二",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "订阅占位按钮一",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "订阅占位按钮二",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "订阅占位按钮一",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "订阅占位按钮二",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "订阅占位按钮一",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "订阅占位按钮二",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "订阅占位按钮一",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "订阅占位按钮二",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "订阅占位按钮一",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "订阅占位按钮二",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "订阅占位按钮一",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "订阅占位按钮二",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "订阅占位按钮一",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "订阅占位按钮二",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "订阅占位按钮一",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "订阅占位按钮二",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "订阅占位按钮一",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "订阅占位按钮二",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "订阅占位按钮一",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "订阅占位按钮二",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "订阅占位按钮一",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "订阅占位按钮二",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "订阅占位按钮一",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "订阅占位按钮二",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "订阅占位按钮一",
+      "visibleFocusStyle": true
+    }
+  ]
+}
