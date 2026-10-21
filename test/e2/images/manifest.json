@@ -1,0 +1,21 @@
+{
+  "generator": { "tool": "built-in image_gen", "model": "not exposed by the built-in tool", "realRasterGenerated": true },
+  "export": { "format": "webp", "dimensions": "1664x936", "method": "ffmpeg libwebp q=72; center crop from 1672x941 source", "maxBytes": 600000 },
+  "assets": [
+    { "file": "A/candidates/hero-01.webp", "raw": "exec-ba784dc2-5a5b-4373-b6b3-1273c4752ede.png", "bytes": 19936, "sha256_16": "2DC24F1F36AA39ED" },
+    { "file": "A/candidates/hero-02.webp", "raw": "exec-8e4ee49d-e80e-404c-ad0e-dc96d7b450f3.png", "bytes": 25898, "sha256_16": "37D37066B527E612" },
+    { "file": "A/story/01.webp", "raw": "exec-24d244ee-beea-4857-843f-a3c9148e2b84.png", "bytes": 28066, "sha256_16": "D6017FE9AF01850F" },
+    { "file": "A/story/02.webp", "raw": "exec-35d95297-3b24-4f48-a282-822d24a65869.png", "bytes": 37946, "sha256_16": "3905A2A92649CDF2" },
+    { "file": "A/story/03.webp", "raw": "exec-bad5dc33-5d1c-4a2c-949a-e08c030218f9.png", "bytes": 41570, "sha256_16": "8E8385651A6A67FF" },
+    { "file": "B/candidates/hero-01.webp", "raw": "exec-40af7bbe-e516-4024-93be-8087c2dfdbe5.png", "bytes": 64100, "sha256_16": "1FC6ED32EB782CD0" },
+    { "file": "B/candidates/hero-02.webp", "raw": "exec-11f799ac-482d-427d-8873-aaa4e1f5a06f.png", "bytes": 40730, "sha256_16": "79B1677D1EDFA02D" },
+    { "file": "B/story/01.webp", "raw": "exec-2b4e456d-cf3d-43a3-8a81-99f2d0f0cb09.png", "bytes": 23016, "sha256_16": "9B4D9A717627DE99" },
+    { "file": "B/story/02.webp", "raw": "exec-2e3c03ca-7559-4b42-9f56-20157605ae03.png", "bytes": 54440, "sha256_16": "58BA147D5E638DE2" },
+    { "file": "B/story/03.webp", "raw": "exec-24854293-b02b-47ef-87e7-1eace0bc7d8a.png", "bytes": 56072, "sha256_16": "252245263B654F7C" },
+    { "file": "C/candidates/hero-01.webp", "raw": "exec-5ed204a3-4050-494f-93dc-5b0af4a8d246.png", "bytes": 91948, "sha256_16": "1DBB3E38B7EEA7FE" },
+    { "file": "C/candidates/hero-02.webp", "raw": "exec-cc42e9ae-1f32-4030-bc98-6d99a48614ed.png", "bytes": 70974, "sha256_16": "0E441CD2B526E20C" },
+    { "file": "C/story/01.webp", "raw": "exec-ac1fc7b2-333e-43d2-b209-2b0771c5c15e.png", "bytes": 97804, "sha256_16": "E359BF25D31ABD32" },
+    { "file": "C/story/02.webp", "raw": "exec-3007f262-de5b-4e83-95a0-79c484ddbfd0.png", "bytes": 113166, "sha256_16": "D31291F2D89F79FD" },
+    { "file": "C/story/03.webp", "raw": "exec-16a97c03-9016-4799-bb76-b5687d3d029b.png", "bytes": 74836, "sha256_16": "54FC9AC82BB314F2" }
+  ]
+}

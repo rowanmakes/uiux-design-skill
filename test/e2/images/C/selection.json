@@ -1,0 +1,11 @@
+{
+  "scene": "C",
+  "selectedCandidate": "candidates/hero-02.webp",
+  "criteria": {
+    "identifiableLightSource": "A low setting sun is explicit on the far-right horizon.",
+    "atmosphere": "Amber valley haze and dark wet-green coffee foliage give cinematic air.",
+    "titleSafeThird": "The left third is a continuous deep shadow field with only subordinate foliage.",
+    "cleanFrame": "The scene has a single sunset, one ridge sequence, and no human subject."
+  },
+  "reason": "Selected over hero-01 because its left field is markedly quieter while retaining stronger, clearer sunset backlight."
+}

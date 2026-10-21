@@ -1,0 +1,11 @@
+{
+  "scene": "B",
+  "selectedCandidate": "candidates/hero-02.webp",
+  "criteria": {
+    "identifiableLightSource": "The amber internal roaster fire is visible inside the drum mouth.",
+    "atmosphere": "Thin smoke picks up the ember light without becoming spectacle.",
+    "titleSafeThird": "The upper-left third is almost entirely quiet charcoal-black.",
+    "cleanFrame": "The smaller aperture and restrained bean motion make one controlled subject."
+  },
+  "reason": "Selected over hero-01 because it has a more generous quiet dark field and a less overbearing fire while retaining a clearly identifiable source."
+}

@@ -1,0 +1,11 @@
+{
+  "scene": "A",
+  "selectedCandidate": "candidates/hero-01.webp",
+  "criteria": {
+    "identifiableLightSource": "One small, plainly legible amber roastery window at lower right.",
+    "atmosphere": "Layered blue-black ridges and valley fog create predawn depth.",
+    "titleSafeThird": "The left third is dark, low-detail mist and stays readable for a title.",
+    "cleanFrame": "A single window and simple ridge sequence remain; no competing lights or people."
+  },
+  "reason": "Selected over hero-02 because its left title field is cleaner and its one warm window reads more decisively without adding visual complexity."
+}
