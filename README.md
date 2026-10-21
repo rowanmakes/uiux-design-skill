@@ -2,7 +2,7 @@
 
 我自己的 UI/UX 设计 Skill：从产品描述出发，做出留白、干净、简约、大气、干练，而且一眼不像 AI 模板的界面。
 
-**当前状态：v0.8。官网电影感方向已得到用户正面评价（实验 E2），其余部分仍待测试。** 下一步是跑基线对照（见 `docs/playbook.md`）。
+**当前状态：v0.9。官网电影感方向已得到用户正面评价（实验 E2），其余部分仍待测试。** 下一步是跑基线对照（见 `docs/playbook.md`）。
 
 ## 目录
 
@@ -11,6 +11,7 @@ skill/uiux-design/          Skill 本体，整个目录复制到 agent 的 skill
   SKILL.md                  主流程
   references/
     research.md             先问清楚、找同类与跨品类参考
+    design-md.md            DESIGN.md 模板：把选定方向写成规范
     taste.md                品味：把"高级感"写成参数、骨架、素材、中文规则和自检
     app.md                  手机 App 与桌面客户端：平台规范、手感、状态、跨平台取舍
     workbench.md            桌面工作台：面板系统、画布、键盘、密度、持久化
