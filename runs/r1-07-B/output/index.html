@@ -1,0 +1,2152 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>本地 AI 生图桌面客户端 · 原型与交互规范 (Electron / Tauri)</title>
+  <style>
+    :root {
+      /* Core 6-color calibrated darkroom workbench palette */
+      --bg-workbench: #18191C;
+      --bg-panel: #202226;
+      --bg-canvas: #121316;
+      --border-hairline: #2E3138;
+      --text-primary: #ECEEF2;
+      --accent-amber: #E59934;
+
+      /* Supporting surface & semantic status tokens */
+      --bg-elevated: #282B31;
+      --bg-hover: #2E323B;
+      --bg-selected: rgba(229, 153, 52, 0.14);
+      --border-focus: #E59934;
+      --text-secondary: #A0A6B2;
+      --text-muted: #6C727F;
+      --status-running: #E59934;
+      --status-queued: #4C8DFF;
+      --status-error: #F05252;
+      --status-done: #2BB673;
+
+      --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei UI", "Microsoft YaHei", sans-serif;
+      --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", "Consolas", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      background-color: #0D0E10;
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 13px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      user-select: none;
+    }
+
+    /* Outer prototype container */
+    .prototype-shell {
+      max-width: 1560px;
+      margin: 0 auto;
+      padding: 14px 16px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Prototype Header Bar (Context & OS Switcher) */
+    .proto-meta-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 8px 14px;
+      background: var(--bg-panel);
+      border: 1px solid var(--border-hairline);
+      border-radius: 6px;
+    }
+
+    .proto-meta-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .proto-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: rgba(229, 153, 52, 0.15);
+      border: 1px solid rgba(229, 153, 52, 0.4);
+      color: var(--accent-amber);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .proto-hint {
+      color: var(--text-secondary);
+      font-size: 12px;
+    }
+
+    .proto-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .seg-control {
+      display: inline-flex;
+      background: var(--bg-canvas);
+      border: 1px solid var(--border-hairline);
+      border-radius: 5px;
+      padding: 2px;
+    }
+
+    .seg-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-family: var(--font-sans);
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .seg-btn.active {
+      background: var(--bg-elevated);
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .seg-btn:focus-visible,
+    button:focus-visible,
+    .project-item:focus-visible,
+    .grid-card:focus-visible,
+    .queue-row:focus-visible {
+      outline: 2px solid var(--border-focus);
+      outline-offset: -2px;
+    }
+
+    /* Desktop App Window Frame */
+    .desktop-window {
+      background: var(--bg-workbench);
+      border: 1px solid #363A43;
+      border-radius: 8px;
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.65);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 760px;
+    }
+
+    /* OS Titlebar & Application Menu Bar */
+    .window-titlebar {
+      height: 36px;
+      background: #141518;
+      border-bottom: 1px solid var(--border-hairline);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+      position: relative;
+    }
+
+    .titlebar-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* macOS traffic lights (shown when macOS mode active) */
+    .mac-traffic-lights {
+      display: none;
+      align-items: center;
+      gap: 7px;
+      margin-right: 6px;
+    }
+
+    .desktop-window[data-os="mac"] .mac-traffic-lights {
+      display: inline-flex;
+    }
+
+    .traffic-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .traffic-dot.close { background: #FF5F56; }
+    .traffic-dot.min { background: #FFBD2E; }
+    .traffic-dot.max { background: #27C93F; }
+
+    .app-title-badge {
+      font-weight: 600;
+      font-size: 12px;
+      color: var(--text-primary);
+      padding-right: 8px;
+      border-right: 1px solid var(--border-hairline);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .shell-pill {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      background: var(--bg-panel);
+      padding: 1px 6px;
+      border-radius: 3px;
+      border: 1px solid var(--border-hairline);
+    }
+
+    /* Top Menu Bar */
+    .menubar {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      position: relative;
+    }
+
+    .menu-trigger {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-family: var(--font-sans);
+      font-size: 12px;
+      padding: 5px 9px;
+      border-radius: 4px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .menu-trigger:hover,
+    .menu-trigger.open {
+      background: var(--bg-hover);
+      color: var(--text-primary);
+    }
+
+    .menu-dropdown {
+      display: none;
+      position: absolute;
+      top: 32px;
+      left: 0;
+      min-width: 240px;
+      background: #23262B;
+      border: 1px solid #3E434D;
+      border-radius: 6px;
+      padding: 5px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.55);
+      z-index: 100;
+    }
+
+    .menu-dropdown.open {
+      display: block;
+    }
+
+    .menu-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      width: 100%;
+      padding: 6px 10px;
+      background: transparent;
+      border: none;
+      border-radius: 4px;
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 12px;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .menu-item:hover {
+      background: var(--accent-amber);
+      color: #121316;
+    }
+
+    .menu-item:hover .menu-kbd {
+      color: #121316;
+    }
+
+    .menu-kbd {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .menu-sep {
+      height: 1px;
+      background: var(--border-hairline);
+      margin: 4px 6px;
+    }
+
+    .titlebar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .runtime-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--status-running);
+    }
+
+    /* Windows caption controls (hidden on macOS mode) */
+    .win-controls {
+      display: inline-flex;
+      align-items: center;
+      margin-right: -10px;
+    }
+
+    .desktop-window[data-os="mac"] .win-controls {
+      display: none;
+    }
+
+    .win-btn {
+      width: 38px;
+      height: 36px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      font-size: 12px;
+      border: none;
+      background: transparent;
+    }
+
+    .win-btn:hover {
+      background: var(--bg-hover);
+      color: var(--text-primary);
+    }
+
+    .win-btn.close:hover {
+      background: #C42B1C;
+      color: #fff;
+    }
+
+    /* Main 3-Column Workbench Area */
+    .workbench-body {
+      display: grid;
+      grid-template-columns: 248px 1fr 336px;
+      flex: 1;
+      min-height: 490px;
+      border-bottom: 1px solid var(--border-hairline);
+    }
+
+    /* Left Column: Project Sidebar */
+    .sidebar-projects {
+      background: var(--bg-panel);
+      border-right: 1px solid var(--border-hairline);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .panel-header {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border-hairline);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 600;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .btn-subtle {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-hairline);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .btn-subtle:hover {
+      background: var(--bg-hover);
+      border-color: #454A57;
+    }
+
+    .project-list {
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .project-item {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      padding: 9px 10px;
+      border-radius: 5px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-primary);
+      text-align: left;
+      cursor: pointer;
+      width: 100%;
+      font-family: var(--font-sans);
+    }
+
+    .project-item:hover {
+      background: var(--bg-hover);
+    }
+
+    .project-item.active {
+      background: var(--bg-selected);
+      border-color: rgba(229, 153, 52, 0.45);
+    }
+
+    .project-row-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .project-name {
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--text-primary);
+    }
+
+    .project-count {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-variant-numeric: tabular-nums;
+      padding: 1px 6px;
+      border-radius: 10px;
+      background: var(--bg-canvas);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-hairline);
+    }
+
+    .project-item.active .project-count {
+      background: rgba(229, 153, 52, 0.2);
+      color: var(--accent-amber);
+      border-color: rgba(229, 153, 52, 0.4);
+    }
+
+    .project-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .sidebar-footer {
+      padding: 10px 12px;
+      border-top: 1px solid var(--border-hairline);
+      background: #1B1D21;
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .shortcut-tip-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .kbd-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 1px 5px;
+      border-radius: 3px;
+      background: var(--bg-canvas);
+      border: 1px solid var(--border-hairline);
+      color: var(--text-secondary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Center Column: Result Grid */
+    .center-canvas {
+      background: var(--bg-canvas);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .canvas-toolbar {
+      padding: 8px 14px;
+      background: var(--bg-workbench);
+      border-bottom: 1px solid var(--border-hairline);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .canvas-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+    }
+
+    .canvas-project-title {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .canvas-project-meta {
+      color: var(--text-secondary);
+      font-size: 12px;
+    }
+
+    .canvas-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Result Grid Container */
+    .result-grid-wrap {
+      padding: 14px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
+      gap: 12px;
+    }
+
+    .grid-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-hairline);
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.12s ease, background-color 0.12s ease;
+      position: relative;
+    }
+
+    .grid-card:hover {
+      border-color: #4A505E;
+      background: #24272C;
+    }
+
+    .grid-card.selected {
+      border-color: var(--accent-amber);
+      box-shadow: 0 0 0 1px var(--accent-amber);
+    }
+
+    /* Aspect-ratio slide mount for placeholder graphic */
+    .slide-mount {
+      height: 156px;
+      background: #101114;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      border-bottom: 1px solid var(--border-hairline);
+    }
+
+    .placeholder-frame {
+      position: relative;
+      border: 1px dashed rgba(236, 238, 242, 0.35);
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    /* Aspect ratios reflecting exact sample dimensions */
+    .ratio-16-9 {
+      width: 100%;
+      max-width: 192px;
+      aspect-ratio: 16 / 9;
+      background: linear-gradient(135deg, #1E293B 0%, #334155 52%, #475569 100%);
+    }
+
+    .ratio-1-1-planet {
+      height: 132px;
+      aspect-ratio: 1 / 1;
+      background: linear-gradient(135deg, #1F2438 0%, #2E3654 50%, #3D2E4F 100%);
+    }
+
+    .ratio-1-1-cafe {
+      height: 132px;
+      aspect-ratio: 1 / 1;
+      background: linear-gradient(135deg, #3A2E25 0%, #524132 55%, #2D3732 100%);
+    }
+
+    .ratio-slot {
+      width: 100%;
+      max-width: 184px;
+      aspect-ratio: 16 / 9;
+      background: repeating-linear-gradient(
+        -45deg,
+        #1B1D22,
+        #1B1D22 8px,
+        #22252B 8px,
+        #22252B 16px
+      );
+    }
+
+    .placeholder-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 7px;
+      border-radius: 3px;
+      background: rgba(18, 19, 22, 0.86);
+      border: 1px solid rgba(236, 238, 242, 0.28);
+      color: var(--text-primary);
+      font-size: 11px;
+      font-weight: 600;
+      z-index: 2;
+    }
+
+    .placeholder-sub {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: #D0D5DF;
+      margin-top: 4px;
+      z-index: 2;
+    }
+
+    /* Active generating shimmer overlay for task-a1 */
+    .sampling-progress-bar {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .sampling-progress-fill {
+      height: 100%;
+      background: var(--accent-amber);
+    }
+
+    .card-body {
+      padding: 9px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .card-prompt {
+      font-size: 12px;
+      color: var(--text-primary);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      min-height: 36px;
+    }
+
+    .card-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-secondary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .status-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-size: 11px;
+      font-family: var(--font-sans);
+      font-weight: 500;
+    }
+
+    .status-tag.done {
+      background: rgba(43, 182, 115, 0.15);
+      color: #4ADE80;
+      border: 1px solid rgba(43, 182, 115, 0.35);
+    }
+
+    .status-tag.running {
+      background: rgba(229, 153, 52, 0.16);
+      color: var(--accent-amber);
+      border: 1px solid rgba(229, 153, 52, 0.4);
+    }
+
+    .status-tag.queued {
+      background: rgba(76, 141, 255, 0.15);
+      color: #7AA7FF;
+      border: 1px solid rgba(76, 141, 255, 0.35);
+    }
+
+    .status-tag.error {
+      background: rgba(240, 82, 82, 0.16);
+      color: #F87171;
+      border: 1px solid rgba(240, 82, 82, 0.4);
+    }
+
+    .card-context-btn {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background: rgba(24, 25, 28, 0.85);
+      border: 1px solid var(--border-hairline);
+      color: var(--text-secondary);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 11px;
+      cursor: pointer;
+      z-index: 3;
+    }
+
+    .card-context-btn:hover {
+      color: var(--text-primary);
+      background: var(--bg-elevated);
+    }
+
+    /* Empty Project State (背景-暗色城市) */
+    .empty-project-state {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px;
+      text-align: center;
+      border: 1px dashed var(--border-hairline);
+      border-radius: 6px;
+      background: rgba(32, 34, 38, 0.5);
+      margin: 12px 0;
+      gap: 10px;
+    }
+
+    .empty-project-state.visible {
+      display: flex;
+    }
+
+    .empty-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .empty-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      max-width: 420px;
+    }
+
+    /* Right Column: Parameter Inspector */
+    .inspector-panel {
+      background: var(--bg-panel);
+      border-left: 1px solid var(--border-hairline);
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .inspector-body {
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .inspector-group {
+      background: var(--bg-workbench);
+      border: 1px solid var(--border-hairline);
+      border-radius: 5px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field-label-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    .field-value-box {
+      background: var(--bg-canvas);
+      border: 1px solid var(--border-hairline);
+      border-radius: 4px;
+      padding: 8px 9px;
+      color: var(--text-primary);
+      font-size: 12.5px;
+      line-height: 1.5;
+      user-select: text;
+    }
+
+    .param-kv-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .param-kv-card {
+      background: var(--bg-canvas);
+      border: 1px solid var(--border-hairline);
+      border-radius: 4px;
+      padding: 7px 9px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .kv-label {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .kv-val {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      font-variant-numeric: tabular-nums;
+      user-select: text;
+    }
+
+    .inspector-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      grid-column: span 2;
+      background: var(--accent-amber);
+      color: #121316;
+      border: none;
+      border-radius: 4px;
+      padding: 7px 12px;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-primary:hover {
+      background: #F0A843;
+    }
+
+    /* All 3 Fixed Sample Presets Reference Table inside Inspector */
+    .sample-presets-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .preset-item {
+      background: var(--bg-canvas);
+      border: 1px solid var(--border-hairline);
+      border-radius: 4px;
+      padding: 7px 8px;
+      cursor: pointer;
+      text-align: left;
+      font-family: var(--font-sans);
+      color: var(--text-primary);
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .preset-item:hover {
+      border-color: #4A505E;
+    }
+
+    .preset-item.active {
+      border-color: var(--accent-amber);
+      background: rgba(229, 153, 52, 0.08);
+    }
+
+    .preset-prompt {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .preset-meta {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-secondary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Bottom Dock: Task Queue & Progress */
+    .queue-dock {
+      background: var(--bg-panel);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .queue-header {
+      padding: 8px 14px;
+      background: #1B1D21;
+      border-bottom: 1px solid var(--border-hairline);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .queue-title-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 12px;
+    }
+
+    .queue-table-wrap {
+      overflow-x: auto;
+    }
+
+    .queue-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      text-align: left;
+    }
+
+    .queue-table th {
+      padding: 7px 14px;
+      color: var(--text-muted);
+      font-weight: 600;
+      border-bottom: 1px solid var(--border-hairline);
+      background: var(--bg-workbench);
+      font-size: 11px;
+    }
+
+    .queue-table td {
+      padding: 8px 14px;
+      border-bottom: 1px solid var(--border-hairline);
+      vertical-align: middle;
+    }
+
+    .queue-row {
+      cursor: pointer;
+    }
+
+    .queue-row:hover {
+      background: var(--bg-hover);
+    }
+
+    .queue-row.selected {
+      background: var(--bg-selected);
+    }
+
+    .mono-cell {
+      font-family: var(--font-mono);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .progress-cell {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 140px;
+    }
+
+    .progress-track {
+      flex: 1;
+      height: 6px;
+      background: var(--bg-canvas);
+      border: 1px solid var(--border-hairline);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      border-radius: 2px;
+    }
+
+    /* Floating Live Right-Click Context Menu */
+    .context-menu-popup {
+      display: none;
+      position: fixed;
+      min-width: 248px;
+      background: #23262B;
+      border: 1px solid #454A56;
+      border-radius: 6px;
+      padding: 5px;
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.65);
+      z-index: 999;
+    }
+
+    .context-menu-popup.open {
+      display: block;
+    }
+
+    .ctx-header {
+      padding: 4px 10px;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      border-bottom: 1px solid var(--border-hairline);
+      margin-bottom: 4px;
+    }
+
+    /* Toast feedback banner */
+    .action-toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #23262B;
+      border: 1px solid var(--accent-amber);
+      color: var(--text-primary);
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s ease;
+      z-index: 1000;
+    }
+
+    .action-toast.show {
+      opacity: 1;
+    }
+
+    /* =====================================================================
+       Written Specification Section: 菜单、快捷键与右键菜单设计规范
+       ===================================================================== */
+    .spec-section {
+      background: var(--bg-workbench);
+      border: 1px solid #363A43;
+      border-radius: 8px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .spec-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+      border-bottom: 1px solid var(--border-hairline);
+      padding-bottom: 12px;
+    }
+
+    .spec-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .spec-subtitle {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .spec-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 16px;
+    }
+
+    .spec-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-hairline);
+      border-radius: 6px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .spec-card-title {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--accent-amber);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    .spec-table th {
+      text-align: left;
+      padding: 6px 8px;
+      border-bottom: 1px solid var(--border-hairline);
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    .spec-table td {
+      padding: 6px 8px;
+      border-bottom: 1px solid rgba(46, 49, 56, 0.65);
+      color: var(--text-primary);
+      vertical-align: top;
+    }
+
+    /* Static Context Menu Visual Diagram inside Specification */
+    .static-ctx-preview {
+      background: #23262B;
+      border: 1px solid #454A56;
+      border-radius: 6px;
+      padding: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .static-ctx-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+    }
+
+    .static-ctx-row.highlight {
+      background: rgba(229, 153, 52, 0.16);
+      color: var(--accent-amber);
+    }
+
+    @media (max-width: 1120px) {
+      .workbench-body {
+        grid-template-columns: 210px 1fr;
+      }
+      .inspector-panel {
+        grid-column: span 2;
+        border-left: none;
+        border-top: 1px solid var(--border-hairline);
+      }
+    }
+
+    @media (max-width: 760px) {
+      .workbench-body {
+        grid-template-columns: 1fr;
+      }
+      .sidebar-projects,
+      .inspector-panel {
+        grid-column: span 1;
+        border-right: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition: none !important;
+        animation: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="prototype-shell">
+    <!-- Top Prototype Bar -->
+    <header class="proto-meta-bar" aria-label="原型控制栏">
+      <div class="proto-meta-left">
+        <span class="proto-tag">本地 AI 生图桌面客户端 · HTML 原型</span>
+        <span class="proto-hint">支持交互：点击顶部菜单栏、切换左侧项目、右键点击结果网格卡片、切换参数检查器样例、重试失败队列任务</span>
+      </div>
+      <div class="proto-controls">
+        <div class="seg-control" role="group" aria-label="操作系统快捷键与窗口样式切换">
+          <button type="button" class="seg-btn active" id="os-win-btn" onclick="switchOS('win')">Windows 壳层 (Ctrl / Alt)</button>
+          <button type="button" class="seg-btn" id="os-mac-btn" onclick="switchOS('mac')">macOS 壳层 (⌘ / ⌥)</button>
+        </div>
+        <button type="button" class="btn-subtle" onclick="scrollToSpec()">查看菜单/快捷键/右键规范 ↓</button>
+      </div>
+    </header>
+
+    <!-- Main Desktop Client Window (Electron / Tauri Shell) -->
+    <main class="desktop-window" id="desktop-window" data-os="win" aria-label="桌面客户端主窗口">
+      <!-- OS Titlebar + Native Menu Bar -->
+      <div class="window-titlebar">
+        <div class="titlebar-left">
+          <!-- macOS Traffic Lights -->
+          <div class="mac-traffic-lights" aria-hidden="true">
+            <span class="traffic-dot close"></span>
+            <span class="traffic-dot min"></span>
+            <span class="traffic-dot max"></span>
+          </div>
+
+          <div class="app-title-badge">
+            <span>本地生图工作台</span>
+            <span class="shell-pill">Tauri / Electron 本地推理</span>
+          </div>
+
+          <!-- Interactive Application Menu Bar -->
+          <nav class="menubar" aria-label="主菜单栏">
+            <div style="position: relative;">
+              <button type="button" class="menu-trigger" onclick="toggleMenu('menu-file', event)">文件(F)</button>
+              <div class="menu-dropdown" id="menu-file" role="menu">
+                <button type="button" class="menu-item" onclick="triggerAction('新建生图项目')">
+                  <span>新建项目…</span><span class="menu-kbd" data-win="Ctrl+N" data-mac="⌘N">Ctrl+N</span>
+                </button>
+                <button type="button" class="menu-item" onclick="triggerAction('打开本地项目目录')">
+                  <span>打开本地项目目录…</span><span class="menu-kbd" data-win="Ctrl+O" data-mac="⌘O">Ctrl+O</span>
+                </button>
+                <div class="menu-sep"></div>
+                <button type="button" class="menu-item" onclick="triggerAction('导出当前选中参数 JSON')">
+                  <span>导出当前参数配置 (JSON)</span><span class="menu-kbd" data-win="Ctrl+S" data-mac="⌘S">Ctrl+S</span>
+                </button>
+                <button type="button" class="menu-item" onclick="triggerAction('打开本地输出文件夹')">
+                  <span>在资源管理器/访达中显示输出目录</span><span class="menu-kbd" data-win="Ctrl+Shift+O" data-mac="⇧⌘O">Ctrl+Shift+O</span>
+                </button>
+              </div>
+            </div>
+
+            <div style="position: relative;">
+              <button type="button" class="menu-trigger" onclick="toggleMenu('menu-edit', event)">编辑(E)</button>
+              <div class="menu-dropdown" id="menu-edit" role="menu">
+                <button type="button" class="menu-item" onclick="copyCurrentPrompt()">
+                  <span>复制正向提示词 (Prompt)</span><span class="menu-kbd" data-win="Ctrl+C" data-mac="⌘C">Ctrl+C</span>
+                </button>
+                <button type="button" class="menu-item" onclick="copyCurrentSeed()">
+                  <span>复制当前种子 (Seed)</span><span class="menu-kbd" data-win="Ctrl+Shift+C" data-mac="⇧⌘C">Ctrl+Shift+C</span>
+                </button>
+                <div class="menu-sep"></div>
+                <button type="button" class="menu-item" onclick="triggerAction('粘贴完整生成参数')">
+                  <span>粘贴并解析生成参数</span><span class="menu-kbd" data-win="Ctrl+V" data-mac="⌘V">Ctrl+V</span>
+                </button>
+              </div>
+            </div>
+
+            <div style="position: relative;">
+              <button type="button" class="menu-trigger" onclick="toggleMenu('menu-task', event)">任务(T)</button>
+              <div class="menu-dropdown" id="menu-task" role="menu">
+                <button type="button" class="menu-item" onclick="enqueueFromInspector()">
+                  <span>按当前检查器参数发起生成</span><span class="menu-kbd" data-win="Ctrl+Enter" data-mac="⌘Return">Ctrl+Enter</span>
+                </button>
+                <button type="button" class="menu-item" onclick="triggerAction('锁定种子微调重跑')">
+                  <span>锁定种子重新采样</span><span class="menu-kbd" data-win="Ctrl+R" data-mac="⌘R">Ctrl+R</span>
+                </button>
+                <div class="menu-sep"></div>
+                <button type="button" class="menu-item" onclick="retryFailedTask()">
+                  <span>重试失败任务 (task-b1)</span><span class="menu-kbd" data-win="Ctrl+Shift+R" data-mac="⇧⌘R">Ctrl+Shift+R</span>
+                </button>
+                <button type="button" class="menu-item" onclick="triggerAction('暂停/恢复本地队列')">
+                  <span>暂停 / 恢复队列调度</span><span class="menu-kbd" data-win="Space" data-mac="Space">Space</span>
+                </button>
+              </div>
+            </div>
+
+            <div style="position: relative;">
+              <button type="button" class="menu-trigger" onclick="toggleMenu('menu-view', event)">视图(V)</button>
+              <div class="menu-dropdown" id="menu-view" role="menu">
+                <button type="button" class="menu-item" onclick="selectSampleByIndex(0)">
+                  <span>查看样例 1（20481 · 1024×576）</span><span class="menu-kbd">1</span>
+                </button>
+                <button type="button" class="menu-item" onclick="selectSampleByIndex(1)">
+                  <span>查看样例 2（20482 · 768×768）</span><span class="menu-kbd">2</span>
+                </button>
+                <button type="button" class="menu-item" onclick="selectSampleByIndex(2)">
+                  <span>查看样例 3（20483 · 1024×1024）</span><span class="menu-kbd">3</span>
+                </button>
+                <div class="menu-sep"></div>
+                <button type="button" class="menu-item" onclick="scrollToSpec()">
+                  <span>打开菜单与快捷键设计规范</span><span class="menu-kbd">F1</span>
+                </button>
+              </div>
+            </div>
+
+            <div style="position: relative;">
+              <button type="button" class="menu-trigger" onclick="toggleMenu('menu-help', event)">帮助(H)</button>
+              <div class="menu-dropdown" id="menu-help" role="menu">
+                <button type="button" class="menu-item" onclick="scrollToSpec()">
+                  <span>快捷键速查表</span><span class="menu-kbd" data-win="Ctrl+/" data-mac="⌘/">Ctrl+/</span>
+                </button>
+                <button type="button" class="menu-item" onclick="triggerAction('显存占用诊断：已分配本地队列缓冲区')">
+                  <span>本地显存诊断（处理显存不足）</span><span class="menu-kbd">F12</span>
+                </button>
+              </div>
+            </div>
+          </nav>
+        </div>
+
+        <div class="titlebar-right">
+          <div class="runtime-status" title="当前任务队列状态">
+            <span class="status-dot"></span>
+            <span>队列：生成中 1 (57%) · 排队 1 · 失败 1 · 完成 1</span>
+          </div>
+          <div class="win-controls" aria-hidden="true">
+            <button type="button" class="win-btn" tabindex="-1">─</button>
+            <button type="button" class="win-btn" tabindex="-1">□</button>
+            <button type="button" class="win-btn close" tabindex="-1">✕</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3-Column Workspace -->
+      <div class="workbench-body">
+        <!-- 1. Left Column: Project List (左侧项目列表) -->
+        <aside class="sidebar-projects" aria-label="左侧项目列表">
+          <div>
+            <div class="panel-header">
+              <span>项目列表（样例）</span>
+              <span class="kbd-badge">3 个项目</span>
+            </div>
+            <div class="project-list" role="listbox" aria-label="本地生图项目">
+              <button type="button" class="project-item active" id="proj-0" role="option" aria-selected="true" onclick="selectProject(0)">
+                <div class="project-row-top">
+                  <span class="project-name">海报-秋季企划</span>
+                  <span class="project-count">12</span>
+                </div>
+                <span class="project-desc">主视觉探索</span>
+              </button>
+
+              <button type="button" class="project-item" id="proj-1" role="option" aria-selected="false" onclick="selectProject(1)">
+                <div class="project-row-top">
+                  <span class="project-name">头像-社团招新</span>
+                  <span class="project-count">8</span>
+                </div>
+                <span class="project-desc">一套风格</span>
+              </button>
+
+              <button type="button" class="project-item" id="proj-2" role="option" aria-selected="false" onclick="selectProject(2)">
+                <div class="project-row-top">
+                  <span class="project-name">背景-暗色城市</span>
+                  <span class="project-count">0</span>
+                </div>
+                <span class="project-desc">刚创建，还没有任务</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="sidebar-footer">
+            <div style="font-weight: 600; color: var(--text-secondary);">快捷导航提示</div>
+            <div class="shortcut-tip-row">
+              <span>切换样例卡片</span>
+              <span class="kbd-badge">1 / 2 / 3</span>
+            </div>
+            <div class="shortcut-tip-row">
+              <span>按当前参数生图</span>
+              <span class="kbd-badge" data-win="Ctrl+Enter" data-mac="⌘Return">Ctrl+Enter</span>
+            </div>
+            <div class="shortcut-tip-row">
+              <span>卡片更多操作</span>
+              <span class="kbd-badge">鼠标右键</span>
+            </div>
+          </div>
+        </aside>
+
+        <!-- 2. Center Column: Result Grid (中间结果网格) -->
+        <section class="center-canvas" aria-label="中间结果网格">
+          <div class="canvas-toolbar">
+            <div class="canvas-breadcrumb">
+              <span class="canvas-project-title" id="active-project-title">海报-秋季企划</span>
+              <span class="canvas-project-meta" id="active-project-meta">· 12 张结果（全部为标注“占位”的样例图形，无真实图片）</span>
+            </div>
+            <div class="canvas-actions">
+              <button type="button" class="btn-subtle" onclick="selectProject(0)">海报-秋季企划 (12)</button>
+              <button type="button" class="btn-subtle" onclick="selectProject(1)">头像-社团招新 (8)</button>
+              <button type="button" class="btn-subtle" onclick="selectProject(2)">背景-暗色城市 (0)</button>
+            </div>
+          </div>
+
+          <div class="result-grid-wrap">
+            <!-- Empty state when project "背景-暗色城市" (0 images) is selected -->
+            <div class="empty-project-state" id="empty-project-box">
+              <div class="placeholder-pill">占位 · 空项目状态</div>
+              <div class="empty-title">背景-暗色城市 · 刚创建，还没有任务（图片数：0）</div>
+              <p class="empty-desc">该项目下暂无生成结果。你可以在右侧参数检查器中选择一组样例参数发起生成，或切回「海报-秋季企划 (12)」「头像-社团招新 (8)」检视已有占位结果。</p>
+              <div style="display: flex; gap: 8px; margin-top: 6px;">
+                <button type="button" class="btn-subtle" onclick="selectProject(0)">返回「海报-秋季企划 (12)」</button>
+                <button type="button" class="btn-subtle" onclick="enqueueFromInspector()">使用当前参数投递队列</button>
+              </div>
+            </div>
+
+            <!-- Result Grid Cards (Strictly labeled "占位") -->
+            <div class="result-grid" id="result-grid">
+              <!-- Card 1: Seed 20481 Completed (task-c1) -->
+              <article class="grid-card selected" id="card-0" tabindex="0" data-sample="0" onclick="selectSampleByIndex(0)" oncontextmenu="openContextMenu(event, 0)">
+                <button type="button" class="card-context-btn" title="打开右键菜单" onclick="openContextMenuFromButton(event, 0)">右键菜单 ▾</button>
+                <div class="slide-mount">
+                  <div class="placeholder-frame ratio-16-9">
+                    <span class="placeholder-pill">占位 · 无真实图片</span>
+                    <span class="placeholder-sub">1024×576 · Seed 20481</span>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="card-prompt">黄昏天台上的城市天际线，冷色，胶片颗粒</div>
+                  <div class="card-meta-row">
+                    <span>seed 20481 · steps 28</span>
+                    <span class="status-tag done">已完成 100%</span>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Card 2: Seed 20481 Generating (task-a1) -->
+              <article class="grid-card" id="card-1" tabindex="0" data-sample="0" onclick="selectSampleByIndex(0, 'card-1')" oncontextmenu="openContextMenu(event, 0)">
+                <button type="button" class="card-context-btn" title="打开右键菜单" onclick="openContextMenuFromButton(event, 0)">右键菜单 ▾</button>
+                <div class="slide-mount">
+                  <div class="placeholder-frame ratio-16-9">
+                    <span class="placeholder-pill">占位 · 采样预览 57%</span>
+                    <span class="placeholder-sub">采样 16/28 步 · 1024×576</span>
+                    <div class="sampling-progress-bar">
+                      <div class="sampling-progress-fill" style="width: 57%;"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="card-prompt">黄昏天台上的城市天际线，冷色，胶片颗粒</div>
+                  <div class="card-meta-row">
+                    <span>task-a1 · 20481</span>
+                    <span class="status-tag running">生成中 57%</span>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Card 3: Seed 20482 Queued (task-a2) -->
+              <article class="grid-card" id="card-2" tabindex="0" data-sample="1" onclick="selectSampleByIndex(1, 'card-2')" oncontextmenu="openContextMenu(event, 1)">
+                <button type="button" class="card-context-btn" title="打开右键菜单" onclick="openContextMenuFromButton(event, 1)">右键菜单 ▾</button>
+                <div class="slide-mount">
+                  <div class="placeholder-frame ratio-1-1-planet">
+                    <span class="placeholder-pill">占位 · 九宫格构图</span>
+                    <span class="placeholder-sub">768×768 · Seed 20482</span>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="card-prompt">同一颗行星在不同天气下的样子，九宫格</div>
+                  <div class="card-meta-row">
+                    <span>seed 20482 · steps 30</span>
+                    <span class="status-tag queued">排队中（第 2 位）</span>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Card 4: Seed 20483 Failed VRAM (task-b1) -->
+              <article class="grid-card" id="card-3" tabindex="0" data-sample="2" onclick="selectSampleByIndex(2, 'card-3')" oncontextmenu="openContextMenu(event, 2)">
+                <button type="button" class="card-context-btn" title="打开右键菜单" onclick="openContextMenuFromButton(event, 2)">右键菜单 ▾</button>
+                <div class="slide-mount">
+                  <div class="placeholder-frame ratio-1-1-cafe" style="border-color: rgba(240, 82, 82, 0.55);">
+                    <span class="placeholder-pill">占位 · 显存不足中断</span>
+                    <span class="placeholder-sub">1024×1024 · Seed 20483</span>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="card-prompt">手绘风格的咖啡店门面招牌，上午光线</div>
+                  <div class="card-meta-row">
+                    <span>seed 20483 · steps 25</span>
+                    <span class="status-tag error" id="card3-status-badge">失败（可重试）</span>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Card 5: Batch Placeholder Slot (海报-秋季企划 批次占位) -->
+              <article class="grid-card" id="card-4" tabindex="0" data-sample="0" onclick="selectSampleByIndex(0, 'card-4')" oncontextmenu="openContextMenu(event, 0)">
+                <button type="button" class="card-context-btn" title="打开右键菜单" onclick="openContextMenuFromButton(event, 0)">右键菜单 ▾</button>
+                <div class="slide-mount">
+                  <div class="placeholder-frame ratio-slot">
+                    <span class="placeholder-pill">占位 · 项目结果槽位</span>
+                    <span class="placeholder-sub">1024×576 · 样例占位</span>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="card-prompt">黄昏天台上的城市天际线，冷色，胶片颗粒</div>
+                  <div class="card-meta-row">
+                    <span>seed 20481 · steps 28</span>
+                    <span class="status-tag done">样例占位</span>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Card 6: Batch Placeholder Slot (头像-社团招新 批次占位) -->
+              <article class="grid-card" id="card-5" tabindex="0" data-sample="1" onclick="selectSampleByIndex(1, 'card-5')" oncontextmenu="openContextMenu(event, 1)">
+                <button type="button" class="card-context-btn" title="打开右键菜单" onclick="openContextMenuFromButton(event, 1)">右键菜单 ▾</button>
+                <div class="slide-mount">
+                  <div class="placeholder-frame ratio-slot">
+                    <span class="placeholder-pill">占位 · 项目结果槽位</span>
+                    <span class="placeholder-sub">768×768 · 样例占位</span>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="card-prompt">同一颗行星在不同天气下的样子，九宫格</div>
+                  <div class="card-meta-row">
+                    <span>seed 20482 · steps 30</span>
+                    <span class="status-tag done">样例占位</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. Right Column: Parameter Inspector (右侧当前图片的参数检查器) -->
+        <aside class="inspector-panel" aria-label="右侧当前图片的参数检查器">
+          <div class="panel-header">
+            <span>当前图片参数检查器</span>
+            <span class="kbd-badge" id="inspector-seed-badge">seed 20481</span>
+          </div>
+
+          <div class="inspector-body">
+            <!-- Positive Prompt -->
+            <div class="inspector-group">
+              <div class="field-label-row">
+                <span>提示词（prompt）</span>
+                <button type="button" class="btn-subtle" onclick="copyCurrentPrompt()">复制</button>
+              </div>
+              <div class="field-value-box" id="insp-prompt">黄昏天台上的城市天际线，冷色，胶片颗粒</div>
+            </div>
+
+            <!-- Negative Prompt -->
+            <div class="inspector-group">
+              <div class="field-label-row">
+                <span>负面提示词</span>
+                <span style="color: var(--text-muted); font-weight: 400;">Negative</span>
+              </div>
+              <div class="field-value-box" id="insp-neg">过曝, 多余肢体</div>
+            </div>
+
+            <!-- Seed & Other Parameters -->
+            <div class="inspector-group">
+              <div class="field-label-row">
+                <span>核心采样参数（原样呈现）</span>
+                <button type="button" class="btn-subtle" onclick="copyCurrentSeed()">复制种子</button>
+              </div>
+              <div class="param-kv-grid">
+                <div class="param-kv-card">
+                  <span class="kv-label">种子（seed）</span>
+                  <span class="kv-val" id="insp-seed">20481</span>
+                </div>
+                <div class="param-kv-card">
+                  <span class="kv-label">其他参数</span>
+                  <span class="kv-val" id="insp-other" style="font-size: 12px;">steps 28 / 尺寸 1024×576</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="inspector-actions">
+              <button type="button" class="btn-primary" onclick="enqueueFromInspector()">
+                <span>按当前参数加入生图队列</span>
+                <span style="font-family: var(--font-mono); font-size: 11px; opacity: 0.85;" data-win="(Ctrl+Enter)" data-mac="(⌘Return)">(Ctrl+Enter)</span>
+              </button>
+              <button type="button" class="btn-subtle" onclick="triggerAction('已锁定种子 ' + document.getElementById('insp-seed').textContent + ' 发起重跑')">锁定种子重跑</button>
+              <button type="button" class="btn-subtle" onclick="triggerAction('参数已复用到新建任务草稿')">复用全部参数</button>
+            </div>
+
+            <!-- All 3 Sample Parameter Sets (Verbatim Switcher) -->
+            <div class="inspector-group">
+              <div class="field-label-row">
+                <span>固定样例参数集（点击切换检查器）</span>
+                <span style="font-family: var(--font-mono);">3 组样例</span>
+              </div>
+              <div class="sample-presets-list">
+                <button type="button" class="preset-item active" id="preset-btn-0" onclick="selectSampleByIndex(0)">
+                  <div class="preset-prompt">黄昏天台上的城市天际线，冷色，胶片颗粒</div>
+                  <div class="preset-meta">负面：过曝, 多余肢体 ｜ 种子：20481 ｜ steps 28 / 尺寸 1024×576</div>
+                </button>
+                <button type="button" class="preset-item" id="preset-btn-1" onclick="selectSampleByIndex(1)">
+                  <div class="preset-prompt">同一颗行星在不同天气下的样子，九宫格</div>
+                  <div class="preset-meta">负面：文字, 水印 ｜ 种子：20482 ｜ steps 30 / 尺寸 768×768</div>
+                </button>
+                <button type="button" class="preset-item" id="preset-btn-2" onclick="selectSampleByIndex(2)">
+                  <div class="preset-prompt">手绘风格的咖啡店门面招牌，上午光线</div>
+                  <div class="preset-meta">负面：模糊 ｜ 种子：20483 ｜ steps 25 / 尺寸 1024×1024</div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <!-- 4. Bottom Dock: Task Queue & Progress (底部任务队列与进度) -->
+      <section class="queue-dock" aria-label="底部任务队列与进度">
+        <div class="queue-header">
+          <div class="queue-title-group">
+            <span>任务队列与进度（本地执行队列）</span>
+            <span class="kbd-badge">4 项任务样例</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <button type="button" class="btn-subtle" onclick="retryFailedTask()">重试失败任务 (task-b1)</button>
+            <button type="button" class="btn-subtle" onclick="triggerAction('已清理已完成队列记录视图')">折叠已完成</button>
+          </div>
+        </div>
+
+        <div class="queue-table-wrap">
+          <table class="queue-table" aria-label="队列任务列表">
+            <thead>
+              <tr>
+                <th style="width: 110px;">任务</th>
+                <th>提示词</th>
+                <th style="width: 100px;">种子</th>
+                <th style="width: 220px;">状态</th>
+                <th style="width: 180px;">进度</th>
+                <th style="width: 130px;">队列操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="queue-row" onclick="selectSampleByIndex(0, 'card-1')" oncontextmenu="openContextMenu(event, 0)">
+                <td class="mono-cell">task-a1</td>
+                <td>黄昏天台上的城市天际线…</td>
+                <td class="mono-cell">20481</td>
+                <td><span class="status-tag running">生成中（采样 16/28 步）</span></td>
+                <td>
+                  <div class="progress-cell">
+                    <div class="progress-track">
+                      <div class="progress-bar-fill" style="width: 57%; background: var(--status-running);"></div>
+                    </div>
+                    <span class="mono-cell">57%</span>
+                  </div>
+                </td>
+                <td>
+                  <button type="button" class="btn-subtle" onclick="event.stopPropagation(); triggerAction('已暂停 task-a1 采样')">暂停</button>
+                </td>
+              </tr>
+
+              <tr class="queue-row" onclick="selectSampleByIndex(1, 'card-2')" oncontextmenu="openContextMenu(event, 1)">
+                <td class="mono-cell">task-a2</td>
+                <td>同一颗行星在不同天气下…</td>
+                <td class="mono-cell">20482</td>
+                <td><span class="status-tag queued">排队中（第 2 位）</span></td>
+                <td>
+                  <div class="progress-cell">
+                    <div class="progress-track">
+                      <div class="progress-bar-fill" style="width: 0%; background: var(--status-queued);"></div>
+                    </div>
+                    <span class="mono-cell">0%</span>
+                  </div>
+                </td>
+                <td>
+                  <button type="button" class="btn-subtle" onclick="event.stopPropagation(); triggerAction('已将 task-a2 置顶优先排队')">置顶</button>
+                </td>
+              </tr>
+
+              <tr class="queue-row" onclick="selectSampleByIndex(2, 'card-3')" oncontextmenu="openContextMenu(event, 2)">
+                <td class="mono-cell">task-b1</td>
+                <td>手绘风格的咖啡店门面招牌…</td>
+                <td class="mono-cell">20483</td>
+                <td><span class="status-tag error" id="queue-b1-status">失败（显存不足，可重试）</span></td>
+                <td>
+                  <div class="progress-cell">
+                    <div class="progress-track">
+                      <div class="progress-bar-fill" id="queue-b1-bar" style="width: 0%; background: var(--status-error);"></div>
+                    </div>
+                    <span class="mono-cell" id="queue-b1-pct">—</span>
+                  </div>
+                </td>
+                <td>
+                  <button type="button" class="btn-subtle" style="border-color: rgba(240, 82, 82, 0.5); color: #F87171;" onclick="event.stopPropagation(); retryFailedTask()">重试</button>
+                </td>
+              </tr>
+
+              <tr class="queue-row selected" onclick="selectSampleByIndex(0, 'card-0')" oncontextmenu="openContextMenu(event, 0)">
+                <td class="mono-cell">task-c1</td>
+                <td>黄昏天台上的城市天际线…</td>
+                <td class="mono-cell">20481</td>
+                <td><span class="status-tag done">已完成</span></td>
+                <td>
+                  <div class="progress-cell">
+                    <div class="progress-track">
+                      <div class="progress-bar-fill" style="width: 100%; background: var(--status-done);"></div>
+                    </div>
+                    <span class="mono-cell">100%</span>
+                  </div>
+                </td>
+                <td>
+                  <button type="button" class="btn-subtle" onclick="event.stopPropagation(); selectSampleByIndex(0, 'card-0')">定位结果</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <!-- Written Design Specification: 菜单、快捷键与右键菜单的设计 -->
+    <section class="spec-section" id="design-spec-section" aria-label="菜单、快捷键与右键菜单设计说明">
+      <div class="spec-header">
+        <div>
+          <h2 class="spec-title">菜单、快捷键与右键菜单设计规范（Windows &amp; macOS 双平台适配）</h2>
+          <p class="spec-subtitle">针对 Electron / Tauri 本地 AI 生图桌面客户端的原生交互架构说明（可在上方工作台直接点击或右键体验）</p>
+        </div>
+        <span class="proto-tag">桌面端交互设计文档</span>
+      </div>
+
+      <div class="spec-grid-3">
+        <!-- 1. Application Menu Design -->
+        <div class="spec-card">
+          <div class="spec-card-title">
+            <span>一、顶部应用菜单设计 (Application Menu)</span>
+            <span class="kbd-badge">Windows 窗口内嵌 / macOS 顶栏</span>
+          </div>
+          <p style="font-size: 12px; color: var(--text-secondary);">
+            遵循桌面端高频效率原则，分为五大一级菜单；Windows 下支持 <code>Alt+字母</code> 助记键唤醒，macOS 下映射至系统全局 Menu Bar：
+          </p>
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th style="width: 82px;">一级菜单</th>
+                <th>核心菜单项与职责</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>文件 (F)</strong></td>
+                <td>新建项目、打开本地项目目录、导出当前选中图片的参数配置 (JSON)、在系统资源管理器/访达中定位输出目录。</td>
+              </tr>
+              <tr>
+                <td><strong>编辑 (E)</strong></td>
+                <td>复制提示词 (Prompt)、复制负面提示词、复制种子 (Seed)、从剪贴板粘贴并解析生图参数元数据。</td>
+              </tr>
+              <tr>
+                <td><strong>任务 (T)</strong></td>
+                <td>按当前检查器参数发起生成、锁定种子重新采样、重试失败任务（如显存不足的 <code>task-b1</code>）、暂停/恢复本地队列、清空已完成项。</td>
+              </tr>
+              <tr>
+                <td><strong>视图 (V)</strong></td>
+                <td>切换网格缩略图尺寸、按状态筛选（生成中 / 排队中 / 失败 / 已完成）、展开或收起右侧参数检查器与底部队列面板。</td>
+              </tr>
+              <tr>
+                <td><strong>窗口/帮助</strong></td>
+                <td>最小化、全屏切换、打开快捷键速查表、本地显存占用诊断与分块采样 (Tiled VAE) 恢复建议。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 2. Keyboard Shortcuts Matrix -->
+        <div class="spec-card">
+          <div class="spec-card-title">
+            <span>二、快捷键设计 (Keyboard Shortcuts)</span>
+            <span class="kbd-badge">Win / macOS 双键位映射</span>
+          </div>
+          <p style="font-size: 12px; color: var(--text-secondary);">
+            围绕「改参 → 投递队列 → 检视网格 → 复用种子」核心闭环设计，支持单键检视与组合键执行：
+          </p>
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th>功能动作</th>
+                <th>Windows</th>
+                <th>macOS</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>按当前参数加入生图队列</td>
+                <td class="mono-cell">Ctrl + Enter</td>
+                <td class="mono-cell">⌘ + Return</td>
+              </tr>
+              <tr>
+                <td>锁定当前种子重新生成</td>
+                <td class="mono-cell">Ctrl + R</td>
+                <td class="mono-cell">⌘ + R</td>
+              </tr>
+              <tr>
+                <td>重试失败队列任务 (task-b1)</td>
+                <td class="mono-cell">Ctrl + Shift + R</td>
+                <td class="mono-cell">⇧ + ⌘ + R</td>
+              </tr>
+              <tr>
+                <td>复制当前选中图片提示词</td>
+                <td class="mono-cell">Ctrl + C</td>
+                <td class="mono-cell">⌘ + C</td>
+              </tr>
+              <tr>
+                <td>复制当前选中图片种子 (Seed)</td>
+                <td class="mono-cell">Ctrl + Shift + C</td>
+                <td class="mono-cell">⇧ + ⌘ + C</td>
+              </tr>
+              <tr>
+                <td>在资源管理器/访达中定位</td>
+                <td class="mono-cell">Ctrl + Shift + O</td>
+                <td class="mono-cell">⇧ + ⌘ + O</td>
+              </tr>
+              <tr>
+                <td>暂停 / 恢复本地任务队列</td>
+                <td class="mono-cell">Space</td>
+                <td class="mono-cell">Space</td>
+              </tr>
+              <tr>
+                <td>快速切换样例参数 1 / 2 / 3</td>
+                <td class="mono-cell">1 / 2 / 3</td>
+                <td class="mono-cell">1 / 2 / 3</td>
+              </tr>
+              <tr>
+                <td>新建本地项目</td>
+                <td class="mono-cell">Ctrl + N</td>
+                <td class="mono-cell">⌘ + N</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 3. Right-Click Context Menu Design -->
+        <div class="spec-card">
+          <div class="spec-card-title">
+            <span>三、右键菜单设计 (Context Menu)</span>
+            <span class="kbd-badge">支持网格卡片与队列行右键</span>
+          </div>
+          <p style="font-size: 12px; color: var(--text-secondary);">
+            在结果网格卡片或底部队列行点击鼠标右键（或点击卡片右上角「右键菜单 ▾」按钮）即可唤出上下文菜单，分为三组动作层级：
+          </p>
+          <div class="static-ctx-preview" aria-label="右键菜单结构预览">
+            <div class="ctx-header">选中项上下文菜单 · Seed 20481 (1024×576)</div>
+            <div class="static-ctx-row highlight">
+              <span>载入全部参数到右侧检查器</span>
+              <span class="menu-kbd">Enter</span>
+            </div>
+            <div class="static-ctx-row">
+              <span>锁定此种子 (20481) 重新生成</span>
+              <span class="menu-kbd" data-win="Ctrl+R" data-mac="⌘R">Ctrl+R</span>
+            </div>
+            <div class="static-ctx-row">
+              <span>使用此提示词 + 随机新种子生图</span>
+              <span class="menu-kbd" data-win="Ctrl+Shift+Enter" data-mac="⇧⌘Return">Ctrl+Shift+Enter</span>
+            </div>
+            <div class="menu-sep"></div>
+            <div class="static-ctx-row">
+              <span>仅复制正向提示词 (Prompt)</span>
+              <span class="menu-kbd" data-win="Ctrl+C" data-mac="⌘C">Ctrl+C</span>
+            </div>
+            <div class="static-ctx-row">
+              <span>仅复制种子编号 (Seed)</span>
+              <span class="menu-kbd" data-win="Ctrl+Shift+C" data-mac="⇧⌘C">Ctrl+Shift+C</span>
+            </div>
+            <div class="static-ctx-row">
+              <span>移动到其他项目（海报 / 头像 / 背景）</span>
+              <span class="menu-kbd">▸</span>
+            </div>
+            <div class="menu-sep"></div>
+            <div class="static-ctx-row">
+              <span>在本地文件夹中显示占位文件</span>
+              <span class="menu-kbd" data-win="Ctrl+Shift+O" data-mac="⇧⌘O">Ctrl+Shift+O</span>
+            </div>
+            <div class="static-ctx-row" style="color: #F87171;">
+              <span>从当前项目移除此记录</span>
+              <span class="menu-kbd">Delete</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Live Floating Right-Click Context Menu Popup -->
+  <div class="context-menu-popup" id="live-context-menu" role="menu" aria-label="结果卡片右键菜单">
+    <div class="ctx-header" id="ctx-menu-title">卡片操作 · Seed 20481</div>
+    <button type="button" class="menu-item" onclick="ctxLoadInspector()">
+      <span>载入参数到右侧检查器</span><span class="menu-kbd">Enter</span>
+    </button>
+    <button type="button" class="menu-item" onclick="ctxRerunLockedSeed()">
+      <span>锁定此种子重新生成</span><span class="menu-kbd" data-win="Ctrl+R" data-mac="⌘R">Ctrl+R</span>
+    </button>
+    <button type="button" class="menu-item" onclick="ctxEnqueueRandomSeed()">
+      <span>同提示词 + 随机种子加入队列</span><span class="menu-kbd" data-win="Ctrl+Enter" data-mac="⌘Return">Ctrl+Enter</span>
+    </button>
+    <div class="menu-sep"></div>
+    <button type="button" class="menu-item" onclick="copyCurrentPrompt()">
+      <span>复制提示词 (Prompt)</span><span class="menu-kbd" data-win="Ctrl+C" data-mac="⌘C">Ctrl+C</span>
+    </button>
+    <button type="button" class="menu-item" onclick="copyCurrentSeed()">
+      <span>复制种子 (Seed)</span><span class="menu-kbd" data-win="Ctrl+Shift+C" data-mac="⇧⌘C">Ctrl+Shift+C</span>
+    </button>
+    <div class="menu-sep"></div>
+    <button type="button" class="menu-item" onclick="triggerAction('已在系统本地目录高亮定位该占位记录')">
+      <span>在资源管理器/访达中显示</span><span class="menu-kbd" data-win="Ctrl+Shift+O" data-mac="⇧⌘O">Ctrl+Shift+O</span>
+    </button>
+    <button type="button" class="menu-item" style="color: #F87171;" onclick="triggerAction('已标记从项目视图移除（样例保护未删除源数据）')">
+      <span>从当前项目移除记录</span><span class="menu-kbd">Delete</span>
+    </button>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="action-toast" id="action-toast" role="status" aria-live="polite"></div>
+
+  <script>
+    // Fixed sample data strictly from test/materials/07.md
+    const PROJECTS = [
+      { name: "海报-秋季企划", count: 12, desc: "主视觉探索" },
+      { name: "头像-社团招新", count: 8, desc: "一套风格" },
+      { name: "背景-暗色城市", count: 0, desc: "刚创建，还没有任务" }
+    ];
+
+    const SAMPLES = [
+      {
+        prompt: "黄昏天台上的城市天际线，冷色，胶片颗粒",
+        negative: "过曝, 多余肢体",
+        seed: "20481",
+        other: "steps 28 / 尺寸 1024×576"
+      },
+      {
+        prompt: "同一颗行星在不同天气下的样子，九宫格",
+        negative: "文字, 水印",
+        seed: "20482",
+        other: "steps 30 / 尺寸 768×768"
+      },
+      {
+        prompt: "手绘风格的咖啡店门面招牌，上午光线",
+        negative: "模糊",
+        seed: "20483",
+        other: "steps 25 / 尺寸 1024×1024"
+      }
+    ];
+
+    let currentSampleIndex = 0;
+    let contextTargetSampleIndex = 0;
+    let toastTimer = null;
+
+    function showToast(msg) {
+      const toast = document.getElementById("action-toast");
+      toast.textContent = msg;
+      toast.classList.add("show");
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2400);
+    }
+
+    function triggerAction(label) {
+      closeAllMenus();
+      showToast("操作已执行：" + label);
+    }
+
+    function switchOS(os) {
+      const winEl = document.getElementById("desktop-window");
+      winEl.setAttribute("data-os", os);
+      document.getElementById("os-win-btn").classList.toggle("active", os === "win");
+      document.getElementById("os-mac-btn").classList.toggle("active", os === "mac");
+
+      document.querySelectorAll("[data-win][data-mac]").forEach((el) => {
+        el.textContent = os === "mac" ? el.getAttribute("data-mac") : el.getAttribute("data-win");
+      });
+      showToast(os === "mac" ? "已切换为 macOS 窗口与 ⌘ 快捷键显示" : "已切换为 Windows 窗口与 Ctrl 快捷键显示");
+    }
+
+    function selectProject(idx) {
+      const proj = PROJECTS[idx];
+      document.querySelectorAll(".project-item").forEach((el, i) => {
+        const active = i === idx;
+        el.classList.toggle("active", active);
+        el.setAttribute("aria-selected", active ? "true" : "false");
+      });
+
+      document.getElementById("active-project-title").textContent = proj.name;
+      document.getElementById("active-project-meta").textContent =
+        "· " + proj.count + " 张结果（" + proj.desc + " · 全部为标注“占位”的样例图形）";
+
+      const emptyBox = document.getElementById("empty-project-box");
+      const gridEl = document.getElementById("result-grid");
+      if (proj.count === 0) {
+        emptyBox.classList.add("visible");
+        gridEl.style.display = "none";
+      } else {
+        emptyBox.classList.remove("visible");
+        gridEl.style.display = "grid";
+      }
+      showToast("已切换项目：" + proj.name + "（图片数：" + proj.count + "）");
+    }
+
+    function selectSampleByIndex(idx, cardId) {
+      currentSampleIndex = idx;
+      const item = SAMPLES[idx];
+      document.getElementById("insp-prompt").textContent = item.prompt;
+      document.getElementById("insp-neg").textContent = item.negative;
+      document.getElementById("insp-seed").textContent = item.seed;
+      document.getElementById("insp-other").textContent = item.other;
+      document.getElementById("inspector-seed-badge").textContent = "seed " + item.seed;
+
+      document.querySelectorAll(".preset-item").forEach((btn, i) => {
+        btn.classList.toggle("active", i === idx);
+      });
+
+      document.querySelectorAll(".grid-card").forEach((card) => {
+        card.classList.remove("selected");
+      });
+      const targetCard = document.getElementById(cardId || ("card-" + idx)) || document.getElementById("card-0");
+      if (targetCard) {
+        targetCard.classList.add("selected");
+      }
+    }
+
+    function copyCurrentPrompt() {
+      closeAllMenus();
+      const text = SAMPLES[currentSampleIndex].prompt;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).catch(() => {});
+      }
+      showToast("已复制提示词：" + text);
+    }
+
+    function copyCurrentSeed() {
+      closeAllMenus();
+      const seed = SAMPLES[currentSampleIndex].seed;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(seed).catch(() => {});
+      }
+      showToast("已复制种子 (Seed)：" + seed);
+    }
+
+    function enqueueFromInspector() {
+      closeAllMenus();
+      const s = SAMPLES[currentSampleIndex];
+      showToast("已按当前参数投递队列：Seed " + s.seed + "（" + s.other + "）");
+    }
+
+    function retryFailedTask() {
+      closeAllMenus();
+      const statusEl = document.getElementById("queue-b1-status");
+      const pctEl = document.getElementById("queue-b1-pct");
+      const barEl = document.getElementById("queue-b1-bar");
+      const cardBadge = document.getElementById("card3-status-badge");
+
+      statusEl.textContent = "排队中（显存释放后重试）";
+      statusEl.className = "status-tag queued";
+      pctEl.textContent = "0%";
+      barEl.style.width = "15%";
+      barEl.style.background = "var(--status-queued)";
+      if (cardBadge) {
+        cardBadge.textContent = "重试排队中";
+        cardBadge.className = "status-tag queued";
+      }
+      selectSampleByIndex(2, "card-3");
+      showToast("已重新排入队列：task-b1（Seed 20483 · 1024×1024）");
+    }
+
+    function toggleMenu(menuId, event) {
+      event.stopPropagation();
+      const target = document.getElementById(menuId);
+      const isOpen = target.classList.contains("open");
+      closeAllMenus();
+      if (!isOpen) {
+        target.classList.add("open");
+      }
+    }
+
+    function openContextMenu(event, sampleIdx) {
+      event.preventDefault();
+      event.stopPropagation();
+      closeAllMenus();
+      contextTargetSampleIndex = sampleIdx;
+      selectSampleByIndex(sampleIdx);
+
+      const menu = document.getElementById("live-context-menu");
+      const s = SAMPLES[sampleIdx];
+      document.getElementById("ctx-menu-title").textContent =
+        "右键菜单 · Seed " + s.seed + " (" + s.other.split("/")[1].trim() + ")";
+
+      const x = Math.min(event.clientX, window.innerWidth - 265);
+      const y = Math.min(event.clientY, window.innerHeight - 270);
+      menu.style.left = Math.max(8, x) + "px";
+      menu.style.top = Math.max(8, y) + "px";
+      menu.classList.add("open");
+    }
+
+    function openContextMenuFromButton(event, sampleIdx) {
+      event.stopPropagation();
+      const rect = event.currentTarget.getBoundingClientRect();
+      openContextMenu(
+        {
+          preventDefault: () => {},
+          stopPropagation: () => {},
+          clientX: rect.left - 140,
+          clientY: rect.bottom + 4
+        },
+        sampleIdx
+      );
+    }
+
+    function ctxLoadInspector() {
+      selectSampleByIndex(contextTargetSampleIndex);
+      closeAllMenus();
+      showToast("已载入 Seed " + SAMPLES[contextTargetSampleIndex].seed + " 到右侧参数检查器");
+    }
+
+    function ctxRerunLockedSeed() {
+      const s = SAMPLES[contextTargetSampleIndex];
+      closeAllMenus();
+      showToast("已锁定种子 " + s.seed + " 重新提交采样任务");
+    }
+
+    function ctxEnqueueRandomSeed() {
+      const s = SAMPLES[contextTargetSampleIndex];
+      closeAllMenus();
+      showToast("已复用提示词「" + s.prompt.slice(0, 10) + "…」提交新任务");
+    }
+
+    function closeAllMenus() {
+      document.querySelectorAll(".menu-dropdown, .context-menu-popup").forEach((el) => {
+        el.classList.remove("open");
+      });
+    }
+
+    function scrollToSpec() {
+      closeAllMenus();
+      document.getElementById("design-spec-section").scrollIntoView({ behavior: "smooth" });
+    }
+
+    document.addEventListener("click", () => {
+      closeAllMenus();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeAllMenus();
+      } else if (e.key === "1" && !e.ctrlKey && !e.metaKey) {
+        selectSampleByIndex(0, "card-0");
+        showToast("快捷键 1：已选中样例 Seed 20481");
+      } else if (e.key === "2" && !e.ctrlKey && !e.metaKey) {
+        selectSampleByIndex(1, "card-2");
+        showToast("快捷键 2：已选中样例 Seed 20482");
+      } else if (e.key === "3" && !e.ctrlKey && !e.metaKey) {
+        selectSampleByIndex(2, "card-3");
+        showToast("快捷键 3：已选中样例 Seed 20483");
+      } else if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+        e.preventDefault();
+        enqueueFromInspector();
+      } else if (e.key === "F1") {
+        e.preventDefault();
+        scrollToSpec();
+      }
+    });
+  </script>
+</body>
+</html>
