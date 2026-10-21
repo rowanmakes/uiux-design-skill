@@ -1,0 +1,85 @@
+{
+  "script": "scripts/ref-shot.mjs",
+  "requestedUrl": "https://spaceship.com",
+  "finalUrl": "https://www.spaceship.com/",
+  "redirectChain": [],
+  "httpStatus": 200,
+  "statusText": "",
+  "startedAt": "2026-10-21T14:05:57.286Z",
+  "finishedAt": "2026-10-21T14:06:11.778Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "userAgentOverride": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+  "navigationTimeoutMs": 45000,
+  "animWaitMs": 3000,
+  "navigationError": null,
+  "timingsMs": {
+    "navigation": 7631,
+    "animWaitAfterLoad": 3000,
+    "scrollWait": 3000
+  },
+  "title": "Launch into the future - Spaceship",
+  "page": {
+    "textLength": 5746,
+    "elementCount": 2485,
+    "imageCount": 62
+  },
+  "scroll": {
+    "innerHeight": 900,
+    "documentScrollHeight": 19310,
+    "scrollYBefore": 0,
+    "scrollYAfter": 900,
+    "attempts": [
+      {
+        "method": "window.scrollBy(0, innerHeight)",
+        "scrollYAfter": 900
+      }
+    ]
+  },
+  "blockedPagePatterns": [],
+  "screenshots": [
+    {
+      "file": "01-fold.png",
+      "takenAt": "2026-10-21T14:06:08.221Z",
+      "scrollY": 0,
+      "bytes": 454192,
+      "pixels": {
+        "supported": true,
+        "width": 1440,
+        "height": 900,
+        "uniqueQuantizedColors": 253,
+        "luminanceStdDev": 44.05,
+        "dominantColorFraction": 0.3071
+      }
+    },
+    {
+      "file": "02-scrolled.png",
+      "takenAt": "2026-10-21T14:06:11.474Z",
+      "scrollY": 900,
+      "bytes": 842678,
+      "pixels": {
+        "supported": true,
+        "width": 1440,
+        "height": 900,
+        "uniqueQuantizedColors": 259,
+        "luminanceStdDev": 44.61,
+        "dominantColorFraction": 0.1865
+      }
+    }
+  ],
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 403 ()",
+    "Failed to preheat registry service {\"type\":\"InternalError\",\"message\":\"Failed to preheat registry service\",\"stack\":[\"BaseError: Failed to preheat registry service\",\"    at https://spaceship-cdn.com/ilc",
+    "Connecting to 'https://ad.doubleclick.net/ccm/s/collect?auid=1010437548.1792591564&gtm=45E92e6aj1v812356919za204zd812356919xeaxf4&fmt=8' violates the following Content Security Policy directive: \"conn",
+    "Fetch API cannot load https://ad.doubleclick.net/ccm/s/collect?auid=1010437548.1792591564&gtm=45E92e6aj1v812356919za204zd812356919xeaxf4&fmt=8. Refused to connect because it violates the document's Co",
+    "Failed to load resource: the server responded with a status of 403 ()"
+  ],
+  "pageErrors": [],
+  "assessment": {
+    "status": "content",
+    "looksLikeContent": true,
+    "reasons": []
+  }
+}

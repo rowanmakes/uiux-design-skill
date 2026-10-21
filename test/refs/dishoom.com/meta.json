@@ -1,0 +1,79 @@
+{
+  "script": "scripts/ref-shot.mjs",
+  "requestedUrl": "https://dishoom.com",
+  "finalUrl": "https://www.dishoom.com/",
+  "redirectChain": [],
+  "httpStatus": 200,
+  "statusText": "",
+  "startedAt": "2026-10-21T14:06:13.703Z",
+  "finishedAt": "2026-10-21T14:06:25.731Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "userAgentOverride": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+  "navigationTimeoutMs": 45000,
+  "animWaitMs": 3000,
+  "navigationError": null,
+  "timingsMs": {
+    "navigation": 5417,
+    "animWaitAfterLoad": 3000,
+    "scrollWait": 3000
+  },
+  "title": "Dishoom | Indian Restaurants | From Bombay with Love",
+  "page": {
+    "textLength": 5627,
+    "elementCount": 2774,
+    "imageCount": 80
+  },
+  "scroll": {
+    "innerHeight": 900,
+    "documentScrollHeight": 10198,
+    "scrollYBefore": 0,
+    "scrollYAfter": 900,
+    "attempts": [
+      {
+        "method": "window.scrollBy(0, innerHeight)",
+        "scrollYAfter": 900
+      }
+    ]
+  },
+  "blockedPagePatterns": [],
+  "screenshots": [
+    {
+      "file": "01-fold.png",
+      "takenAt": "2026-10-21T14:06:22.426Z",
+      "scrollY": 0,
+      "bytes": 54998,
+      "pixels": {
+        "supported": true,
+        "width": 1440,
+        "height": 900,
+        "uniqueQuantizedColors": 40,
+        "luminanceStdDev": 27.38,
+        "dominantColorFraction": 0.5738
+      }
+    },
+    {
+      "file": "02-scrolled.png",
+      "takenAt": "2026-10-21T14:06:25.562Z",
+      "scrollY": 900,
+      "bytes": 299840,
+      "pixels": {
+        "supported": true,
+        "width": 1440,
+        "height": 900,
+        "uniqueQuantizedColors": 78,
+        "luminanceStdDev": 23.37,
+        "dominantColorFraction": 0.4197
+      }
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "assessment": {
+    "status": "content",
+    "looksLikeContent": true,
+    "reasons": []
+  }
+}

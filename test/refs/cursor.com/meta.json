@@ -1,0 +1,81 @@
+{
+  "script": "scripts/ref-shot.mjs",
+  "requestedUrl": "https://cursor.com",
+  "finalUrl": "https://cursor.com/",
+  "redirectChain": [],
+  "httpStatus": 200,
+  "statusText": "",
+  "startedAt": "2026-10-21T14:05:46.905Z",
+  "finishedAt": "2026-10-21T14:05:56.058Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "userAgentOverride": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+  "navigationTimeoutMs": 45000,
+  "animWaitMs": 3000,
+  "navigationError": null,
+  "timingsMs": {
+    "navigation": 2495,
+    "animWaitAfterLoad": 3000,
+    "scrollWait": 3000
+  },
+  "title": "AI Coding Agent for Building Ambitious Software | Cursor",
+  "page": {
+    "textLength": 10567,
+    "elementCount": 2506,
+    "imageCount": 28
+  },
+  "scroll": {
+    "innerHeight": 900,
+    "documentScrollHeight": 8199,
+    "scrollYBefore": 0,
+    "scrollYAfter": 900,
+    "attempts": [
+      {
+        "method": "window.scrollBy(0, innerHeight)",
+        "scrollYAfter": 900
+      }
+    ]
+  },
+  "blockedPagePatterns": [],
+  "screenshots": [
+    {
+      "file": "01-fold.png",
+      "takenAt": "2026-10-21T14:05:52.681Z",
+      "scrollY": 0,
+      "bytes": 314436,
+      "pixels": {
+        "supported": true,
+        "width": 1440,
+        "height": 900,
+        "uniqueQuantizedColors": 698,
+        "luminanceStdDev": 37.14,
+        "dominantColorFraction": 0.5674
+      }
+    },
+    {
+      "file": "02-scrolled.png",
+      "takenAt": "2026-10-21T14:05:55.910Z",
+      "scrollY": 900,
+      "bytes": 201813,
+      "pixels": {
+        "supported": true,
+        "width": 1440,
+        "height": 900,
+        "uniqueQuantizedColors": 598,
+        "luminanceStdDev": 34.33,
+        "dominantColorFraction": 0.4659
+      }
+    }
+  ],
+  "consoleErrors": [
+    "Loading the image 'https://c.bing.com/c.gif?Red3=BACID_G120D31V&vid=222cb9424267424cbe7ea15ec85b9dc5' violates the following Content Security Policy directive: \"img-src 'self' blob: data: cursor.com *"
+  ],
+  "pageErrors": [],
+  "assessment": {
+    "status": "content",
+    "looksLikeContent": true,
+    "reasons": []
+  }
+}

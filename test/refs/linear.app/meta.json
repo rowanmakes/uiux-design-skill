@@ -1,0 +1,79 @@
+{
+  "script": "scripts/ref-shot.mjs",
+  "requestedUrl": "https://linear.app",
+  "finalUrl": "https://linear.app/",
+  "redirectChain": [],
+  "httpStatus": 200,
+  "statusText": "",
+  "startedAt": "2026-10-21T14:05:07.519Z",
+  "finishedAt": "2026-10-21T14:05:17.998Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "userAgentOverride": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+  "navigationTimeoutMs": 45000,
+  "animWaitMs": 3000,
+  "navigationError": null,
+  "timingsMs": {
+    "navigation": 3735,
+    "animWaitAfterLoad": 3000,
+    "scrollWait": 3000
+  },
+  "title": "Linear – The system for product development",
+  "page": {
+    "textLength": 8820,
+    "elementCount": 4854,
+    "imageCount": 38
+  },
+  "scroll": {
+    "innerHeight": 900,
+    "documentScrollHeight": 9960,
+    "scrollYBefore": 0,
+    "scrollYAfter": 900,
+    "attempts": [
+      {
+        "method": "window.scrollBy(0, innerHeight)",
+        "scrollYAfter": 900
+      }
+    ]
+  },
+  "blockedPagePatterns": [],
+  "screenshots": [
+    {
+      "file": "01-fold.png",
+      "takenAt": "2026-10-21T14:05:14.535Z",
+      "scrollY": 0,
+      "bytes": 336128,
+      "pixels": {
+        "supported": true,
+        "width": 1440,
+        "height": 900,
+        "uniqueQuantizedColors": 560,
+        "luminanceStdDev": 36.59,
+        "dominantColorFraction": 0.5733
+      }
+    },
+    {
+      "file": "02-scrolled.png",
+      "takenAt": "2026-10-21T14:05:17.766Z",
+      "scrollY": 900,
+      "bytes": 384361,
+      "pixels": {
+        "supported": true,
+        "width": 1440,
+        "height": 900,
+        "uniqueQuantizedColors": 609,
+        "luminanceStdDev": 37.35,
+        "dominantColorFraction": 0.5895
+      }
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "assessment": {
+    "status": "content",
+    "looksLikeContent": true,
+    "reasons": []
+  }
+}

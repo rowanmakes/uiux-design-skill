@@ -1,0 +1,79 @@
+{
+  "script": "scripts/ref-shot.mjs",
+  "requestedUrl": "https://grok.com",
+  "finalUrl": "https://grok.com/",
+  "redirectChain": [],
+  "httpStatus": 200,
+  "statusText": "",
+  "startedAt": "2026-10-21T14:05:31.689Z",
+  "finishedAt": "2026-10-21T14:05:45.025Z",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "userAgentOverride": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+  "navigationTimeoutMs": 45000,
+  "animWaitMs": 3000,
+  "navigationError": null,
+  "timingsMs": {
+    "navigation": 6827,
+    "animWaitAfterLoad": 3000,
+    "scrollWait": 3000
+  },
+  "title": "Grok",
+  "page": {
+    "textLength": 514,
+    "elementCount": 611,
+    "imageCount": 2
+  },
+  "scroll": {
+    "innerHeight": 900,
+    "documentScrollHeight": 900,
+    "scrollYBefore": 0,
+    "scrollYAfter": 0,
+    "attempts": [
+      {
+        "method": "window.scrollBy(0, innerHeight)",
+        "scrollYAfter": 0
+      }
+    ]
+  },
+  "blockedPagePatterns": [],
+  "screenshots": [
+    {
+      "file": "01-fold.png",
+      "takenAt": "2026-10-21T14:05:41.760Z",
+      "scrollY": 0,
+      "bytes": 56277,
+      "pixels": {
+        "supported": true,
+        "width": 1440,
+        "height": 900,
+        "uniqueQuantizedColors": 370,
+        "luminanceStdDev": 22.13,
+        "dominantColorFraction": 0.9755
+      }
+    },
+    {
+      "file": "02-scrolled.png",
+      "takenAt": "2026-10-21T14:05:44.889Z",
+      "scrollY": 0,
+      "bytes": 54679,
+      "pixels": {
+        "supported": true,
+        "width": 1440,
+        "height": 900,
+        "uniqueQuantizedColors": 370,
+        "luminanceStdDev": 21.94,
+        "dominantColorFraction": 0.9762
+      }
+    }
+  ],
+  "consoleErrors": [],
+  "pageErrors": [],
+  "assessment": {
+    "status": "content",
+    "looksLikeContent": true,
+    "reasons": []
+  }
+}
