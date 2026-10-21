@@ -10,6 +10,7 @@
 skill/uiux-design/          Skill 本体，整个目录复制到 agent 的 skills 文件夹即可
   SKILL.md                  主流程
   references/
+    research.md             先问清楚、找同类与跨品类参考
     taste.md                品味：把"高级感"写成参数、骨架、素材、中文规则和自检
     app.md                  手机 App 与桌面客户端：平台规范、手感、状态、跨平台取舍
     workbench.md            桌面工作台：面板系统、画布、键盘、密度、持久化
@@ -22,6 +23,7 @@ evals/evals.json            7 个测试简报（网页 4 个、手机 1 个、�
 docs/playbook.md            本地 agent 测试与迭代手册（含提示词）
 docs/research/              原始笔记与外部技能调研
 scripts/shot.mjs            宽窄屏截图与机检脚本（Playwright）
+scripts/ref-shot.mjs        参考网站截图脚本
 docs/coverage.md            覆盖矩阵：哪些场景有证据、哪些只写了规则
 CHANGELOG.md                每次改动的现象、假设、改动与结果
 ```
