@@ -25,6 +25,7 @@ docs/research/              原始笔记与外部技能调研
 scripts/shot.mjs            宽窄屏截图与机检脚本（Playwright）
 scripts/ref-shot.mjs        参考网站截图脚本
 docs/coverage.md            覆盖矩阵：哪些场景有证据、哪些只写了规则
+library/                    参考库：按品类沉淀参考网站与用户的反应
 CHANGELOG.md                每次改动的现象、假设、改动与结果
 ```
 
