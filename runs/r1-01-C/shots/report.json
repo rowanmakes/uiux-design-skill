@@ -1,0 +1,215 @@
+{
+  "file": "index.html",
+  "viewports": {
+    "wide": {
+      "width": 1440,
+      "height": 900,
+      "horizontalOverflow": false
+    },
+    "narrow": {
+      "width": 390,
+      "height": 844,
+      "horizontalOverflow": false
+    }
+  },
+  "consoleErrors": [],
+  "pageErrors": [],
+  "externalRequests": [],
+  "tabStops": [
+    {
+      "tag": "a",
+      "text": "跳到主要内容",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙\n成都 · 文字标识占位",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "工作室介绍",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "当季三款豆单",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "订阅方式与价格",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "配置按月订阅",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "选择豆款并配置订阅（¥62 / 月起）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "查看三款豆子详情",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "全部（3 款）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "水洗",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "日晒",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "蜜处理",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "厌氧（演示空状态）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "已选为首期豆款",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "选入首期订阅",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "选入首期订阅",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "单袋订阅价\n¥62 / 月起\n每期 1 袋 200g · 适合日常单人手冲",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "双袋尝鲜组合\n¥118 / 月\n每期 2 袋 × 200g · 可选不同处理法对",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每 2 周",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每月",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每 6 周",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "−",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "+",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "+",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "+",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "input",
+      "text": "",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "input",
+      "text": "",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "input",
+      "text": "",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "确认订阅方案（¥62 / 月起）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "input",
+      "text": "",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "跳到主要内容",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙\n成都 · 文字标识占位",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "工作室介绍",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "当季三款豆单",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "订阅方式与价格",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "配置按月订阅",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "选择豆款并配置订阅（¥62 / 月起）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "查看三款豆子详情",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "全部（3 款）",
+      "visibleFocusStyle": true
+    }
+  ]
+}

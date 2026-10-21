@@ -1,0 +1,2382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>半山烘焙 · 成都小型精品咖啡豆烘焙工作室（官网首页样例）</title>
+  <style>
+    :root {
+      /* 原浆牛皮纸与浅中烘档案色板 */
+      --bg-paper: #F4EFE6;
+      --bg-paper-deep: #EAE2D3;
+      --bg-card: #FAF7F2;
+      --bg-ink-card: #1F1A17;
+      --ink-900: #1D1815;
+      --ink-700: #4A3F37;
+      --ink-500: #786B60;
+      --ink-400: #9A8D80;
+      --line-soft: #D8CEBE;
+      --line-strong: #2B241F;
+
+      /* 烘焙与三款豆子风味主题色 */
+      --roast-amber: #A64B2A;
+      --roast-amber-soft: #F3E4DC;
+      --bean-washed: #2F5659;      /* 云雾水洗：云雾青灰 */
+      --bean-washed-bg: #E7EFEF;
+      --bean-natural: #8C3F23;     /* 火塘日晒：火塘可可暖棕 */
+      --bean-natural-bg: #F4E6DF;
+      --bean-honey: #9A6324;       /* 山脊蜜处理：焦糖蜜金 */
+      --bean-honey-bg: #F5ECDC;
+
+      /* 系统字体栈（零外部网络请求） */
+      --font-serif: "Songti SC", "STSong", "Noto Serif SC", "Source Han Serif SC", "PMingLiU", Georgia, serif;
+      --font-sans: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+
+      --shadow-card: 0 10px 30px rgba(29, 24, 21, 0.05);
+      --radius-sm: 4px;
+      --radius-md: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-paper);
+      color: var(--ink-900);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--bg-paper);
+      background-image:
+        radial-gradient( rgba(29, 24, 21, 0.03) 1px, transparent 0 ),
+        linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(234,226,211,0.25) 100%);
+      background-size: 24px 24px, 100% 100%;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    /* 顶部样例状态说明条 */
+    .sample-ribbon {
+      background-color: var(--ink-900);
+      color: #EAE2D3;
+      font-size: 0.78rem;
+      padding: 0.55rem 1.25rem;
+      border-bottom: 1px solid #3A312B;
+    }
+
+    .sample-ribbon-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .sample-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: var(--font-mono);
+      letter-spacing: 0.04em;
+    }
+
+    .sample-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: #D97954;
+      display: inline-block;
+    }
+
+    .placeholder-toggle-btn {
+      color: #F4EFE6;
+      border: 1px solid rgba(244, 239, 230, 0.32);
+      padding: 0.2rem 0.65rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.74rem;
+      transition: all 0.2s ease;
+    }
+
+    .placeholder-toggle-btn:hover,
+    .placeholder-toggle-btn[aria-pressed="true"] {
+      background-color: var(--roast-amber);
+      border-color: var(--roast-amber);
+      color: #FFF;
+    }
+
+    /* 占位高亮模式 */
+    body.highlight-placeholders [data-placeholder="true"] {
+      outline: 2px dashed var(--roast-amber) !important;
+      outline-offset: 3px;
+      position: relative;
+    }
+
+    /* 顶部导航栏 */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background-color: rgba(244, 239, 230, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.95rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .brand-mark-stamp {
+      border: 1.5px solid var(--line-strong);
+      padding: 0.32rem 0.55rem;
+      background-color: var(--bg-card);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      line-height: 1.05;
+    }
+
+    .brand-mark-stamp .stamp-cn {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.12em;
+      color: var(--ink-900);
+    }
+
+    .brand-mark-stamp .stamp-note {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      color: var(--ink-500);
+      margin-top: 2px;
+    }
+
+    .brand-titles {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-family: var(--font-serif);
+      font-size: 1.28rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--ink-900);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo-disclaimer-tag {
+      font-family: var(--font-sans);
+      font-size: 0.68rem;
+      font-weight: 500;
+      color: var(--ink-500);
+      background-color: var(--bg-paper-deep);
+      border: 1px solid var(--line-soft);
+      padding: 0.08rem 0.42rem;
+      border-radius: 3px;
+    }
+
+    .brand-sub {
+      font-size: 0.76rem;
+      color: var(--ink-500);
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.35rem;
+      list-style: none;
+      font-size: 0.88rem;
+      color: var(--ink-700);
+    }
+
+    .nav-links a {
+      padding: 0.25rem 0;
+      border-bottom: 1.5px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink-900);
+      border-bottom-color: var(--roast-amber);
+    }
+
+    .nav-num {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--roast-amber);
+      margin-right: 0.25rem;
+    }
+
+    .header-cta {
+      background-color: var(--ink-900);
+      color: var(--bg-card);
+      font-size: 0.84rem;
+      font-weight: 500;
+      padding: 0.55rem 1rem;
+      border-radius: var(--radius-sm);
+      transition: background-color 0.2s ease, transform 0.15s ease;
+    }
+
+    .header-cta:hover {
+      background-color: var(--roast-amber);
+      transform: translateY(-1px);
+    }
+
+    /* 主容器与通用分节 */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    .section-block {
+      padding: 4.5rem 0;
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .section-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.15rem;
+      border-bottom: 1.5px solid var(--line-strong);
+    }
+
+    .section-kicker {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--roast-amber);
+      margin-bottom: 0.35rem;
+      display: block;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.65rem, 2.8vw, 2.25rem);
+      font-weight: 700;
+      color: var(--ink-900);
+      letter-spacing: 0.02em;
+      line-height: 1.25;
+    }
+
+    .section-desc {
+      font-size: 0.92rem;
+      color: var(--ink-700);
+      max-width: 480px;
+    }
+
+    /* 首屏 Hero 区域 */
+    .hero-section {
+      padding: 3.5rem 0 4.5rem;
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 2.75rem;
+      align-items: stretch;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .hero-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.26rem 0.7rem;
+      border-radius: 3px;
+      background-color: var(--bg-paper-deep);
+      border: 1px solid var(--line-soft);
+      color: var(--ink-700);
+    }
+
+    .meta-pill.accent {
+      background-color: var(--roast-amber-soft);
+      border-color: rgba(166, 75, 42, 0.35);
+      color: var(--roast-amber);
+    }
+
+    .hero-headline {
+      font-family: var(--font-serif);
+      font-size: clamp(2.1rem, 4vw, 3.25rem);
+      line-height: 1.2;
+      font-weight: 700;
+      color: var(--ink-900);
+      letter-spacing: 0.02em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-headline .quote-mark {
+      color: var(--roast-amber);
+    }
+
+    /* 品牌介绍原样引述卡 */
+    .verbatim-intro-card {
+      background-color: var(--bg-card);
+      border: 1.5px solid var(--line-strong);
+      border-left: 5px solid var(--roast-amber);
+      padding: 1.35rem 1.5rem;
+      margin-bottom: 1.75rem;
+      box-shadow: var(--shadow-card);
+      position: relative;
+    }
+
+    .verbatim-label-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--ink-500);
+      margin-bottom: 0.65rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 1px dashed var(--line-soft);
+    }
+
+    .verbatim-text {
+      font-size: 1.04rem;
+      line-height: 1.82;
+      color: var(--ink-900);
+      font-weight: 400;
+    }
+
+    /* 三个核心事实锚点 */
+    .hero-facts-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.85rem;
+      margin-bottom: 1.85rem;
+    }
+
+    .fact-cell {
+      background-color: rgba(250, 247, 242, 0.7);
+      border: 1px solid var(--line-soft);
+      padding: 0.85rem 0.95rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .fact-cell-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--ink-500);
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .fact-cell-value {
+      font-family: var(--font-serif);
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--ink-900);
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.9rem;
+    }
+
+    .btn-primary {
+      background-color: var(--roast-amber);
+      color: #FFF;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 0.85rem 1.55rem;
+      border-radius: var(--radius-sm);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background-color 0.2s, transform 0.15s;
+      box-shadow: 0 4px 14px rgba(166, 75, 42, 0.22);
+    }
+
+    .btn-primary:hover {
+      background-color: #8E3D20;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background-color: var(--bg-card);
+      color: var(--ink-900);
+      border: 1.5px solid var(--line-strong);
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 0.82rem 1.4rem;
+      border-radius: var(--radius-sm);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: background-color 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--bg-paper-deep);
+    }
+
+    /* 首屏右侧：订阅豆袋正面贴标与无照片占位展示框 */
+    .hero-bag-stage {
+      background-color: var(--bg-paper-deep);
+      border: 1.5px solid var(--line-strong);
+      border-radius: var(--radius-md);
+      padding: 1.35rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      box-shadow: var(--shadow-card);
+    }
+
+    .stage-top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--ink-700);
+    }
+
+    .placeholder-stamp {
+      background-color: var(--ink-900);
+      color: #F4EFE6;
+      padding: 0.2rem 0.55rem;
+      border-radius: 3px;
+      font-size: 0.7rem;
+    }
+
+    /* 模拟 200g 咖啡豆袋贴标卡片 */
+    .coffee-bag-mockup {
+      background-color: var(--bg-card);
+      border: 2px solid var(--line-strong);
+      padding: 1.35rem;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0.95rem;
+    }
+
+    .bag-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border-bottom: 1.5px solid var(--line-strong);
+      padding-bottom: 0.7rem;
+    }
+
+    .bag-studio-title {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: 0.08em;
+    }
+
+    .bag-studio-loc {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--ink-500);
+    }
+
+    .bag-weight-box {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      border: 1px solid var(--line-strong);
+      padding: 0.15rem 0.45rem;
+      background-color: var(--bg-paper);
+    }
+
+    /* 几何海拔/处理法图形占位块 */
+    .bag-graphic-placeholder {
+      height: 118px;
+      border: 1px dashed var(--line-strong);
+      background-color: var(--bean-washed-bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      transition: background-color 0.25s ease;
+      padding: 0.75rem;
+      text-align: center;
+    }
+
+    .bag-graphic-svg {
+      width: 100%;
+      height: 62px;
+      opacity: 0.85;
+    }
+
+    .placeholder-caption {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--ink-700);
+      background-color: rgba(250, 247, 242, 0.9);
+      padding: 0.12rem 0.5rem;
+      border: 1px solid var(--line-soft);
+      margin-top: 0.25rem;
+    }
+
+    .bag-bean-title-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .bag-bean-name {
+      font-family: var(--font-serif);
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--ink-900);
+    }
+
+    .bag-bean-price {
+      font-family: var(--font-mono);
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--roast-amber);
+    }
+
+    .bag-spec-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-top: 1px solid var(--line-soft);
+      border-bottom: 1px solid var(--line-soft);
+      font-size: 0.83rem;
+    }
+
+    .bag-spec-cell {
+      padding: 0.5rem 0.4rem;
+    }
+
+    .bag-spec-cell:first-child {
+      border-right: 1px solid var(--line-soft);
+    }
+
+    .bag-spec-k {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--ink-500);
+      display: block;
+    }
+
+    .bag-spec-v {
+      font-weight: 600;
+      color: var(--ink-900);
+    }
+
+    .bag-flavor-box {
+      background-color: var(--bg-paper);
+      padding: 0.6rem 0.75rem;
+      border-left: 3px solid var(--line-strong);
+      font-size: 0.85rem;
+    }
+
+    .bag-roast-stamp {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--ink-500);
+      padding-top: 0.25rem;
+    }
+
+    /* 豆袋切换按钮组 */
+    .stage-switcher {
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .stage-switcher-label {
+      font-size: 0.76rem;
+      color: var(--ink-700);
+      font-weight: 500;
+    }
+
+    .stage-tab-group {
+      display: flex;
+      gap: 0.35rem;
+    }
+
+    .stage-tab {
+      font-size: 0.76rem;
+      padding: 0.3rem 0.65rem;
+      border: 1px solid var(--line-strong);
+      background-color: var(--bg-card);
+      color: var(--ink-700);
+      border-radius: 3px;
+      transition: all 0.15s;
+    }
+
+    .stage-tab.active {
+      background-color: var(--ink-900);
+      color: var(--bg-card);
+      font-weight: 600;
+    }
+
+    /* 第二部分：当期三款豆子信息 */
+    .beans-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .filter-label {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--ink-500);
+      margin-right: 0.3rem;
+    }
+
+    .filter-btn {
+      padding: 0.42rem 0.9rem;
+      border: 1px solid var(--line-strong);
+      background-color: var(--bg-card);
+      color: var(--ink-700);
+      font-size: 0.84rem;
+      border-radius: 3px;
+      transition: all 0.15s ease;
+    }
+
+    .filter-btn.active,
+    .filter-btn:hover {
+      background-color: var(--ink-900);
+      color: var(--bg-card);
+    }
+
+    .view-mode-switch {
+      display: inline-flex;
+      border: 1px solid var(--line-strong);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .view-btn {
+      padding: 0.4rem 0.85rem;
+      font-size: 0.8rem;
+      background-color: var(--bg-card);
+      color: var(--ink-700);
+    }
+
+    .view-btn.active {
+      background-color: var(--roast-amber);
+      color: #FFF;
+      font-weight: 600;
+    }
+
+    /* 三款豆子卡片网格 */
+    .beans-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2.25rem;
+    }
+
+    .bean-card {
+      background-color: var(--bg-card);
+      border: 1.5px solid var(--line-strong);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+      position: relative;
+      box-shadow: var(--shadow-card);
+    }
+
+    .bean-card.dimmed {
+      opacity: 0.32;
+      transform: scale(0.98);
+    }
+
+    .bean-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .bean-card-top {
+      padding: 1.25rem 1.35rem 1rem;
+      border-bottom: 1px solid var(--line-soft);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .bean-index {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--ink-500);
+    }
+
+    .process-badge {
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.2rem 0.65rem;
+      border-radius: 3px;
+      border: 1px solid currentColor;
+    }
+
+    .bean-card[data-process="水洗"] .process-badge {
+      color: var(--bean-washed);
+      background-color: var(--bean-washed-bg);
+    }
+
+    .bean-card[data-process="日晒"] .process-badge {
+      color: var(--bean-natural);
+      background-color: var(--bean-natural-bg);
+    }
+
+    .bean-card[data-process="蜜处理"] .process-badge {
+      color: var(--bean-honey);
+      background-color: var(--bean-honey-bg);
+    }
+
+    /* 豆卡内嵌几何色块占位区 */
+    .bean-visual-slot {
+      margin: 1rem 1.35rem 0;
+      height: 110px;
+      border: 1px dashed var(--line-soft);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem;
+      position: relative;
+    }
+
+    .bean-card[data-process="水洗"] .bean-visual-slot {
+      background-color: var(--bean-washed-bg);
+    }
+    .bean-card[data-process="日晒"] .bean-visual-slot {
+      background-color: var(--bean-natural-bg);
+    }
+    .bean-card[data-process="蜜处理"] .bean-visual-slot {
+      background-color: var(--bean-honey-bg);
+    }
+
+    .slot-badge {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--ink-700);
+      background-color: rgba(250, 247, 242, 0.92);
+      border: 1px solid var(--line-soft);
+      padding: 0.1rem 0.45rem;
+      margin-top: 0.35rem;
+    }
+
+    .bean-card-body {
+      padding: 1.2rem 1.35rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.95rem;
+    }
+
+    .bean-name-heading {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--ink-900);
+      letter-spacing: 0.03em;
+    }
+
+    .bean-specs-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.55rem;
+      border-top: 1px solid var(--line-soft);
+      border-bottom: 1px solid var(--line-soft);
+      padding: 0.85rem 0;
+      font-size: 0.88rem;
+    }
+
+    .spec-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .spec-key {
+      color: var(--ink-500);
+      font-size: 0.8rem;
+    }
+
+    .spec-val {
+      font-weight: 600;
+      color: var(--ink-900);
+      text-align: right;
+    }
+
+    .flavor-section-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--ink-500);
+      margin-bottom: 0.35rem;
+      display: block;
+    }
+
+    .flavor-verbatim {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink-900);
+      margin-bottom: 0.5rem;
+    }
+
+    .flavor-tags-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .flavor-chip {
+      font-size: 0.76rem;
+      padding: 0.18rem 0.55rem;
+      background-color: var(--bg-paper);
+      border: 1px solid var(--line-soft);
+      border-radius: 3px;
+      color: var(--ink-700);
+    }
+
+    .roast-batch-note {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--ink-500);
+      background-color: var(--bg-paper);
+      padding: 0.45rem 0.65rem;
+      border-radius: 3px;
+      border: 1px dashed var(--line-soft);
+    }
+
+    .bean-card-footer {
+      padding: 1rem 1.35rem;
+      background-color: var(--bg-paper);
+      border-top: 1.5px solid var(--line-strong);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+
+    .bean-price-block {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .price-caption {
+      font-size: 0.7rem;
+      color: var(--ink-500);
+    }
+
+    .price-figure {
+      font-family: var(--font-mono);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--ink-900);
+    }
+
+    .select-bean-btn {
+      background-color: var(--ink-900);
+      color: var(--bg-card);
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.52rem 0.95rem;
+      border-radius: 3px;
+      transition: background-color 0.15s;
+    }
+
+    .select-bean-btn:hover {
+      background-color: var(--roast-amber);
+    }
+
+    /* 原样规格对照表 */
+    .spec-table-wrap {
+      background-color: var(--bg-card);
+      border: 1.5px solid var(--line-strong);
+      overflow-x: auto;
+    }
+
+    .spec-table-header {
+      padding: 0.85rem 1.25rem;
+      background-color: var(--bg-paper-deep);
+      border-bottom: 1px solid var(--line-strong);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      text-align: left;
+    }
+
+    .spec-table th,
+    .spec-table td {
+      padding: 0.9rem 1.25rem;
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .spec-table th {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      color: var(--ink-500);
+      background-color: var(--bg-paper);
+      font-weight: 600;
+    }
+
+    .spec-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* 第三部分：订阅方式、价格与节奏说明 */
+    .sub-overview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .sub-pillar-card {
+      background-color: var(--bg-card);
+      border: 1.5px solid var(--line-strong);
+      padding: 1.6rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.1rem;
+    }
+
+    .pillar-num {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--roast-amber);
+      font-weight: 700;
+    }
+
+    .pillar-title {
+      font-family: var(--font-serif);
+      font-size: 1.32rem;
+      font-weight: 700;
+      color: var(--ink-900);
+      margin-top: 0.25rem;
+    }
+
+    .pillar-highlight {
+      background-color: var(--bg-paper);
+      border-left: 3px solid var(--roast-amber);
+      padding: 0.75rem 0.9rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--ink-900);
+    }
+
+    .pillar-detail {
+      font-size: 0.88rem;
+      color: var(--ink-700);
+      line-height: 1.7;
+    }
+
+    /* 第四部分：交互式订阅配置器 */
+    .configurator-box {
+      background-color: var(--bg-card);
+      border: 2px solid var(--line-strong);
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      box-shadow: var(--shadow-card);
+    }
+
+    .config-controls {
+      padding: 2rem;
+      border-right: 1.5px solid var(--line-strong);
+      display: flex;
+      flex-direction: column;
+      gap: 1.85rem;
+    }
+
+    .config-step-title {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+    }
+
+    .step-badge {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      background-color: var(--ink-900);
+      color: var(--bg-card);
+      padding: 0.12rem 0.48rem;
+      border-radius: 2px;
+    }
+
+    .plan-options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .option-card-btn {
+      text-align: left;
+      padding: 1.1rem 1.2rem;
+      border: 1.5px solid var(--line-soft);
+      background-color: var(--bg-paper);
+      border-radius: var(--radius-sm);
+      transition: all 0.15s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .option-card-btn:hover {
+      border-color: var(--ink-700);
+    }
+
+    .option-card-btn.selected {
+      border-color: var(--roast-amber);
+      background-color: var(--roast-amber-soft);
+      box-shadow: inset 0 0 0 1px var(--roast-amber);
+    }
+
+    .opt-name {
+      font-weight: 700;
+      font-size: 0.96rem;
+      color: var(--ink-900);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .opt-price {
+      font-family: var(--font-mono);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--roast-amber);
+    }
+
+    .opt-note {
+      font-size: 0.8rem;
+      color: var(--ink-700);
+    }
+
+    .rhythm-options-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.85rem;
+    }
+
+    .rhythm-btn {
+      padding: 0.85rem 1rem;
+      border: 1.5px solid var(--line-soft);
+      background-color: var(--bg-paper);
+      border-radius: var(--radius-sm);
+      text-align: center;
+      transition: all 0.15s ease;
+    }
+
+    .rhythm-btn.selected {
+      border-color: var(--ink-900);
+      background-color: var(--ink-900);
+      color: var(--bg-card);
+    }
+
+    .rhythm-btn-main {
+      font-weight: 700;
+      font-size: 0.95rem;
+      display: block;
+    }
+
+    .rhythm-btn-sub {
+      font-size: 0.74rem;
+      opacity: 0.8;
+    }
+
+    .bean-picker-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.85rem;
+    }
+
+    .bean-pick-card {
+      padding: 0.9rem;
+      border: 1.5px solid var(--line-soft);
+      background-color: var(--bg-paper);
+      border-radius: var(--radius-sm);
+      text-align: left;
+      transition: all 0.15s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .bean-pick-card.selected {
+      border-color: var(--roast-amber);
+      background-color: var(--roast-amber-soft);
+    }
+
+    .pick-top {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--ink-500);
+    }
+
+    .pick-title {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--ink-900);
+    }
+
+    .pick-origin {
+      font-size: 0.78rem;
+      color: var(--ink-700);
+    }
+
+    .pick-flavor {
+      font-size: 0.74rem;
+      color: var(--ink-500);
+      margin-top: 0.2rem;
+    }
+
+    /* 订阅配置单右侧汇总票据 */
+    .config-summary-ticket {
+      padding: 2rem;
+      background-color: var(--bg-paper-deep);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .ticket-header {
+      border-bottom: 1.5px solid var(--line-strong);
+      padding-bottom: 0.9rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .ticket-title {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+
+    .ticket-sub {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--ink-500);
+      margin-top: 0.2rem;
+    }
+
+    .ticket-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .ticket-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.88rem;
+      padding-bottom: 0.65rem;
+      border-bottom: 1px dashed var(--line-soft);
+    }
+
+    .ticket-line-k {
+      color: var(--ink-500);
+      flex-shrink: 0;
+    }
+
+    .ticket-line-v {
+      font-weight: 600;
+      color: var(--ink-900);
+      text-align: right;
+    }
+
+    .ticket-total-box {
+      background-color: var(--bg-card);
+      border: 1.5px solid var(--line-strong);
+      padding: 1rem 1.15rem;
+      margin-bottom: 1.15rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .ticket-total-label {
+      font-size: 0.84rem;
+      font-weight: 600;
+    }
+
+    .ticket-total-price {
+      font-family: var(--font-mono);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--roast-amber);
+    }
+
+    .ticket-submit-btn {
+      width: 100%;
+      background-color: var(--ink-900);
+      color: var(--bg-card);
+      font-weight: 600;
+      padding: 0.9rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.92rem;
+      transition: background-color 0.15s;
+    }
+
+    .ticket-submit-btn:hover {
+      background-color: var(--roast-amber);
+    }
+
+    .ticket-feedback {
+      margin-top: 0.85rem;
+      padding: 0.75rem;
+      background-color: var(--bg-card);
+      border: 1px solid var(--roast-amber);
+      font-size: 0.8rem;
+      color: var(--ink-900);
+      display: none;
+    }
+
+    .ticket-feedback.visible {
+      display: block;
+    }
+
+    /* 工作室留白摄影占位说明区（响应简报“没有照片”） */
+    .no-photo-manifesto {
+      margin-top: 2.5rem;
+      background-color: var(--bg-card);
+      border: 1px dashed var(--line-strong);
+      padding: 1.35rem 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .manifesto-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .placeholder-icon-box {
+      width: 52px;
+      height: 52px;
+      border: 1px solid var(--line-strong);
+      background-color: var(--bg-paper-deep);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      text-align: center;
+      line-height: 1.15;
+      flex-shrink: 0;
+    }
+
+    /* 页脚 */
+    .site-footer {
+      padding: 3rem 0 3.5rem;
+      background-color: var(--bg-paper-deep);
+      color: var(--ink-700);
+      font-size: 0.84rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--line-soft);
+    }
+
+    .footer-brand {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--ink-900);
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-compliance-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      font-size: 0.8rem;
+    }
+
+    .footer-bottom {
+      padding-top: 1.35rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.75rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--ink-500);
+    }
+
+    /* 响应式适配 */
+    @media (max-width: 960px) {
+      .hero-grid,
+      .configurator-box {
+        grid-template-columns: 1fr;
+      }
+      .config-controls {
+        border-right: none;
+        border-bottom: 1.5px solid var(--line-strong);
+      }
+      .beans-grid,
+      .sub-overview-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links {
+        display: none;
+      }
+      .hero-facts-strip,
+      .plan-options-grid,
+      .rhythm-options-grid,
+      .bean-picker-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 顶部样例与素材边界声明栏 -->
+  <div class="sample-ribbon" role="region" aria-label="演示素材说明">
+    <div class="sample-ribbon-inner">
+      <div class="sample-badge">
+        <span class="sample-dot"></span>
+        <span>固定素材样例 · 半山烘焙官网首页（无实拍照片 / 无既有 Logo / 无客户评价与销量数据）</span>
+      </div>
+      <button type="button" class="placeholder-toggle-btn" id="togglePlaceholdersBtn" aria-pressed="false">
+        高亮显示页面全部「占位/样例」区块
+      </button>
+    </div>
+  </div>
+
+  <!-- 顶部导航 -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="#top" class="brand-lockup">
+        <div class="brand-mark-stamp" data-placeholder="true" title="文字标识排版设计（占位/样例，非既有品牌资产）">
+          <span class="stamp-cn">半山</span>
+          <span class="stamp-note">文字标识·样例</span>
+        </div>
+        <div class="brand-titles">
+          <div class="brand-name">
+            <span>半山烘焙</span>
+            <span class="logo-disclaimer-tag" data-placeholder="true">文字标识设计 · 占位</span>
+          </div>
+          <span class="brand-sub">成都 · 小型精品咖啡豆烘焙工作室</span>
+        </div>
+      </a>
+
+      <nav class="main-nav" aria-label="主导航">
+        <ul class="nav-links">
+          <li><a href="#brand-intro"><span class="nav-num">01</span>品牌介绍</a></li>
+          <li><a href="#beans-catalog"><span class="nav-num">02</span>三款豆子</a></li>
+          <li><a href="#subscription-rules"><span class="nav-num">03</span>订阅信息</a></li>
+          <li><a href="#subscription-builder"><span class="nav-num">04</span>订阅配置单</a></li>
+        </ul>
+        <a href="#subscription-builder" class="header-cta">按月订阅 · ¥62/月起</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- 01. 首屏：品牌介绍与豆袋贴标占位展示 -->
+    <section class="hero-section" id="brand-intro">
+      <div class="container">
+        <div class="hero-grid">
+          <div class="hero-left">
+            <div>
+              <div class="hero-meta-row">
+                <span class="meta-pill accent">成都 · 小型精品咖啡豆烘焙工作室</span>
+                <span class="meta-pill">只做订阅制卖豆</span>
+                <span class="meta-pill">浅中烘 · 小批量烘焙</span>
+              </div>
+
+              <h1 class="hero-headline">
+                <span class="quote-mark">“</span>豆子的产地和处理法<br />自己会说话。<span class="quote-mark">”</span>
+              </h1>
+
+              <!-- 品牌介绍：100% 原样使用固定素材文案 -->
+              <div class="verbatim-intro-card">
+                <div class="verbatim-label-bar">
+                  <span>BRAND INTRODUCTION · 品牌介绍（样例固定文案）</span>
+                  <span>成都 · 半山烘焙</span>
+                </div>
+                <p class="verbatim-text">
+                  半山烘焙是成都一家小型精品咖啡豆烘焙工作室，只做订阅制卖豆：每支豆子按小批量烘焙，标注烘焙日期与风味描述，按月寄送到家。工作室相信"豆子的产地和处理法自己会说话"，烘焙风格偏浅中烘，尽量保留产地本味。
+                </p>
+              </div>
+            </div>
+
+            <div>
+              <div class="hero-facts-strip">
+                <div class="fact-cell">
+                  <span class="fact-cell-label">订阅方式</span>
+                  <span class="fact-cell-value">按月寄送 · 每期 1 袋 200g</span>
+                </div>
+                <div class="fact-cell">
+                  <span class="fact-cell-label">订阅价格</span>
+                  <span class="fact-cell-value">¥62 / 月起 · 双袋 ¥118 / 月</span>
+                </div>
+                <div class="fact-cell">
+                  <span class="fact-cell-label">可选节奏</span>
+                  <span class="fact-cell-value">每 2 周 / 每月 / 每 6 周</span>
+                </div>
+              </div>
+
+              <div class="hero-cta-row">
+                <a href="#subscription-builder" class="btn-primary">
+                  <span>定制按月订阅方案</span>
+                  <span>→</span>
+                </a>
+                <a href="#beans-catalog" class="btn-secondary">
+                  <span>查看当期三款豆子信息</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- 右侧：200g 订阅豆袋贴标与无实拍图片占位框 -->
+          <div class="hero-bag-stage" data-placeholder="true">
+            <div class="stage-top-bar">
+              <span>200g 订阅豆袋正面贴标预览</span>
+              <span class="placeholder-stamp">图形占位 · 样例（无实拍照片）</span>
+            </div>
+
+            <div class="coffee-bag-mockup" id="heroBagCard">
+              <div class="bag-header-row">
+                <div>
+                  <div class="bag-studio-title">半山烘焙 · 成都</div>
+                  <div class="bag-studio-loc">SMALL BATCH ROASTERY · 浅中烘</div>
+                </div>
+                <div class="bag-weight-box">每期 1 袋 · 200g</div>
+              </div>
+
+              <!-- 明确标注“占位”的几何风味色块 -->
+              <div class="bag-graphic-placeholder" id="heroBagGraphic" data-placeholder="true">
+                <svg class="bag-graphic-svg" id="heroBagSvg" viewBox="0 0 320 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M0 44 Q40 20 80 44 T160 44 T240 44 T320 44" stroke="#2F5659" stroke-width="2" fill="none"/>
+                  <path d="M0 54 Q40 30 80 54 T160 54 T240 54 T320 54" stroke="#2F5659" stroke-width="1.2" stroke-dasharray="4 4" fill="none"/>
+                  <circle cx="160" cy="24" r="9" stroke="#2F5659" stroke-width="1.8" fill="none"/>
+                </svg>
+                <span class="placeholder-caption">照片占位 / 样例色块 · 豆款 #1 云雾水洗</span>
+              </div>
+
+              <div class="bag-bean-title-row">
+                <h2 class="bag-bean-name" id="heroBagName">云雾水洗</h2>
+                <span class="bag-bean-price" id="heroBagPrice">¥68 / 200g</span>
+              </div>
+
+              <div class="bag-spec-grid">
+                <div class="bag-spec-cell">
+                  <span class="bag-spec-k">产地 / ORIGIN</span>
+                  <span class="bag-spec-v" id="heroBagOrigin">埃塞俄比亚 耶加雪菲</span>
+                </div>
+                <div class="bag-spec-cell">
+                  <span class="bag-spec-k">处理法 / PROCESS</span>
+                  <span class="bag-spec-v" id="heroBagProcess">水洗</span>
+                </div>
+              </div>
+
+              <div class="bag-flavor-box">
+                <span class="bag-spec-k">风味描述 / FLAVOR NOTES</span>
+                <div class="bag-spec-v" id="heroBagFlavor">茉莉花香、柠檬酸质、红茶尾韵</div>
+              </div>
+
+              <div class="bag-roast-stamp" data-placeholder="true">
+                <span>烘焙日期：[按小批量烘焙日期标注 · 占位]</span>
+                <span>浅中烘</span>
+              </div>
+            </div>
+
+            <div class="stage-switcher">
+              <span class="stage-switcher-label">切换豆袋标签预览：</span>
+              <div class="stage-tab-group" role="tablist" aria-label="切换三款豆袋标签">
+                <button type="button" class="stage-tab active" data-bag-idx="0" role="tab" aria-selected="true">01 云雾水洗</button>
+                <button type="button" class="stage-tab" data-bag-idx="1" role="tab" aria-selected="false">02 火塘日晒</button>
+                <button type="button" class="stage-tab" data-bag-idx="2" role="tab" aria-selected="false">03 山脊蜜处理</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02. 三款豆子信息（原样呈现，不增删豆款） -->
+    <section class="section-block" id="beans-catalog">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <span class="section-kicker">02 · THREE COFFEE BEANS (SAMPLE DATA)</span>
+            <h2 class="section-title">当期三款豆子信息</h2>
+          </div>
+          <p class="section-desc">
+            每支豆子按小批量烘焙，标注烘焙日期与风味描述。烘焙风格偏浅中烘，尽量保留产地本味。
+          </p>
+        </div>
+
+        <!-- 筛选与视图控制栏 -->
+        <div class="beans-toolbar">
+          <div class="filter-pills" role="group" aria-label="按处理法筛选豆款">
+            <span class="filter-label">处理法筛选：</span>
+            <button type="button" class="filter-btn active" data-filter="all">全部三款 (3)</button>
+            <button type="button" class="filter-btn" data-filter="水洗">水洗 · 埃塞俄比亚</button>
+            <button type="button" class="filter-btn" data-filter="日晒">日晒 · 巴西</button>
+            <button type="button" class="filter-btn" data-filter="蜜处理">蜜处理 · 哥伦比亚</button>
+          </div>
+          <div class="view-mode-switch">
+            <span class="view-btn active">固定素材 · 三款原样展示</span>
+          </div>
+        </div>
+
+        <!-- 三款豆子卡片 -->
+        <div class="beans-grid" id="beansGrid">
+          <!-- 豆款 1：云雾水洗 -->
+          <article class="bean-card" data-process="水洗" data-bean-id="1">
+            <div>
+              <div class="bean-card-top">
+                <span class="bean-index"># 01</span>
+                <span class="process-badge">处理法：水洗</span>
+              </div>
+
+              <div class="bean-visual-slot" data-placeholder="true">
+                <svg width="180" height="44" viewBox="0 0 180 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M10 30 Q45 10 90 30 T170 30" stroke="#2F5659" stroke-width="2" fill="none"/>
+                  <path d="M10 38 Q45 18 90 38 T170 38" stroke="#2F5659" stroke-width="1.2" stroke-dasharray="3 3" fill="none"/>
+                </svg>
+                <span class="slot-badge">图片占位 · 样例色块（无照片）</span>
+              </div>
+
+              <div class="bean-card-body">
+                <h3 class="bean-name-heading">云雾水洗</h3>
+
+                <div class="bean-specs-list">
+                  <div class="spec-row">
+                    <span class="spec-key">产地</span>
+                    <span class="spec-val">埃塞俄比亚 耶加雪菲</span>
+                  </div>
+                  <div class="spec-row">
+                    <span class="spec-key">处理法</span>
+                    <span class="spec-val">水洗</span>
+                  </div>
+                  <div class="spec-row">
+                    <span class="spec-key">烘焙风格</span>
+                    <span class="spec-val">偏浅中烘（保留产地本味）</span>
+                  </div>
+                </div>
+
+                <div>
+                  <span class="flavor-section-label">风味描述</span>
+                  <p class="flavor-verbatim">茉莉花香、柠檬酸质、红茶尾韵</p>
+                  <div class="flavor-tags-row">
+                    <span class="flavor-chip">茉莉花香</span>
+                    <span class="flavor-chip">柠檬酸质</span>
+                    <span class="flavor-chip">红茶尾韵</span>
+                  </div>
+                </div>
+
+                <div class="roast-batch-note" data-placeholder="true">
+                  批次标注位（占位）：小批量烘焙 · 出袋标注烘焙日期
+                </div>
+              </div>
+            </div>
+
+            <div class="bean-card-footer">
+              <div class="bean-price-block">
+                <span class="price-caption">单袋价格</span>
+                <span class="price-figure">¥68 / 200g</span>
+              </div>
+              <button type="button" class="select-bean-btn" data-select-bean="0">
+                选入订阅配置 →
+              </button>
+            </div>
+          </article>
+
+          <!-- 豆款 2：火塘日晒 -->
+          <article class="bean-card" data-process="日晒" data-bean-id="2">
+            <div>
+              <div class="bean-card-top">
+                <span class="bean-index"># 02</span>
+                <span class="process-badge">处理法：日晒</span>
+              </div>
+
+              <div class="bean-visual-slot" data-placeholder="true">
+                <svg width="180" height="44" viewBox="0 0 180 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <circle cx="90" cy="22" r="14" stroke="#8C3F23" stroke-width="2" fill="none"/>
+                  <line x1="25" y1="36" x2="155" y2="36" stroke="#8C3F23" stroke-width="1.6"/>
+                </svg>
+                <span class="slot-badge">图片占位 · 样例色块（无照片）</span>
+              </div>
+
+              <div class="bean-card-body">
+                <h3 class="bean-name-heading">火塘日晒</h3>
+
+                <div class="bean-specs-list">
+                  <div class="spec-row">
+                    <span class="spec-key">产地</span>
+                    <span class="spec-val">巴西 喜拉多</span>
+                  </div>
+                  <div class="spec-row">
+                    <span class="spec-key">处理法</span>
+                    <span class="spec-val">日晒</span>
+                  </div>
+                  <div class="spec-row">
+                    <span class="spec-key">烘焙风格</span>
+                    <span class="spec-val">偏浅中烘（保留产地本味）</span>
+                  </div>
+                </div>
+
+                <div>
+                  <span class="flavor-section-label">风味描述</span>
+                  <p class="flavor-verbatim">巧克力、烤坚果、低酸醇厚</p>
+                  <div class="flavor-tags-row">
+                    <span class="flavor-chip">巧克力</span>
+                    <span class="flavor-chip">烤坚果</span>
+                    <span class="flavor-chip">低酸醇厚</span>
+                  </div>
+                </div>
+
+                <div class="roast-batch-note" data-placeholder="true">
+                  批次标注位（占位）：小批量烘焙 · 出袋标注烘焙日期
+                </div>
+              </div>
+            </div>
+
+            <div class="bean-card-footer">
+              <div class="bean-price-block">
+                <span class="price-caption">单袋价格</span>
+                <span class="price-figure">¥58 / 200g</span>
+              </div>
+              <button type="button" class="select-bean-btn" data-select-bean="1">
+                选入订阅配置 →
+              </button>
+            </div>
+          </article>
+
+          <!-- 豆款 3：山脊蜜处理 -->
+          <article class="bean-card" data-process="蜜处理" data-bean-id="3">
+            <div>
+              <div class="bean-card-top">
+                <span class="bean-index"># 03</span>
+                <span class="process-badge">处理法：蜜处理</span>
+              </div>
+
+              <div class="bean-visual-slot" data-placeholder="true">
+                <svg width="180" height="44" viewBox="0 0 180 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <polyline points="15,36 55,12 95,28 135,10 165,36" stroke="#9A6324" stroke-width="2" fill="none"/>
+                </svg>
+                <span class="slot-badge">图片占位 · 样例色块（无照片）</span>
+              </div>
+
+              <div class="bean-card-body">
+                <h3 class="bean-name-heading">山脊蜜处理</h3>
+
+                <div class="bean-specs-list">
+                  <div class="spec-row">
+                    <span class="spec-key">产地</span>
+                    <span class="spec-val">哥伦比亚 惠兰</span>
+                  </div>
+                  <div class="spec-row">
+                    <span class="spec-key">处理法</span>
+                    <span class="spec-val">蜜处理</span>
+                  </div>
+                  <div class="spec-row">
+                    <span class="spec-key">烘焙风格</span>
+                    <span class="spec-val">偏浅中烘（保留产地本味）</span>
+                  </div>
+                </div>
+
+                <div>
+                  <span class="flavor-section-label">风味描述</span>
+                  <p class="flavor-verbatim">红苹果、焦糖甜感、奶油口感</p>
+                  <div class="flavor-tags-row">
+                    <span class="flavor-chip">红苹果</span>
+                    <span class="flavor-chip">焦糖甜感</span>
+                    <span class="flavor-chip">奶油口感</span>
+                  </div>
+                </div>
+
+                <div class="roast-batch-note" data-placeholder="true">
+                  批次标注位（占位）：小批量烘焙 · 出袋标注烘焙日期
+                </div>
+              </div>
+            </div>
+
+            <div class="bean-card-footer">
+              <div class="bean-price-block">
+                <span class="price-caption">单袋价格</span>
+                <span class="price-figure">¥72 / 200g</span>
+              </div>
+              <button type="button" class="select-bean-btn" data-select-bean="2">
+                选入订阅配置 →
+              </button>
+            </div>
+          </article>
+        </div>
+
+        <!-- 三款豆子原样规格一览表 -->
+        <div class="spec-table-wrap">
+          <div class="spec-table-header">
+            <span>三款豆子信息完整对照表（固定素材原样数据）</span>
+            <span>规格：200g / 袋</span>
+          </div>
+          <table class="spec-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>名称</th>
+                <th>产地</th>
+                <th>处理法</th>
+                <th>风味描述</th>
+                <th>价格</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td><strong>云雾水洗</strong></td>
+                <td>埃塞俄比亚 耶加雪菲</td>
+                <td>水洗</td>
+                <td>茉莉花香、柠檬酸质、红茶尾韵</td>
+                <td><strong>¥68 / 200g</strong></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td><strong>火塘日晒</strong></td>
+                <td>巴西 喜拉多</td>
+                <td>日晒</td>
+                <td>巧克力、烤坚果、低酸醇厚</td>
+                <td><strong>¥58 / 200g</strong></td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td><strong>山脊蜜处理</strong></td>
+                <td>哥伦比亚 惠兰</td>
+                <td>蜜处理</td>
+                <td>红苹果、焦糖甜感、奶油口感</td>
+                <td><strong>¥72 / 200g</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03. 订阅信息（方式、价格、节奏） -->
+    <section class="section-block" id="subscription-rules">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <span class="section-kicker">03 · SUBSCRIPTION DETAILS (SAMPLE DATA)</span>
+            <h2 class="section-title">订阅信息与寄送规则</h2>
+          </div>
+          <p class="section-desc">
+            半山烘焙只做订阅制卖豆：每支豆子按小批量烘焙，标注烘焙日期与风味描述，按月寄送到家。
+          </p>
+        </div>
+
+        <div class="sub-overview-grid">
+          <div class="sub-pillar-card">
+            <div>
+              <span class="pillar-num">ITEM 01 · 订阅方式</span>
+              <h3 class="pillar-title">按月寄送，每期 1 袋 200g</h3>
+            </div>
+            <div class="pillar-highlight">
+              按月寄送，每期 1 袋 200g
+            </div>
+            <p class="pillar-detail">
+              每支豆子按小批量烘焙，出袋时明确标注烘焙日期与风味描述，按月寄送到家，保持浅中烘的产地本味。
+            </p>
+          </div>
+
+          <div class="sub-pillar-card">
+            <div>
+              <span class="pillar-num">ITEM 02 · 订阅价格</span>
+              <h3 class="pillar-title">单袋订阅与双袋尝鲜组合</h3>
+            </div>
+            <div class="pillar-highlight">
+              ¥62 / 月起（单袋订阅价）<br />
+              ¥118 / 月（双袋尝鲜组合）
+            </div>
+            <p class="pillar-detail">
+              提供单袋日常订阅（¥62 / 月起）与双袋尝鲜组合（¥118 / 月），可在当期三款不同产地与处理法的豆子中组合选择。
+            </p>
+          </div>
+
+          <div class="sub-pillar-card">
+            <div>
+              <span class="pillar-num">ITEM 03 · 可选节奏</span>
+              <h3 class="pillar-title">三档寄送频率自由选择</h3>
+            </div>
+            <div class="pillar-highlight">
+              每 2 周 / 每月 / 每 6 周
+            </div>
+            <p class="pillar-detail">
+              根据日常手冲或浓缩消耗节奏，可在「每 2 周」「每月」「每 6 周」三档寄送周期中灵活设定。
+            </p>
+          </div>
+        </div>
+
+        <!-- 简报“没有照片”透明设计说明占位区 -->
+        <div class="no-photo-manifesto" data-placeholder="true">
+          <div class="manifesto-left">
+            <div class="placeholder-icon-box">PHOTO<br/>占位</div>
+            <div>
+              <strong>工作室实拍图预留位（占位 / 样例说明）</strong>
+              <p style="font-size: 0.84rem; color: var(--ink-700); margin-top: 0.2rem;">
+                当前阶段无实拍照片与既有 Logo。本页面以豆袋信息贴标与风味档案卡呈现，不虚构任何实拍图片、客户评价或销量数据。
+              </p>
+            </div>
+          </div>
+          <span class="placeholder-stamp">明确标注：占位 / 样例</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04. 交互式订阅配置器 -->
+    <section class="section-block" id="subscription-builder">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <span class="section-kicker">04 · INTERACTIVE SUBSCRIPTION BUILDER</span>
+            <h2 class="section-title">配置你的订阅方案（样例演示）</h2>
+          </div>
+          <p class="section-desc">
+            选择订阅价格方案、可选节奏与当期豆款，右侧实时生成订阅批次核对单。
+          </p>
+        </div>
+
+        <div class="configurator-box">
+          <div class="config-controls">
+            <!-- 步骤 1：选择订阅价格方案 -->
+            <div>
+              <h3 class="config-step-title">
+                <span class="step-badge">STEP 1</span>
+                <span>选择订阅价格方案</span>
+              </h3>
+              <div class="plan-options-grid" role="radiogroup" aria-label="选择订阅价格方案">
+                <button type="button" class="option-card-btn selected" data-plan="single" aria-checked="true" role="radio">
+                  <div class="opt-name">
+                    <span>单袋订阅价</span>
+                    <span>每期 1 袋 200g</span>
+                  </div>
+                  <div class="opt-price">¥62 / 月起</div>
+                  <div class="opt-note">按月寄送，每期 1 袋 200g（任选 1 款当期豆子）</div>
+                </button>
+
+                <button type="button" class="option-card-btn" data-plan="double" aria-checked="false" role="radio">
+                  <div class="opt-name">
+                    <span>双袋尝鲜组合</span>
+                    <span>2 袋组合</span>
+                  </div>
+                  <div class="opt-price">¥118 / 月</div>
+                  <div class="opt-note">一次体验 2 款不同产地与处理法的当期豆子</div>
+                </button>
+              </div>
+            </div>
+
+            <!-- 步骤 2：选择可选节奏 -->
+            <div>
+              <h3 class="config-step-title">
+                <span class="step-badge">STEP 2</span>
+                <span>选择可选节奏</span>
+              </h3>
+              <div class="rhythm-options-grid" role="radiogroup" aria-label="选择寄送节奏">
+                <button type="button" class="rhythm-btn" data-rhythm="每 2 周" role="radio" aria-checked="false">
+                  <span class="rhythm-btn-main">每 2 周</span>
+                  <span class="rhythm-btn-sub">高频日常饮用</span>
+                </button>
+                <button type="button" class="rhythm-btn selected" data-rhythm="每月" role="radio" aria-checked="true">
+                  <span class="rhythm-btn-main">每月</span>
+                  <span class="rhythm-btn-sub">标准按月寄送</span>
+                </button>
+                <button type="button" class="rhythm-btn" data-rhythm="每 6 周" role="radio" aria-checked="false">
+                  <span class="rhythm-btn-main">每 6 周</span>
+                  <span class="rhythm-btn-sub">慢节奏品鉴</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 步骤 3：选择当期豆子 -->
+            <div>
+              <h3 class="config-step-title">
+                <span class="step-badge">STEP 3</span>
+                <span id="beanStepPrompt">选择当期豆款（当前为单袋订阅，请选择 1 款）</span>
+              </h3>
+              <div class="bean-picker-grid" id="beanPickerGrid">
+                <button type="button" class="bean-pick-card selected" data-pick-idx="0">
+                  <div class="pick-top">
+                    <span>#01 · 水洗</span>
+                    <span>¥68 / 200g</span>
+                  </div>
+                  <div class="pick-title">云雾水洗</div>
+                  <div class="pick-origin">埃塞俄比亚 耶加雪菲</div>
+                  <div class="pick-flavor">茉莉花香、柠檬酸质、红茶尾韵</div>
+                </button>
+
+                <button type="button" class="bean-pick-card" data-pick-idx="1">
+                  <div class="pick-top">
+                    <span>#02 · 日晒</span>
+                    <span>¥58 / 200g</span>
+                  </div>
+                  <div class="pick-title">火塘日晒</div>
+                  <div class="pick-origin">巴西 喜拉多</div>
+                  <div class="pick-flavor">巧克力、烤坚果、低酸醇厚</div>
+                </button>
+
+                <button type="button" class="bean-pick-card" data-pick-idx="2">
+                  <div class="pick-top">
+                    <span>#03 · 蜜处理</span>
+                    <span>¥72 / 200g</span>
+                  </div>
+                  <div class="pick-title">山脊蜜处理</div>
+                  <div class="pick-origin">哥伦比亚 惠兰</div>
+                  <div class="pick-flavor">红苹果、焦糖甜感、奶油口感</div>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 右侧：实时订阅核对单（样例） -->
+          <aside class="config-summary-ticket" aria-label="订阅批次核对单">
+            <div>
+              <div class="ticket-header">
+                <h3 class="ticket-title">半山烘焙 · 订阅核对单</h3>
+                <div class="ticket-sub">SUBSCRIPTION SPEC SLIP · 样例演示</div>
+              </div>
+
+              <div class="ticket-lines">
+                <div class="ticket-line">
+                  <span class="ticket-line-k">烘焙工作室</span>
+                  <span class="ticket-line-v">成都 · 半山烘焙</span>
+                </div>
+                <div class="ticket-line">
+                  <span class="ticket-line-k">订阅方式</span>
+                  <span class="ticket-line-v" id="summaryMethod">按月寄送，每期 1 袋 200g</span>
+                </div>
+                <div class="ticket-line">
+                  <span class="ticket-line-k">所选方案</span>
+                  <span class="ticket-line-v" id="summaryPlanName">单袋订阅价</span>
+                </div>
+                <div class="ticket-line">
+                  <span class="ticket-line-k">可选节奏</span>
+                  <span class="ticket-line-v" id="summaryRhythm">每月</span>
+                </div>
+                <div class="ticket-line">
+                  <span class="ticket-line-k">所选豆款</span>
+                  <span class="ticket-line-v" id="summaryBeans">云雾水洗（埃塞俄比亚 耶加雪菲 · 水洗）</span>
+                </div>
+                <div class="ticket-line">
+                  <span class="ticket-line-k">风味描述</span>
+                  <span class="ticket-line-v" id="summaryFlavors">茉莉花香、柠檬酸质、红茶尾韵</span>
+                </div>
+                <div class="ticket-line">
+                  <span class="ticket-line-k">出袋标注</span>
+                  <span class="ticket-line-v">标注烘焙日期与风味描述（浅中烘）</span>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="ticket-total-box">
+                <span class="ticket-total-label">订阅价格</span>
+                <span class="ticket-total-price" id="summaryPrice">¥62 / 月起</span>
+              </div>
+
+              <button type="button" class="ticket-submit-btn" id="previewOrderBtn">
+                生成订阅预览凭证（样例演示）
+              </button>
+
+              <div class="ticket-feedback" id="ticketFeedback" role="status" aria-live="polite"></div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">半山烘焙 · 成都小型精品咖啡豆烘焙工作室</div>
+          <p>
+            半山烘焙是成都一家小型精品咖啡豆烘焙工作室，只做订阅制卖豆：每支豆子按小批量烘焙，标注烘焙日期与风味描述，按月寄送到家。工作室相信"豆子的产地和处理法自己会说话"，烘焙风格偏浅中烘，尽量保留产地本味。
+          </p>
+        </div>
+        <div>
+          <strong style="color: var(--ink-900); display: block; margin-bottom: 0.4rem;">素材与设计透明声明（样例）</strong>
+          <ul class="footer-compliance-list">
+            <li>· 照片：无（页面内图形与色块均已明确标注“占位/样例”）</li>
+            <li>· Logo：无（页面顶部文字标识为排版设计，非既有品牌资产）</li>
+            <li>· 客户评价 / 销量 / 订阅数 / 媒体报道：无（未编造任何评价或数字）</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>半山烘焙官网首页 · 固定素材样例演示</span>
+        <span>三款豆子：云雾水洗 · 火塘日晒 · 山脊蜜处理</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      // 固定素材中的三款豆子原样数据
+      const BEANS = [
+        {
+          id: 1,
+          name: "云雾水洗",
+          origin: "埃塞俄比亚 耶加雪菲",
+          process: "水洗",
+          flavor: "茉莉花香、柠檬酸质、红茶尾韵",
+          price: "¥68 / 200g",
+          bg: "#E7EFEF",
+          stroke: "#2F5659",
+          svg: '<path d="M0 44 Q40 20 80 44 T160 44 T240 44 T320 44" stroke="#2F5659" stroke-width="2" fill="none"/><path d="M0 54 Q40 30 80 54 T160 54 T240 54 T320 54" stroke="#2F5659" stroke-width="1.2" stroke-dasharray="4 4" fill="none"/><circle cx="160" cy="24" r="9" stroke="#2F5659" stroke-width="1.8" fill="none"/>'
+        },
+        {
+          id: 2,
+          name: "火塘日晒",
+          origin: "巴西 喜拉多",
+          process: "日晒",
+          flavor: "巧克力、烤坚果、低酸醇厚",
+          price: "¥58 / 200g",
+          bg: "#F4E6DF",
+          stroke: "#8C3F23",
+          svg: '<circle cx="160" cy="28" r="16" stroke="#8C3F23" stroke-width="2" fill="none"/><line x1="30" y1="52" x2="290" y2="52" stroke="#8C3F23" stroke-width="1.8"/><line x1="60" y1="58" x2="260" y2="58" stroke="#8C3F23" stroke-width="1.2" stroke-dasharray="5 4"/>'
+        },
+        {
+          id: 3,
+          name: "山脊蜜处理",
+          origin: "哥伦比亚 惠兰",
+          process: "蜜处理",
+          flavor: "红苹果、焦糖甜感、奶油口感",
+          price: "¥72 / 200g",
+          bg: "#F5ECDC",
+          stroke: "#9A6324",
+          svg: '<polyline points="15,52 75,16 135,38 205,12 265,40 305,22" stroke="#9A6324" stroke-width="2.2" fill="none"/><line x1="15" y1="56" x2="305" y2="56" stroke="#9A6324" stroke-width="1" stroke-dasharray="3 3"/>'
+        }
+      ];
+
+      // 1. 顶部“高亮显示全部占位/样例区块”按钮
+      const togglePlaceholdersBtn = document.getElementById("togglePlaceholdersBtn");
+      togglePlaceholdersBtn.addEventListener("click", function () {
+        const active = document.body.classList.toggle("highlight-placeholders");
+        togglePlaceholdersBtn.setAttribute("aria-pressed", active ? "true" : "false");
+        togglePlaceholdersBtn.textContent = active
+          ? "已高亮「占位/样例」区块（点击关闭）"
+          : "高亮显示页面全部「占位/样例」区块";
+      });
+
+      // 2. 首屏右侧 200g 豆袋标签预览切换
+      const stageTabs = document.querySelectorAll(".stage-tab");
+      const heroBagGraphic = document.getElementById("heroBagGraphic");
+      const heroBagSvg = document.getElementById("heroBagSvg");
+      const heroBagName = document.getElementById("heroBagName");
+      const heroBagPrice = document.getElementById("heroBagPrice");
+      const heroBagOrigin = document.getElementById("heroBagOrigin");
+      const heroBagProcess = document.getElementById("heroBagProcess");
+      const heroBagFlavor = document.getElementById("heroBagFlavor");
+
+      stageTabs.forEach(function (tab) {
+        tab.addEventListener("click", function () {
+          const idx = parseInt(tab.getAttribute("data-bag-idx"), 10);
+          const bean = BEANS[idx];
+          if (!bean) return;
+
+          stageTabs.forEach(function (t) {
+            t.classList.remove("active");
+            t.setAttribute("aria-selected", "false");
+          });
+          tab.classList.add("active");
+          tab.setAttribute("aria-selected", "true");
+
+          heroBagGraphic.style.backgroundColor = bean.bg;
+          heroBagSvg.innerHTML = bean.svg;
+          heroBagGraphic.querySelector(".placeholder-caption").textContent =
+            "照片占位 / 样例色块 · 豆款 #" + bean.id + " " + bean.name;
+          heroBagName.textContent = bean.name;
+          heroBagPrice.textContent = bean.price;
+          heroBagOrigin.textContent = bean.origin;
+          heroBagProcess.textContent = bean.process;
+          heroBagFlavor.textContent = bean.flavor;
+        });
+      });
+
+      // 3. 三款豆子按处理法筛选高亮
+      const filterBtns = document.querySelectorAll(".filter-btn");
+      const beanCards = document.querySelectorAll(".bean-card");
+      filterBtns.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          const filter = btn.getAttribute("data-filter");
+          filterBtns.forEach(function (b) { b.classList.remove("active"); });
+          btn.classList.add("active");
+
+          beanCards.forEach(function (card) {
+            const proc = card.getAttribute("data-process");
+            if (filter === "all" || proc === filter) {
+              card.classList.remove("dimmed");
+            } else {
+              card.classList.add("dimmed");
+            }
+          });
+        });
+      });
+
+      // 4. 交互式订阅配置器状态与逻辑
+      const state = {
+        plan: "single", // 'single' | 'double'
+        rhythm: "每月",
+        selectedBeans: [0] // 单袋选1项，双袋选2项
+      };
+
+      const planBtns = document.querySelectorAll("[data-plan]");
+      const rhythmBtns = document.querySelectorAll("[data-rhythm]");
+      const pickCards = document.querySelectorAll("[data-pick-idx]");
+      const beanStepPrompt = document.getElementById("beanStepPrompt");
+
+      const summaryPlanName = document.getElementById("summaryPlanName");
+      const summaryRhythm = document.getElementById("summaryRhythm");
+      const summaryBeans = document.getElementById("summaryBeans");
+      const summaryFlavors = document.getElementById("summaryFlavors");
+      const summaryPrice = document.getElementById("summaryPrice");
+      const ticketFeedback = document.getElementById("ticketFeedback");
+
+      function renderSubscriptionState() {
+        // 更新方案按钮
+        planBtns.forEach(function (btn) {
+          const isMatch = btn.getAttribute("data-plan") === state.plan;
+          btn.classList.toggle("selected", isMatch);
+          btn.setAttribute("aria-checked", isMatch ? "true" : "false");
+        });
+
+        // 更新节奏按钮
+        rhythmBtns.forEach(function (btn) {
+          const isMatch = btn.getAttribute("data-rhythm") === state.rhythm;
+          btn.classList.toggle("selected", isMatch);
+          btn.setAttribute("aria-checked", isMatch ? "true" : "false");
+        });
+
+        // 更新豆款选择提示与选中态
+        if (state.plan === "single") {
+          beanStepPrompt.textContent = "选择当期豆款（当前为单袋订阅，请选择 1 款）";
+        } else {
+          beanStepPrompt.textContent = "选择当期豆款组合（当前为双袋尝鲜组合，已选 " + state.selectedBeans.length + "/2 款）";
+        }
+
+        pickCards.forEach(function (card) {
+          const idx = parseInt(card.getAttribute("data-pick-idx"), 10);
+          card.classList.toggle("selected", state.selectedBeans.indexOf(idx) !== -1);
+        });
+
+        // 更新右侧汇总单
+        if (state.plan === "single") {
+          summaryPlanName.textContent = "单袋订阅价（¥62 / 月起）";
+          summaryPrice.textContent = "¥62 / 月起";
+        } else {
+          summaryPlanName.textContent = "双袋尝鲜组合（¥118 / 月）";
+          summaryPrice.textContent = "¥118 / 月";
+        }
+
+        summaryRhythm.textContent = state.rhythm;
+
+        const chosenBeans = state.selectedBeans.map(function (i) { return BEANS[i]; });
+        summaryBeans.textContent = chosenBeans
+          .map(function (b) { return b.name + "（" + b.origin + " · " + b.process + "）"; })
+          .join(" ＋ ");
+        summaryFlavors.textContent = chosenBeans
+          .map(function (b) { return b.name + "：" + b.flavor; })
+          .join(" ｜ ");
+      }
+
+      planBtns.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          const newPlan = btn.getAttribute("data-plan");
+          state.plan = newPlan;
+          if (newPlan === "single" && state.selectedBeans.length > 1) {
+            state.selectedBeans = [state.selectedBeans[0]];
+          } else if (newPlan === "double" && state.selectedBeans.length < 2) {
+            const nextIdx = state.selectedBeans[0] === 0 ? 1 : 0;
+            state.selectedBeans = [state.selectedBeans[0], nextIdx];
+          }
+          ticketFeedback.classList.remove("visible");
+          renderSubscriptionState();
+        });
+      });
+
+      rhythmBtns.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          state.rhythm = btn.getAttribute("data-rhythm");
+          ticketFeedback.classList.remove("visible");
+          renderSubscriptionState();
+        });
+      });
+
+      pickCards.forEach(function (card) {
+        card.addEventListener("click", function () {
+          const idx = parseInt(card.getAttribute("data-pick-idx"), 10);
+          if (state.plan === "single") {
+            state.selectedBeans = [idx];
+          } else {
+            const pos = state.selectedBeans.indexOf(idx);
+            if (pos !== -1) {
+              if (state.selectedBeans.length > 1) {
+                state.selectedBeans.splice(pos, 1);
+              }
+            } else {
+              if (state.selectedBeans.length >= 2) {
+                state.selectedBeans.shift();
+              }
+              state.selectedBeans.push(idx);
+            }
+          }
+          ticketFeedback.classList.remove("visible");
+          renderSubscriptionState();
+        });
+      });
+
+      // 从三款豆子卡片一键选入下方订阅配置器
+      const selectBeanBtns = document.querySelectorAll("[data-select-bean]");
+      selectBeanBtns.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          const idx = parseInt(btn.getAttribute("data-select-bean"), 10);
+          if (state.plan === "single") {
+            state.selectedBeans = [idx];
+          } else if (state.selectedBeans.indexOf(idx) === -1) {
+            if (state.selectedBeans.length >= 2) state.selectedBeans.shift();
+            state.selectedBeans.push(idx);
+          }
+          renderSubscriptionState();
+          document.getElementById("subscription-builder").scrollIntoView({ behavior: "smooth" });
+        });
+      });
+
+      // 生成订阅预览凭证（静态样例反馈）
+      const previewOrderBtn = document.getElementById("previewOrderBtn");
+      previewOrderBtn.addEventListener("click", function () {
+        const chosenNames = state.selectedBeans.map(function (i) { return BEANS[i].name; }).join(" + ");
+        const priceText = state.plan === "single" ? "¥62 / 月起（单袋订阅价）" : "¥118 / 月（双袋尝鲜组合）";
+        ticketFeedback.textContent =
+          "【样例演示凭证】已生成配置：" +
+          priceText +
+          " · 寄送节奏「" +
+          state.rhythm +
+          "」· 豆款「" +
+          chosenNames +
+          "」（每袋 200g，出袋标注烘焙日期与风味描述）。本页为静态演示样例，不收集真实支付信息。";
+        ticketFeedback.classList.add("visible");
+      });
+
+      renderSubscriptionState();
+    })();
+  </script>
+</body>
+</html>

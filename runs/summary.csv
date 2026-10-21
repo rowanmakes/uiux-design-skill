@@ -1,0 +1,7 @@
+运行ID,简报,组,窄屏横向溢出,控制台错误数,外部请求数,Tab停留元素数,有可见焦点样式的比例,run-log是否显示读取了正确的技能文件,备注
+r1-01-A,01,A,false,0,0,39,39/39(100.0%),是(未读取任何设计技能，符合A组要求),
+r1-01-B,01,B,false,0,0,39,39/39(100.0%),是(仅读取 test/baseline-skills/frontend-design/SKILL.md),
+r1-01-C,01,C,false,0,0,39,39/39(100.0%),是(仅读取 skill/uiux-design/SKILL.md 及4份参考),
+r1-07-A,07,A,false,0,0,39,1/39(2.6%),是(未读取任何设计技能，符合A组要求),窄屏启发式为否，但 html/body 均为 overflow:hidden：body.scrollWidth=561>390，narrow-full.png 实宽561px，内容被裁剪（详见 evidence-report）
+r1-07-B,07,B,false,0,0,40,40/40(100.0%),是(仅读取 test/baseline-skills/frontend-design/SKILL.md),
+r1-07-C,07,C,未测(产物未交付，无HTML),未测(无HTML),未测(无HTML),未测(无HTML),未测(无HTML),未知(无run-log),限时内未交付：无HTML/无作者日志/无生成提交；截图命令实际尝试并失败(net::ERR_FILE_NOT_FOUND)，见 runs/r1-07-C/failure.json 与 shot-attempt.log

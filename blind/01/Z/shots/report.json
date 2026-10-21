@@ -1,0 +1,215 @@
+{
+  "file": "index.html",
+  "viewports": {
+    "wide": {
+      "width": 1440,
+      "height": 900,
+      "horizontalOverflow": false
+    },
+    "narrow": {
+      "width": 390,
+      "height": 844,
+      "horizontalOverflow": false
+    }
+  },
+  "consoleErrors": [],
+  "pageErrors": [],
+  "externalRequests": [],
+  "tabStops": [
+    {
+      "tag": "a",
+      "text": "半山烘焙",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "工作室介绍",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "三款豆子信息",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "订阅方式与配置",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "配置每月订阅豆单",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "查看三款豆子详情",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "1 云雾水洗",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "2 火塘日晒",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "3 山脊蜜处理",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "选入下方订阅配置",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "预览豆袋贴纸",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "选入订阅单",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "预览豆袋贴纸",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "选入订阅单",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "预览豆袋贴纸",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "选入订阅单",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "¥62 / 月起（单袋订阅价）\n按月寄送，每期 1 袋 200g",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "¥118 / 月（双袋尝鲜组合）\n每期任选两款 200g 豆子组合尝鲜",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每 2 周\n高频日常冲煮",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每月\n按月寄送到家",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每 6 周\n从容慢饮节奏",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "1 云雾水洗\n埃塞俄比亚 / 水洗 / ¥68 / 200g",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "2 火塘日晒\n巴西 / 日晒 / ¥58 / 200g",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "3 山脊蜜处理\n哥伦比亚 / 蜜处理 / ¥72 / 200g",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "确认订阅配置",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山烘焙",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "工作室介绍",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "三款豆子信息",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "订阅方式与配置",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "配置每月订阅豆单",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "查看三款豆子详情",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "1 云雾水洗",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "2 火塘日晒",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "3 山脊蜜处理",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "选入下方订阅配置",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "预览豆袋贴纸",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "选入订阅单",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "预览豆袋贴纸",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "选入订阅单",
+      "visibleFocusStyle": true
+    }
+  ]
+}

@@ -1,0 +1,215 @@
+{
+  "file": "index.html",
+  "viewports": {
+    "wide": {
+      "width": 1440,
+      "height": 900,
+      "horizontalOverflow": false
+    },
+    "narrow": {
+      "width": 390,
+      "height": 844,
+      "horizontalOverflow": false
+    }
+  },
+  "consoleErrors": [],
+  "pageErrors": [],
+  "externalRequests": [],
+  "tabStops": [
+    {
+      "tag": "button",
+      "text": "高亮显示页面全部「占位/样例」区块",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山\n文字标识·样例\n半山烘焙\n文字标识设计 · 占位\n成都 · 小型精品咖啡豆",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "01品牌介绍",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "02三款豆子",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "03订阅信息",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "04订阅配置单",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "按月订阅 · ¥62/月起",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "定制按月订阅方案\n→",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "查看当期三款豆子信息",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "01 云雾水洗",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "02 火塘日晒",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "03 山脊蜜处理",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "全部三款 (3)",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "水洗 · 埃塞俄比亚",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "日晒 · 巴西",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "蜜处理 · 哥伦比亚",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "选入订阅配置 →",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "选入订阅配置 →",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "选入订阅配置 →",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "单袋订阅价\n每期 1 袋 200g\n¥62 / 月起\n按月寄送，每期 1 袋 2",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "双袋尝鲜组合\n2 袋组合\n¥118 / 月\n一次体验 2 款不同产地与处理法的当",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每 2 周\n高频日常饮用",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每月\n标准按月寄送",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "每 6 周\n慢节奏品鉴",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "#01 · 水洗\n¥68 / 200g\n云雾水洗\n埃塞俄比亚 耶加雪菲\n茉莉花香",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "#02 · 日晒\n¥58 / 200g\n火塘日晒\n巴西 喜拉多\n巧克力、烤坚果、",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "#03 · 蜜处理\n¥72 / 200g\n山脊蜜处理\n哥伦比亚 惠兰\n红苹果、焦",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "生成订阅预览凭证（样例演示）",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "高亮显示页面全部「占位/样例」区块",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "半山\n文字标识·样例\n半山烘焙\n文字标识设计 · 占位\n成都 · 小型精品咖啡豆",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "01品牌介绍",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "02三款豆子",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "03订阅信息",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "04订阅配置单",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "按月订阅 · ¥62/月起",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "定制按月订阅方案\n→",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "a",
+      "text": "查看当期三款豆子信息",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "01 云雾水洗",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "02 火塘日晒",
+      "visibleFocusStyle": true
+    }
+  ]
+}

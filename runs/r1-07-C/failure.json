@@ -1,0 +1,29 @@
+{
+  "run": "r1-07-C",
+  "brief": "07",
+  "group": "C",
+  "status": "failed-no-artifact",
+  "task": {
+    "taskId": "task_81f13a9e8ab4",
+    "dispatchId": "ctx_44626c62dca7",
+    "inputAcceptedUtc": "2026-10-21T12:01:44Z",
+    "stopConfirmedUtc": "2026-10-21T12:31:57Z (approximately)",
+    "settlementNote": "Stop settlement was delayed ~13s beyond the user's 30-minute cap by tool execution; the elapsed wall time is therefore not exactly 30 minutes and is not claimed to be."
+  },
+  "verifiedVia": [
+    "orca orchestration worker-show --dispatch ctx_44626c62dca7  -> [stopped] stage=process_stopped, Agent liveness: exited",
+    "orca orchestration dispatch-show --task task_81f13a9e8ab4  -> [failed]"
+  ],
+  "whatIsMissing": [
+    "no runs/r1-07-C/output/index.html",
+    "no author run-log.md",
+    "no generation commit"
+  ],
+  "forensicsTreatment": {
+    "screenshotAttempt": "node scripts/shot.mjs runs/r1-07-C/output/index.html runs/r1-07-C/shots was actually attempted and failed with page.goto net::ERR_FILE_NOT_FOUND (full stderr kept in runs/r1-07-C/shot-attempt.log)",
+    "summaryRow": "all unmeasurable metrics recorded as 未测 with reason, never as 0",
+    "skillReadCheck": "unknown - no author run-log exists to audit",
+    "blindPackage": "one of the three anonymous labels for brief 07 contains only UNAVAILABLE.md; no HTML or screenshots were fabricated",
+    "noRerun": "per coordinator instruction the run is not regenerated, redrawn, or logged on behalf of the author; this file is forensics metadata, not an author run-log"
+  }
+}

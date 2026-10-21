@@ -1,0 +1,230 @@
+{
+  "file": "index.html",
+  "viewports": {
+    "wide": {
+      "width": 1440,
+      "height": 900,
+      "horizontalOverflow": false
+    },
+    "narrow": {
+      "width": 390,
+      "height": 844,
+      "horizontalOverflow": false
+    },
+    "1280x800": {
+      "width": 1280,
+      "height": 800,
+      "horizontalOverflow": false
+    },
+    "900x600": {
+      "width": 900,
+      "height": 600,
+      "horizontalOverflow": false
+    }
+  },
+  "consoleErrors": [],
+  "pageErrors": [],
+  "externalRequests": [],
+  "tabStops": [
+    {
+      "tag": "button",
+      "text": "Windows 壳层 (Ctrl / Alt)",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "macOS 壳层 (⌘ / ⌥)",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "查看菜单/快捷键/右键规范 ↓",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "文件(F)",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "编辑(E)",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "任务(T)",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "视图(V)",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "帮助(H)",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "海报-秋季企划\n12\n主视觉探索",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "头像-社团招新\n8\n一套风格",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "背景-暗色城市\n0\n刚创建，还没有任务",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "海报-秋季企划 (12)",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "头像-社团招新 (8)",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "背景-暗色城市 (0)",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "article",
+      "text": "右键菜单 ▾\n占位 · 无真实图片\n1024×576 · Seed 20481\n",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "右键菜单 ▾",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "article",
+      "text": "右键菜单 ▾\n占位 · 采样预览 57%\n采样 16/28 步 · 1024×5",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "右键菜单 ▾",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "article",
+      "text": "右键菜单 ▾\n占位 · 九宫格构图\n768×768 · Seed 20482\n同",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "右键菜单 ▾",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "article",
+      "text": "右键菜单 ▾\n占位 · 显存不足中断\n1024×1024 · Seed 2048",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "右键菜单 ▾",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "article",
+      "text": "右键菜单 ▾\n占位 · 项目结果槽位\n1024×576 · 样例占位\n黄昏天台上",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "右键菜单 ▾",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "article",
+      "text": "右键菜单 ▾\n占位 · 项目结果槽位\n768×768 · 样例占位\n同一颗行星在",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "右键菜单 ▾",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "复制",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "复制种子",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "按当前参数加入生图队列\n(Ctrl+Enter)",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "锁定种子重跑",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "复用全部参数",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "黄昏天台上的城市天际线，冷色，胶片颗粒\n负面：过曝, 多余肢体 ｜ 种子：204",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "同一颗行星在不同天气下的样子，九宫格\n负面：文字, 水印 ｜ 种子：20482 ",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "手绘风格的咖啡店门面招牌，上午光线\n负面：模糊 ｜ 种子：20483 ｜ ste",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "重试失败任务 (task-b1)",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "折叠已完成",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "暂停",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "置顶",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "重试",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "定位结果",
+      "visibleFocusStyle": true
+    }
+  ]
+}

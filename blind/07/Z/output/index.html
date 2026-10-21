@@ -1,0 +1,2358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>本地 AI 生图桌面客户端 · HTML 原型与菜单/快捷键规范</title>
+  <style>
+    :root {
+      --bg-app: #0f1115;
+      --bg-panel: #16181e;
+      --bg-panel-alt: #12141a;
+      --bg-surface: #1e212a;
+      --bg-surface-hover: #262a36;
+      --bg-surface-active: #2e3444;
+      --bg-overlay: rgba(18, 20, 26, 0.92);
+      --border-subtle: #252834;
+      --border-strong: #343949;
+      --border-focus: #5e81f4;
+      --text-primary: #ebedf2;
+      --text-secondary: #9ba1b0;
+      --text-muted: #646a7a;
+      --accent: #5e81f4;
+      --accent-hover: #7392f7;
+      --accent-soft: rgba(94, 129, 244, 0.16);
+      --status-running: #38bdf8;
+      --status-running-soft: rgba(56, 189, 248, 0.14);
+      --status-queued: #fbbf24;
+      --status-queued-soft: rgba(251, 191, 36, 0.14);
+      --status-failed: #f43f5e;
+      --status-failed-soft: rgba(244, 63, 94, 0.14);
+      --status-done: #34d399;
+      --status-done-soft: rgba(52, 211, 153, 0.14);
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, sans-serif;
+      --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      --radius-sm: 4px;
+      --radius-md: 6px;
+      --radius-lg: 8px;
+      --shadow-menu: 0 12px 32px rgba(0, 0, 0, 0.58), 0 0 0 1px var(--border-strong);
+      --titlebar-h: 34px;
+      --menubar-h: 30px;
+      --statusbar-h: 24px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      background-color: var(--bg-app);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 13px;
+      line-height: 1.45;
+      overflow: hidden;
+      user-select: none;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input, select, textarea {
+      font-family: inherit;
+      font-size: inherit;
+      color: inherit;
+      background: none;
+      border: none;
+      outline: none;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    /* Scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2d313e;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #3f4556;
+    }
+
+    /* App Container */
+    .app-shell {
+      display: flex;
+      flex-direction: column;
+      width: 100vw;
+      height: 100vh;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-app);
+    }
+
+    /* 1. Native Window Titlebar */
+    .window-titlebar {
+      height: var(--titlebar-h);
+      background: #0b0d11;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 10px;
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .titlebar-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* macOS Traffic Lights */
+    .mac-traffic-lights {
+      display: none;
+      align-items: center;
+      gap: 7px;
+      padding-left: 2px;
+      margin-right: 4px;
+    }
+    body[data-os="mac"] .mac-traffic-lights {
+      display: flex;
+    }
+    .mac-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .mac-dot.close { background: #ff5f56; }
+    .mac-dot.min { background: #ffbd2e; }
+    .mac-dot.max { background: #27c93f; }
+
+    .app-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+      font-size: 12px;
+      color: var(--text-primary);
+      letter-spacing: 0.01em;
+    }
+    .app-badge-tag {
+      font-size: 10px;
+      font-weight: 500;
+      padding: 1px 5px;
+      border-radius: 3px;
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .titlebar-center {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .mode-switcher {
+      display: inline-flex;
+      background: var(--bg-panel);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 2px;
+      gap: 2px;
+    }
+    .mode-btn {
+      padding: 2px 10px;
+      font-size: 11px;
+      border-radius: 3px;
+      color: var(--text-secondary);
+      transition: all 0.12s ease;
+    }
+    .mode-btn:hover {
+      color: var(--text-primary);
+    }
+    .mode-btn.active {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .titlebar-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .os-toggle {
+      display: inline-flex;
+      background: var(--bg-panel);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 2px;
+      font-size: 11px;
+    }
+    .os-btn {
+      padding: 1px 7px;
+      border-radius: 2px;
+      color: var(--text-secondary);
+    }
+    .os-btn.active {
+      background: var(--bg-surface-active);
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    /* Windows Controls */
+    .win-controls {
+      display: flex;
+      align-items: center;
+      margin-right: -10px;
+      height: var(--titlebar-h);
+    }
+    body[data-os="mac"] .win-controls {
+      display: none;
+    }
+    .win-ctrl-btn {
+      width: 40px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      font-size: 11px;
+    }
+    .win-ctrl-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-primary);
+    }
+    .win-ctrl-btn.close:hover {
+      background: #e81123;
+      color: #fff;
+    }
+
+    /* 2. Application Menu Bar + Toolbar */
+    .app-menubar {
+      height: var(--menubar-h);
+      background: var(--bg-panel);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 8px;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 200;
+    }
+
+    .menu-items {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .menu-trigger-wrap {
+      position: relative;
+    }
+
+    .menu-trigger {
+      padding: 4px 8px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .menu-trigger:hover,
+    .menu-trigger.open {
+      background: var(--bg-surface-hover);
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 2px);
+      left: 0;
+      min-width: 240px;
+      background: var(--bg-surface);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-menu);
+      padding: 4px;
+      z-index: 300;
+    }
+    .menu-trigger-wrap.open .dropdown-menu {
+      display: block;
+    }
+
+    .menu-row {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5px 10px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      color: var(--text-primary);
+      text-align: left;
+      gap: 16px;
+    }
+    .menu-row:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+    .menu-row:hover .menu-kbd {
+      color: rgba(255, 255, 255, 0.85);
+    }
+    .menu-row.disabled {
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+    .menu-sep {
+      height: 1px;
+      background: var(--border-subtle);
+      margin: 4px 6px;
+    }
+    .menu-kbd {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    .menubar-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    .shortcut-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 7px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      color: var(--text-secondary);
+      font-size: 11px;
+    }
+    .shortcut-pill:hover {
+      border-color: var(--border-strong);
+      color: var(--text-primary);
+    }
+    kbd {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 1px 4px;
+      border-radius: 3px;
+      background: #101218;
+      border: 1px solid var(--border-strong);
+      color: var(--text-primary);
+    }
+
+    /* 3. Main Workspace Layout */
+    .workspace {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 240px 1fr 320px;
+      min-height: 0;
+      position: relative;
+    }
+
+    /* Left Panel: Project List */
+    .panel-left {
+      background: var(--bg-panel);
+      border-right: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .panel-header {
+      height: 36px;
+      padding: 0 12px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .panel-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+    }
+    .icon-btn {
+      padding: 3px 6px;
+      border-radius: var(--radius-sm);
+      font-size: 11px;
+      color: var(--text-secondary);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+    }
+    .icon-btn:hover {
+      color: var(--text-primary);
+      border-color: var(--border-strong);
+      background: var(--bg-surface-hover);
+    }
+
+    .project-list {
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    .project-item {
+      padding: 9px 10px;
+      border-radius: var(--radius-md);
+      border: 1px solid transparent;
+      background: transparent;
+      text-align: left;
+      transition: all 0.12s ease;
+      cursor: pointer;
+    }
+    .project-item:hover {
+      background: var(--bg-surface);
+    }
+    .project-item.active {
+      background: var(--bg-surface-active);
+      border-color: var(--border-focus);
+    }
+    .project-item-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 3px;
+    }
+    .project-name {
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--text-primary);
+    }
+    .project-count {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      padding: 1px 6px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-secondary);
+    }
+    .project-item.active .project-count {
+      background: var(--accent-soft);
+      color: #93afff;
+    }
+    .project-desc {
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    .left-footer-box {
+      padding: 10px 12px;
+      border-top: 1px solid var(--border-subtle);
+      background: var(--bg-panel-alt);
+      font-size: 11px;
+      color: var(--text-secondary);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .left-footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* Center Area: Grid + Bottom Queue */
+    .panel-center {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      min-height: 0;
+      background: var(--bg-app);
+    }
+
+    /* Result Grid Sub-panel */
+    .results-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .results-toolbar {
+      height: 36px;
+      padding: 0 14px;
+      background: var(--bg-panel-alt);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      gap: 12px;
+    }
+
+    .results-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+    .crumb-project {
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--text-primary);
+    }
+    .crumb-meta {
+      font-size: 11px;
+      color: var(--text-secondary);
+      padding: 1px 6px;
+      background: var(--bg-surface);
+      border-radius: var(--radius-sm);
+    }
+
+    .results-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .filter-tabs {
+      display: inline-flex;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 1px;
+    }
+    .filter-tab {
+      padding: 2px 8px;
+      font-size: 11px;
+      color: var(--text-secondary);
+      border-radius: 2px;
+    }
+    .filter-tab.active {
+      background: var(--bg-surface-active);
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .results-grid-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 14px;
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+      gap: 12px;
+    }
+
+    .result-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.1s ease, border-color 0.1s ease, box-shadow 0.1s ease;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .result-card:hover {
+      border-color: var(--border-strong);
+    }
+    .result-card.selected {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(94, 129, 244, 0.35);
+    }
+
+    /* Explicitly Labeled Placeholder Block (No Real Images Allowed) */
+    .placeholder-canvas {
+      width: 100%;
+      height: 132px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 10px;
+      text-align: center;
+      border-bottom: 1px solid var(--border-subtle);
+      overflow: hidden;
+    }
+    .placeholder-canvas.theme-skyline {
+      background: linear-gradient(135deg, #1b2845 0%, #274060 55%, #3b5284 100%);
+    }
+    .placeholder-canvas.theme-planet {
+      background: linear-gradient(135deg, #1f243a 0%, #3a2d54 50%, #24475b 100%);
+    }
+    .placeholder-canvas.theme-cafe {
+      background: linear-gradient(135deg, #3b2d26 0%, #584132 55%, #3f4638 100%);
+    }
+    /* Subtle grid lines inside placeholder to emphasize geometry/aspect */
+    .placeholder-canvas::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 24px 24px;
+      pointer-events: none;
+    }
+
+    .placeholder-pill {
+      position: relative;
+      z-index: 1;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 2px 8px;
+      border-radius: 3px;
+      background: rgba(10, 12, 16, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.24);
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .placeholder-ratio {
+      position: relative;
+      z-index: 1;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.78);
+    }
+    .card-index-badge {
+      position: absolute;
+      top: 6px;
+      left: 6px;
+      z-index: 2;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 1px 5px;
+      border-radius: 3px;
+      background: rgba(12, 14, 18, 0.78);
+      color: var(--text-secondary);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .card-seed-badge {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      z-index: 2;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      padding: 1px 5px;
+      border-radius: 3px;
+      background: rgba(12, 14, 18, 0.78);
+      color: #cbd5e1;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .card-meta {
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .card-prompt {
+      font-size: 12px;
+      color: var(--text-primary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .card-sub {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+    }
+
+    /* Empty Project State */
+    .empty-state {
+      height: 100%;
+      min-height: 220px;
+      border: 1px dashed var(--border-strong);
+      border-radius: var(--radius-lg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+      background: rgba(22, 24, 30, 0.5);
+    }
+    .empty-badge {
+      font-size: 11px;
+      font-family: var(--font-mono);
+      padding: 3px 8px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+      margin-bottom: 10px;
+    }
+    .empty-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--text-primary);
+    }
+    .empty-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      max-width: 340px;
+      margin-bottom: 14px;
+    }
+    .btn-primary {
+      padding: 6px 12px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 500;
+      border-radius: var(--radius-sm);
+    }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+    }
+
+    /* Bottom Panel: Task Queue & Progress */
+    .queue-dock {
+      height: 205px;
+      background: var(--bg-panel);
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    .queue-header {
+      height: 32px;
+      padding: 0 12px;
+      background: var(--bg-panel-alt);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    .queue-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .queue-counters {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+    }
+    .q-pill {
+      padding: 1px 6px;
+      border-radius: 3px;
+      font-size: 11px;
+      font-family: var(--font-mono);
+    }
+    .q-pill.running { background: var(--status-running-soft); color: var(--status-running); }
+    .q-pill.queued { background: var(--status-queued-soft); color: var(--status-queued); }
+    .q-pill.failed { background: var(--status-failed-soft); color: var(--status-failed); }
+    .q-pill.done { background: var(--status-done-soft); color: var(--status-done); }
+
+    .queue-table-wrap {
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .queue-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    .queue-table th {
+      position: sticky;
+      top: 0;
+      background: var(--bg-panel);
+      text-align: left;
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border-subtle);
+      z-index: 1;
+    }
+    .queue-table td {
+      padding: 7px 12px;
+      border-bottom: 1px solid rgba(37, 40, 52, 0.65);
+      vertical-align: middle;
+    }
+    .queue-row {
+      cursor: pointer;
+      transition: background 0.1s ease;
+    }
+    .queue-row:hover {
+      background: var(--bg-surface);
+    }
+    .queue-row.selected {
+      background: var(--bg-surface-active);
+    }
+
+    .task-id-cell {
+      font-family: var(--font-mono);
+      font-weight: 600;
+      color: var(--text-primary);
+      white-space: nowrap;
+    }
+    .task-prompt-cell {
+      color: var(--text-primary);
+      max-width: 240px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .task-seed-cell {
+      font-family: var(--font-mono);
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    .status-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 2px 7px;
+      border-radius: 3px;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+    .status-tag.running {
+      background: var(--status-running-soft);
+      color: var(--status-running);
+    }
+    .status-tag.queued {
+      background: var(--status-queued-soft);
+      color: var(--status-queued);
+    }
+    .status-tag.failed {
+      background: var(--status-failed-soft);
+      color: var(--status-failed);
+    }
+    .status-tag.done {
+      background: var(--status-done-soft);
+      color: var(--status-done);
+    }
+
+    .progress-cell {
+      width: 140px;
+    }
+    .progress-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .progress-bar {
+      flex: 1;
+      height: 6px;
+      background: #0d0f14;
+      border-radius: 3px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+    }
+    .progress-fill {
+      height: 100%;
+      border-radius: 2px;
+    }
+    .progress-fill.running { background: var(--status-running); }
+    .progress-fill.queued { background: var(--status-queued); }
+    .progress-fill.done { background: var(--status-done); }
+    .progress-text {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      width: 34px;
+      text-align: right;
+      color: var(--text-secondary);
+    }
+
+    .row-action-btn {
+      padding: 2px 7px;
+      font-size: 11px;
+      border-radius: 3px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      color: var(--text-primary);
+    }
+    .row-action-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    /* Right Panel: Parameter Inspector */
+    .panel-right {
+      background: var(--bg-panel);
+      border-left: 1px solid var(--border-subtle);
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .inspector-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .inspector-preview-card {
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--bg-panel-alt);
+    }
+    .inspector-preview-canvas {
+      height: 110px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .inspector-preview-meta {
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    .inspector-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .inspector-label-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .inspector-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+    .copy-mini-btn {
+      font-size: 11px;
+      color: var(--accent);
+      padding: 1px 4px;
+      border-radius: 2px;
+    }
+    .copy-mini-btn:hover {
+      background: var(--accent-soft);
+    }
+
+    .inspector-box {
+      padding: 8px 10px;
+      background: var(--bg-panel-alt);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      color: var(--text-primary);
+      line-height: 1.5;
+      user-select: text;
+    }
+    .inspector-box.mono {
+      font-family: var(--font-mono);
+    }
+
+    .inspector-kv-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .kv-card {
+      padding: 7px 9px;
+      background: var(--bg-panel-alt);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+    }
+    .kv-label {
+      font-size: 10px;
+      color: var(--text-secondary);
+      margin-bottom: 2px;
+    }
+    .kv-val {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+      user-select: text;
+    }
+
+    .preset-switcher {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .preset-btn {
+      padding: 6px 8px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-panel-alt);
+      border: 1px solid var(--border-subtle);
+      text-align: left;
+      font-size: 11px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+    }
+    .preset-btn:hover {
+      border-color: var(--border-strong);
+      color: var(--text-primary);
+    }
+    .preset-btn.active {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: var(--text-primary);
+    }
+    .preset-seed {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--text-secondary);
+    }
+
+    .inspector-actions {
+      padding: 10px 12px;
+      border-top: 1px solid var(--border-subtle);
+      background: var(--bg-panel-alt);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .btn-secondary {
+      padding: 6px 10px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      color: var(--text-primary);
+      text-align: center;
+    }
+    .btn-secondary:hover {
+      background: var(--bg-surface-hover);
+    }
+
+    /* 4. Design Specs Drawer / Full View (Menus, Shortcuts, Context Menus) */
+    .spec-overlay {
+      display: none;
+      position: absolute;
+      inset: 0;
+      background: var(--bg-app);
+      z-index: 150;
+      overflow-y: auto;
+      padding: 20px 28px 36px;
+    }
+    .spec-overlay.open {
+      display: block;
+    }
+
+    .spec-container {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .spec-top-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      background: var(--bg-panel);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+    }
+    .spec-top-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+    .spec-top-sub {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .spec-section {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 16px 18px;
+    }
+    .spec-section-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .spec-section-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 14px;
+    }
+
+    .spec-grid-5 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+    .spec-grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 14px;
+    }
+    .spec-card {
+      background: var(--bg-panel-alt);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px;
+    }
+    .spec-card-header {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--accent-hover);
+      padding-bottom: 8px;
+      margin-bottom: 8px;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .spec-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .spec-list li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      gap: 8px;
+    }
+    .spec-list li.sep {
+      height: 1px;
+      background: var(--border-subtle);
+      margin: 3px 0;
+    }
+
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    .spec-table th,
+    .spec-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border-subtle);
+      text-align: left;
+    }
+    .spec-table th {
+      color: var(--text-secondary);
+      font-weight: 600;
+      background: var(--bg-panel-alt);
+    }
+
+    /* 5. Floating Context Menu */
+    .context-menu {
+      display: none;
+      position: fixed;
+      min-width: 230px;
+      background: var(--bg-surface);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-menu);
+      padding: 4px;
+      z-index: 500;
+    }
+    .context-menu.open {
+      display: block;
+    }
+    .ctx-header {
+      padding: 4px 10px;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 3px;
+    }
+
+    /* 6. Status Bar */
+    .app-statusbar {
+      height: var(--statusbar-h);
+      background: #0b0d11;
+      border-top: 1px solid var(--border-subtle);
+      padding: 0 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-secondary);
+      flex-shrink: 0;
+    }
+    .status-left, .status-right {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--status-running);
+      display: inline-block;
+      margin-right: 5px;
+    }
+
+    /* Toast Notification */
+    .toast-msg {
+      position: fixed;
+      bottom: 36px;
+      right: 18px;
+      background: var(--bg-surface-active);
+      border: 1px solid var(--border-focus);
+      color: var(--text-primary);
+      padding: 8px 14px;
+      border-radius: var(--radius-md);
+      font-size: 12px;
+      box-shadow: var(--shadow-menu);
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+      transition: all 0.18s ease;
+      z-index: 600;
+    }
+    .toast-msg.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body data-os="win">
+  <div class="app-shell">
+    <!-- 1. Window Titlebar (Electron / Tauri shell adaptation for Windows & macOS) -->
+    <header class="window-titlebar">
+      <div class="titlebar-left">
+        <div class="mac-traffic-lights" title="macOS 窗口控制区">
+          <span class="mac-dot close"></span>
+          <span class="mac-dot min"></span>
+          <span class="mac-dot max"></span>
+        </div>
+        <div class="app-badge">
+          <span>本地 AI 生图桌面客户端</span>
+          <span class="app-badge-tag">Tauri / Electron 原型</span>
+        </div>
+      </div>
+
+      <div class="titlebar-center">
+        <div class="mode-switcher" role="tablist" aria-label="视图模式切换">
+          <button class="mode-btn active" id="btnViewWorkspace" onclick="switchMainView('workspace')">工作台原型 (四栏视图)</button>
+          <button class="mode-btn" id="btnViewSpecs" onclick="switchMainView('specs')">菜单 / 快捷键 / 右键菜单设计规范</button>
+        </div>
+      </div>
+
+      <div class="titlebar-right">
+        <div class="os-toggle" title="切换 Windows / macOS 快捷键符号与窗口栏样式">
+          <button class="os-btn active" id="osBtnWin" onclick="setOS('win')">Windows (Ctrl)</button>
+          <button class="os-btn" id="osBtnMac" onclick="setOS('mac')">macOS (⌘)</button>
+        </div>
+        <div class="win-controls" title="Windows 窗口控制区">
+          <button class="win-ctrl-btn" onclick="showToast('最小化窗口（演示）')">&#x2015;</button>
+          <button class="win-ctrl-btn" onclick="showToast('最大化/还原窗口（演示）')">&#x25A1;</button>
+          <button class="win-ctrl-btn close" onclick="showToast('关闭窗口（演示）')">&#x2715;</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- 2. Top Application Menu Bar -->
+    <nav class="app-menubar" aria-label="应用主菜单">
+      <div class="menu-items" id="topMenuBar">
+        <!-- 文件 -->
+        <div class="menu-trigger-wrap">
+          <button class="menu-trigger" onclick="toggleTopMenu(event, this)">文件(F)</button>
+          <div class="dropdown-menu">
+            <button class="menu-row" onclick="triggerAction('新建项目')"><span>新建项目…</span><span class="menu-kbd" data-win="Ctrl+N" data-mac="⌘N">Ctrl+N</span></button>
+            <button class="menu-row" onclick="triggerAction('打开项目目录')"><span>打开本地项目目录…</span><span class="menu-kbd" data-win="Ctrl+O" data-mac="⌘O">Ctrl+O</span></button>
+            <div class="menu-sep"></div>
+            <button class="menu-row" onclick="triggerAction('导入参数 JSON')"><span>从文件导入提示词与参数…</span><span class="menu-kbd" data-win="Ctrl+I" data-mac="⌘I">Ctrl+I</span></button>
+            <button class="menu-row" onclick="triggerAction('导出选中结果')"><span>导出当前选中占位结果…</span><span class="menu-kbd" data-win="Ctrl+E" data-mac="⌘E">Ctrl+E</span></button>
+            <div class="menu-sep"></div>
+            <button class="menu-row" onclick="triggerAction('首选项设置')"><span>设置 / 首选项…</span><span class="menu-kbd" data-win="Ctrl+," data-mac="⌘,">Ctrl+,</span></button>
+            <button class="menu-row" onclick="triggerAction('退出客户端')"><span>退出</span><span class="menu-kbd" data-win="Alt+F4" data-mac="⌘Q">Alt+F4</span></button>
+          </div>
+        </div>
+
+        <!-- 编辑 -->
+        <div class="menu-trigger-wrap">
+          <button class="menu-trigger" onclick="toggleTopMenu(event, this)">编辑(E)</button>
+          <div class="dropdown-menu">
+            <button class="menu-row" onclick="copyField('prompt')"><span>复制正向提示词 (Prompt)</span><span class="menu-kbd" data-win="Ctrl+C" data-mac="⌘C">Ctrl+C</span></button>
+            <button class="menu-row" onclick="copyField('negative')"><span>复制负面提示词</span><span class="menu-kbd" data-win="Ctrl+Shift+N" data-mac="⇧⌘N">Ctrl+Shift+N</span></button>
+            <button class="menu-row" onclick="copyField('all')"><span>复制完整生成参数 (Seed/Steps/尺寸)</span><span class="menu-kbd" data-win="Ctrl+Shift+C" data-mac="⇧⌘C">Ctrl+Shift+C</span></button>
+            <div class="menu-sep"></div>
+            <button class="menu-row" onclick="triggerAction('粘贴参数到检查器')"><span>粘贴参数至检查器</span><span class="menu-kbd" data-win="Ctrl+V" data-mac="⌘V">Ctrl+V</span></button>
+            <button class="menu-row" onclick="triggerAction('全选当前项目网格')"><span>全选当前网格项</span><span class="menu-kbd" data-win="Ctrl+A" data-mac="⌘A">Ctrl+A</span></button>
+          </div>
+        </div>
+
+        <!-- 视图 -->
+        <div class="menu-trigger-wrap">
+          <button class="menu-trigger" onclick="toggleTopMenu(event, this)">视图(V)</button>
+          <div class="dropdown-menu">
+            <button class="menu-row" onclick="switchMainView('workspace')"><span>切换至四栏工作台视图</span><span class="menu-kbd" data-win="Ctrl+1" data-mac="⌘1">Ctrl+1</span></button>
+            <button class="menu-row" onclick="switchMainView('specs')"><span>切换至菜单与快捷键规范视图</span><span class="menu-kbd" data-win="Ctrl+2" data-mac="⌘2">Ctrl+2</span></button>
+            <div class="menu-sep"></div>
+            <button class="menu-row" onclick="toggleQueueDock()"><span>显示 / 折叠底部任务队列面板</span><span class="menu-kbd" data-win="Ctrl+J" data-mac="⌘J">Ctrl+J</span></button>
+            <button class="menu-row" onclick="toggleInspectorPanel()"><span>显示 / 折叠右侧参数检查器</span><span class="menu-kbd" data-win="Ctrl+B" data-mac="⌘B">Ctrl+B</span></button>
+          </div>
+        </div>
+
+        <!-- 任务与队列 -->
+        <div class="menu-trigger-wrap">
+          <button class="menu-trigger" onclick="toggleTopMenu(event, this)">任务(T)</button>
+          <div class="dropdown-menu">
+            <button class="menu-row" onclick="enqueueCurrentInspector()"><span>按当前检查器参数加入生图队列</span><span class="menu-kbd" data-win="Ctrl+Enter" data-mac="⌘Enter">Ctrl+Enter</span></button>
+            <button class="menu-row" onclick="retryFailedTask()"><span>重试失败任务 (task-b1)</span><span class="menu-kbd" data-win="Ctrl+R" data-mac="⌘R">Ctrl+R</span></button>
+            <div class="menu-sep"></div>
+            <button class="menu-row" onclick="triggerAction('暂停/继续队列采样')"><span>暂停 / 恢复本地队列</span><span class="menu-kbd" data-win="Ctrl+P" data-mac="⌘P">Ctrl+P</span></button>
+            <button class="menu-row" onclick="triggerAction('清理已完成记录')"><span>清理已完成队列记录 (task-c1)</span><span class="menu-kbd" data-win="Ctrl+Shift+K" data-mac="⇧⌘K">Ctrl+Shift+K</span></button>
+          </div>
+        </div>
+
+        <!-- 帮助 -->
+        <div class="menu-trigger-wrap">
+          <button class="menu-trigger" onclick="toggleTopMenu(event, this)">帮助(H)</button>
+          <div class="dropdown-menu">
+            <button class="menu-row" onclick="switchMainView('specs')"><span>快捷键与右键菜单一览表</span><span class="menu-kbd" data-win="Ctrl+/" data-mac="⌘/">Ctrl+/</span></button>
+            <button class="menu-row" onclick="triggerAction('显存诊断提示')"><span>显存占用与失败原因说明 (task-b1)</span><span class="menu-kbd">F1</span></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="menubar-right">
+        <span>提示：在<b>左侧项目</b>、<b>中间占位网格</b>或<b>底部队列行</b>上<b>点击鼠标右键</b>可体验专属右键菜单</span>
+        <button class="shortcut-pill" onclick="switchMainView('specs')">
+          <span>查看完整交互设计规范</span>
+          <kbd id="kbdHintBadge">Ctrl+/</kbd>
+        </button>
+      </div>
+    </nav>
+
+    <!-- 3. Main 4-Zone Workspace -->
+    <main class="workspace" id="mainWorkspace">
+      <!-- Left Column: Project List -->
+      <aside class="panel-left" aria-label="左侧项目列表">
+        <div class="panel-header">
+          <span class="panel-title">项目列表 (样例)</span>
+          <button class="icon-btn" onclick="triggerAction('新建项目')" title="新建项目 (Ctrl+N / ⌘N)">+ 新建</button>
+        </div>
+
+        <div class="project-list" id="projectListContainer">
+          <!-- Populated by JS from exact materials -->
+        </div>
+
+        <div class="left-footer-box">
+          <div class="left-footer-row">
+            <span>当前项目总数</span>
+            <span style="font-family: var(--font-mono); color: var(--text-primary);">3 个项目</span>
+          </div>
+          <div class="left-footer-row">
+            <span>样例图片占位合计</span>
+            <span style="font-family: var(--font-mono); color: var(--text-primary);">20 张 (12 + 8 + 0)</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Center Column: Result Grid + Bottom Task Queue -->
+      <section class="panel-center">
+        <!-- Result Grid Area -->
+        <div class="results-section">
+          <div class="results-toolbar">
+            <div class="results-breadcrumb">
+              <span class="crumb-project" id="currentProjectTitle">海报-秋季企划</span>
+              <span class="crumb-meta" id="currentProjectMeta">12 张 · 主视觉探索</span>
+            </div>
+
+            <div class="results-controls">
+              <div class="filter-tabs" id="seedFilterGroup" aria-label="按样例种子筛选">
+                <button class="filter-tab active" onclick="setSeedFilter('all')">全部</button>
+                <button class="filter-tab" onclick="setSeedFilter('20481')">Seed 20481</button>
+                <button class="filter-tab" onclick="setSeedFilter('20482')">Seed 20482</button>
+                <button class="filter-tab" onclick="setSeedFilter('20483')">Seed 20483</button>
+              </div>
+              <button class="icon-btn" onclick="enqueueCurrentInspector()" title="使用右侧检查器参数加入队列 (Ctrl+Enter)">+ 加入队列</button>
+            </div>
+          </div>
+
+          <div class="results-grid-scroll" id="resultsGridContainer">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Bottom Area: Task Queue & Progress -->
+        <section class="queue-dock" id="queueDockPanel" aria-label="底部任务队列与进度">
+          <div class="queue-header">
+            <div class="queue-header-left">
+              <span class="panel-title">任务队列与进度 (样例状态)</span>
+              <div class="queue-counters">
+                <span class="q-pill running">生成中 1</span>
+                <span class="q-pill queued">排队中 1</span>
+                <span class="q-pill failed">失败 1</span>
+                <span class="q-pill done">已完成 1</span>
+              </div>
+            </div>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <button class="icon-btn" onclick="retryFailedTask()">重试失败项 (task-b1)</button>
+              <button class="icon-btn" onclick="switchMainView('specs')">右键菜单说明</button>
+            </div>
+          </div>
+
+          <div class="queue-table-wrap">
+            <table class="queue-table">
+              <thead>
+                <tr>
+                  <th style="width: 88px;">任务</th>
+                  <th>提示词</th>
+                  <th style="width: 78px;">种子</th>
+                  <th style="width: 210px;">状态</th>
+                  <th style="width: 150px;">进度</th>
+                  <th style="width: 90px; text-align:right;">操作</th>
+                </tr>
+              </thead>
+              <tbody id="queueTableBody">
+                <!-- Populated by JS from exact materials -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+
+      <!-- Right Column: Parameter Inspector -->
+      <aside class="panel-right" id="inspectorPanel" aria-label="右侧当前图片的参数检查器">
+        <div class="panel-header">
+          <span class="panel-title">参数检查器 (Inspector)</span>
+          <span id="inspectorTargetBadge" style="font-family:var(--font-mono); font-size:11px; color:var(--accent-hover);">#01 · 占位</span>
+        </div>
+
+        <div class="inspector-scroll">
+          <!-- Selected Placeholder Preview -->
+          <div class="inspector-preview-card">
+            <div class="inspector-preview-canvas theme-skyline" id="inspectorPreviewCanvas">
+              <span class="placeholder-pill">占位 · 无真实图片</span>
+              <span class="placeholder-ratio" id="inspectorPreviewSub">尺寸 1024×576 · Seed 20481</span>
+            </div>
+            <div class="inspector-preview-meta">
+              <span id="inspectorProjectLabel">所属项目：海报-秋季企划</span>
+              <span id="inspectorTaskLink" style="font-family:var(--font-mono);">关联：task-c1</span>
+            </div>
+          </div>
+
+          <!-- Switch between the 3 exact sample parameter sets -->
+          <div class="inspector-group">
+            <div class="inspector-label-row">
+              <span class="inspector-label">样例提示词与参数切换（共 3 组原样素材）</span>
+            </div>
+            <div class="preset-switcher" id="presetSwitcher">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <!-- Prompt -->
+          <div class="inspector-group">
+            <div class="inspector-label-row">
+              <span class="inspector-label">提示词（prompt）</span>
+              <button class="copy-mini-btn" onclick="copyField('prompt')">复制</button>
+            </div>
+            <div class="inspector-box" id="inspPrompt">黄昏天台上的城市天际线，冷色，胶片颗粒</div>
+          </div>
+
+          <!-- Negative Prompt -->
+          <div class="inspector-group">
+            <div class="inspector-label-row">
+              <span class="inspector-label">负面提示词</span>
+              <button class="copy-mini-btn" onclick="copyField('negative')">复制</button>
+            </div>
+            <div class="inspector-box" id="inspNegative">过曝, 多余肢体</div>
+          </div>
+
+          <!-- Seed & Other Params -->
+          <div class="inspector-kv-grid">
+            <div class="kv-card">
+              <div class="kv-label">种子（seed）</div>
+              <div class="kv-val" id="inspSeed">20481</div>
+            </div>
+            <div class="kv-card">
+              <div class="kv-label">采样步数（steps）</div>
+              <div class="kv-val" id="inspSteps">steps 28</div>
+            </div>
+            <div class="kv-card" style="grid-column: span 2;">
+              <div class="kv-label">其他参数（原样字段）</div>
+              <div class="kv-val" id="inspOther">steps 28 / 尺寸 1024×576</div>
+            </div>
+          </div>
+
+          <!-- Active Queue Status Mapping -->
+          <div class="inspector-group">
+            <div class="inspector-label-row">
+              <span class="inspector-label">对应队列任务状态</span>
+            </div>
+            <div class="inspector-box mono" id="inspQueueStatus" style="font-size:11px; color:var(--text-secondary);">
+              task-a1: 生成中（采样 16/28 步） · 57%<br>
+              task-c1: 已完成 · 100%
+            </div>
+          </div>
+        </div>
+
+        <div class="inspector-actions">
+          <button class="btn-secondary" onclick="copyField('all')">复制全部参数</button>
+          <button class="btn-primary" onclick="enqueueCurrentInspector()">以此参数重新生图</button>
+        </div>
+      </aside>
+
+      <!-- 4. Embedded Design Specification View (Menus, Shortcuts, Right-Click Menus) -->
+      <section class="spec-overlay" id="specOverlay" aria-label="菜单、快捷键与右键菜单设计说明">
+        <div class="spec-container">
+          <div class="spec-top-banner">
+            <div>
+              <div class="spec-top-title">桌面客户端菜单、快捷键与右键菜单设计规范 (Windows / macOS 双端适配)</div>
+              <div class="spec-top-sub">适用于 Electron 或 Tauri 桌面外壳 · 支持在顶部直接下拉体验主菜单，或在工作台各区域点击鼠标右键唤出上下文菜单</div>
+            </div>
+            <button class="btn-primary" onclick="switchMainView('workspace')">返回四栏工作台原型</button>
+          </div>
+
+          <!-- Section A: Application Menu Bar Design -->
+          <div class="spec-section">
+            <div class="spec-section-title">一、顶部应用菜单栏设计（Application Menu）</div>
+            <div class="spec-section-desc">
+              Windows 下渲染为窗口顶部内嵌自定义菜单栏（支持 Alt+字母助记键）；macOS 下通过 Electron <code>Menu.setApplicationMenu</code> / Tauri <code>Menu</code> 映射至系统顶栏。
+            </div>
+            <div class="spec-grid-5">
+              <div class="spec-card">
+                <div class="spec-card-header"><span>1. 文件 (File)</span><span>Alt+F</span></div>
+                <ul class="spec-list">
+                  <li><span>新建项目…</span><kbd>Ctrl+N / ⌘N</kbd></li>
+                  <li><span>打开本地项目目录…</span><kbd>Ctrl+O / ⌘O</kbd></li>
+                  <li class="sep"></li>
+                  <li><span>导入提示词与参数…</span><kbd>Ctrl+I / ⌘I</kbd></li>
+                  <li><span>导出选中占位结果…</span><kbd>Ctrl+E / ⌘E</kbd></li>
+                  <li class="sep"></li>
+                  <li><span>设置 / 首选项…</span><kbd>Ctrl+, / ⌘,</kbd></li>
+                  <li><span>退出客户端</span><kbd>Alt+F4 / ⌘Q</kbd></li>
+                </ul>
+              </div>
+
+              <div class="spec-card">
+                <div class="spec-card-header"><span>2. 编辑 (Edit)</span><span>Alt+E</span></div>
+                <ul class="spec-list">
+                  <li><span>复制正向提示词</span><kbd>Ctrl+C / ⌘C</kbd></li>
+                  <li><span>复制负面提示词</span><kbd>Ctrl+Shift+N / ⇧⌘N</kbd></li>
+                  <li><span>复制完整生成参数</span><kbd>Ctrl+Shift+C / ⇧⌘C</kbd></li>
+                  <li class="sep"></li>
+                  <li><span>粘贴参数至检查器</span><kbd>Ctrl+V / ⌘V</kbd></li>
+                  <li><span>全选当前项目网格</span><kbd>Ctrl+A / ⌘A</kbd></li>
+                  <li><span>移出选中结果项</span><kbd>Del / ⌫</kbd></li>
+                </ul>
+              </div>
+
+              <div class="spec-card">
+                <div class="spec-card-header"><span>3. 视图 (View)</span><span>Alt+V</span></div>
+                <ul class="spec-list">
+                  <li><span>四栏工作台视图</span><kbd>Ctrl+1 / ⌘1</kbd></li>
+                  <li><span>菜单与快捷键规范</span><kbd>Ctrl+2 / ⌘2</kbd></li>
+                  <li class="sep"></li>
+                  <li><span>显示/折叠底部队列</span><kbd>Ctrl+J / ⌘J</kbd></li>
+                  <li><span>显示/折叠参数检查器</span><kbd>Ctrl+B / ⌘B</kbd></li>
+                  <li class="sep"></li>
+                  <li><span>网格缩放增大/减小</span><kbd>Ctrl+± / ⌘±</kbd></li>
+                </ul>
+              </div>
+
+              <div class="spec-card">
+                <div class="spec-card-header"><span>4. 任务与队列 (Task)</span><span>Alt+T</span></div>
+                <ul class="spec-list">
+                  <li><span>按当前参数加入队列</span><kbd>Ctrl+Enter / ⌘↵</kbd></li>
+                  <li><span>重试失败任务 (task-b1)</span><kbd>Ctrl+R / ⌘R</kbd></li>
+                  <li class="sep"></li>
+                  <li><span>暂停 / 恢复本地队列</span><kbd>Ctrl+P / ⌘P</kbd></li>
+                  <li><span>清理已完成任务记录</span><kbd>Ctrl+Shift+K / ⇧⌘K</kbd></li>
+                  <li><span>中止当前采样任务</span><kbd>Esc</kbd></li>
+                </ul>
+              </div>
+
+              <div class="spec-card">
+                <div class="spec-card-header"><span>5. 帮助 (Help)</span><span>Alt+H</span></div>
+                <ul class="spec-list">
+                  <li><span>快捷键与右键菜单速查</span><kbd>Ctrl+/ / ⌘/</kbd></li>
+                  <li><span>显存不足排障指引</span><kbd>F1</kbd></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section B: Keyboard Shortcuts Matrix -->
+          <div class="spec-section">
+            <div class="spec-section-title">二、全局与面板级快捷键设计（Windows / macOS 对照）</div>
+            <div class="spec-section-desc">
+              围绕「选项目 → 浏览结果网格 → 检查/复用参数 → 操控队列重试」高频闭环设计，避免与系统输入法冲突。
+            </div>
+            <table class="spec-table">
+              <thead>
+                <tr>
+                  <th style="width: 140px;">作用域</th>
+                  <th style="width: 220px;">功能动作</th>
+                  <th style="width: 160px;">Windows 快捷键</th>
+                  <th style="width: 160px;">macOS 快捷键</th>
+                  <th>交互反馈与说明</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>全局 / 检查器</td>
+                  <td>使用当前检查器参数提交生图队列</td>
+                  <td><kbd>Ctrl + Enter</kbd></td>
+                  <td><kbd>⌘ + Return</kbd></td>
+                  <td>立即将当前选中的 Prompt / Seed / 尺寸追加到底部任务队列</td>
+                </tr>
+                <tr>
+                  <td>中间结果网格</td>
+                  <td>上下左右切换选中占位图片</td>
+                  <td><kbd>↑ ↓ ← →</kbd></td>
+                  <td><kbd>↑ ↓ ← →</kbd></td>
+                  <td>右侧参数检查器实时同步更新对应卡片的提示词、负面词、Seed 与尺寸</td>
+                </tr>
+                <tr>
+                  <td>中间结果网格</td>
+                  <td>快速预览 / 对比当前选中占位图</td>
+                  <td><kbd>Space</kbd></td>
+                  <td><kbd>Space</kbd></td>
+                  <td>保持焦点在网格内，高亮显示尺寸比例与采样步数</td>
+                </tr>
+                <tr>
+                  <td>参数检查器</td>
+                  <td>一键复制完整生成参数</td>
+                  <td><kbd>Ctrl + Shift + C</kbd></td>
+                  <td><kbd>⇧ + ⌘ + C</kbd></td>
+                  <td>复制包含提示词、负面提示词、种子、steps 与尺寸的结构化文本</td>
+                </tr>
+                <tr>
+                  <td>底部任务队列</td>
+                  <td>重试失败的任务（如显存不足的 task-b1）</td>
+                  <td><kbd>Ctrl + R</kbd></td>
+                  <td><kbd>⌘ + R</kbd></td>
+                  <td>将 <code>task-b1</code> 状态重置为排队中/生成中并重新执行采样</td>
+                </tr>
+                <tr>
+                  <td>布局面板控制</td>
+                  <td>显示 / 隐藏底部任务队列面板</td>
+                  <td><kbd>Ctrl + J</kbd></td>
+                  <td><kbd>⌘ + J</kbd></td>
+                  <td>当需要更大面积浏览中间结果网格时一键收起底部队列</td>
+                </tr>
+                <tr>
+                  <td>布局面板控制</td>
+                  <td>显示 / 隐藏右侧参数检查器</td>
+                  <td><kbd>Ctrl + B</kbd></td>
+                  <td><kbd>⌘ + B</kbd></td>
+                  <td>切换右侧 320px 参数检查器的展开状态</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Section C: Context Menus (Right-Click Menus) -->
+          <div class="spec-section">
+            <div class="spec-section-title">三、三类上下文右键菜单设计（Context Menu · 可在工作台直接右键实测）</div>
+            <div class="spec-section-desc">
+              针对「左侧项目列表」「中间结果网格卡片」「底部队列任务行」三类不同对象提供专属右键菜单，支持键盘快捷键提示与禁用态区分。
+            </div>
+            <div class="spec-grid-3">
+              <!-- Context Menu 1: Grid Card -->
+              <div class="spec-card">
+                <div class="spec-card-header">
+                  <span>A. 中间结果网格卡片右键菜单</span>
+                  <span>触发：右键任意「占位」卡片</span>
+                </div>
+                <ul class="spec-list">
+                  <li><span>在右侧检查器中查看参数</span><kbd>Enter</kbd></li>
+                  <li class="sep"></li>
+                  <li><span>复制提示词（prompt）</span><kbd>Ctrl+C / ⌘C</kbd></li>
+                  <li><span>复制负面提示词</span><kbd>Ctrl+Shift+N</kbd></li>
+                  <li><span>复制种子（Seed）</span><kbd>Alt+S / ⌥S</kbd></li>
+                  <li><span>复制全部参数 (Prompt+Seed+尺寸)</span><kbd>Ctrl+Shift+C</kbd></li>
+                  <li class="sep"></li>
+                  <li><span>锁定此 Seed 重新入队生成</span><kbd>Ctrl+Enter</kbd></li>
+                  <li><span>固定提示词并随机新 Seed 入队</span><kbd>Ctrl+Shift+Enter</kbd></li>
+                  <li class="sep"></li>
+                  <li><span>在本地文件夹中显示 (Explorer/Finder)</span><kbd>Ctrl+Shift+R</kbd></li>
+                  <li><span>从当前项目中移除占位项</span><kbd>Del / ⌫</kbd></li>
+                </ul>
+              </div>
+
+              <!-- Context Menu 2: Task Queue Row -->
+              <div class="spec-card">
+                <div class="spec-card-header">
+                  <span>B. 底部任务队列行右键菜单</span>
+                  <span>触发：右键任意 task-* 行</span>
+                </div>
+                <ul class="spec-list">
+                  <li><span>加载任务参数到右侧检查器</span><kbd>Enter</kbd></li>
+                  <li class="sep"></li>
+                  <li><span>重试失败任务（针对显存不足 task-b1）</span><kbd>Ctrl+R / ⌘R</kbd></li>
+                  <li><span>调整队列优先级：置顶排队（针对 task-a2）</span><kbd>Alt+↑</kbd></li>
+                  <li><span>中止正在采样的任务（针对 task-a1）</span><kbd>Esc</kbd></li>
+                  <li class="sep"></li>
+                  <li><span>复制任务 ID 与种子 (Seed)</span><kbd>Ctrl+C / ⌘C</kbd></li>
+                  <li><span>从队列列表中移除已完成项（task-c1）</span><kbd>Del / ⌫</kbd></li>
+                </ul>
+              </div>
+
+              <!-- Context Menu 3: Left Project Item -->
+              <div class="spec-card">
+                <div class="spec-card-header">
+                  <span>C. 左侧项目列表项右键菜单</span>
+                  <span>触发：右键任意项目名称</span>
+                </div>
+                <ul class="spec-list">
+                  <li><span>切换到此项目</span><kbd>Enter</kbd></li>
+                  <li><span>以此项目新建生图任务</span><kbd>Ctrl+Enter</kbd></li>
+                  <li class="sep"></li>
+                  <li><span>重命名项目…</span><kbd>F2</kbd></li>
+                  <li><span>在文件管理器中打开项目目录</span><kbd>Ctrl+Shift+O</kbd></li>
+                  <li class="sep"></li>
+                  <li><span>导出项目参数清单 (JSON)</span><kbd>Ctrl+E</kbd></li>
+                  <li><span>删除空项目（仅限 0 张图片项目）</span><kbd>Del / ⌫</kbd></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- 5. Dynamic Context Menu Popup -->
+    <div class="context-menu" id="contextMenuPopup" role="menu"></div>
+
+    <!-- 6. Status Bar -->
+    <footer class="app-statusbar">
+      <div class="status-left">
+        <span><i class="status-dot"></i>本地推理队列：运行中 · 正在采样 <b>task-a1</b> (16/28 步, 57%)</span>
+        <span>告警：<b>task-b1</b> 失败（显存不足，可重试）</span>
+      </div>
+      <div class="status-right">
+        <span id="statusProjectSummary">当前项目：海报-秋季企划（12 张占位）</span>
+        <span>素材声明：全部使用固定样例，结果网格均为标注「占位」色块</span>
+      </div>
+    </footer>
+
+    <!-- Toast Feedback -->
+    <div class="toast-msg" id="toastBox"></div>
+  </div>
+
+  <script>
+    // === 1. Exact Sample Data from test/materials/07.md ===
+    const PROJECTS = [
+      {
+        id: 'proj-poster',
+        name: '海报-秋季企划',
+        count: 12,
+        desc: '主视觉探索'
+      },
+      {
+        id: 'proj-avatar',
+        name: '头像-社团招新',
+        count: 8,
+        desc: '一套风格'
+      },
+      {
+        id: 'proj-city',
+        name: '背景-暗色城市',
+        count: 0,
+        desc: '刚创建，还没有任务'
+      }
+    ];
+
+    const PARAM_SAMPLES = [
+      {
+        key: 'sample-1',
+        prompt: '黄昏天台上的城市天际线，冷色，胶片颗粒',
+        negative: '过曝, 多余肢体',
+        seed: '20481',
+        steps: 'steps 28',
+        size: '尺寸 1024×576',
+        other: 'steps 28 / 尺寸 1024×576',
+        themeClass: 'theme-skyline',
+        relatedQueue: 'task-a1: 生成中（采样 16/28 步） · 57%\ntask-c1: 已完成 · 100%',
+        relatedTaskShort: '关联：task-a1 / task-c1'
+      },
+      {
+        key: 'sample-2',
+        prompt: '同一颗行星在不同天气下的样子，九宫格',
+        negative: '文字, 水印',
+        seed: '20482',
+        steps: 'steps 30',
+        size: '尺寸 768×768',
+        other: 'steps 30 / 尺寸 768×768',
+        themeClass: 'theme-planet',
+        relatedQueue: 'task-a2: 排队中（第 2 位） · 0%',
+        relatedTaskShort: '关联：task-a2'
+      },
+      {
+        key: 'sample-3',
+        prompt: '手绘风格的咖啡店门面招牌，上午光线',
+        negative: '模糊',
+        seed: '20483',
+        steps: 'steps 25',
+        size: '尺寸 1024×1024',
+        other: 'steps 25 / 尺寸 1024×1024',
+        themeClass: 'theme-cafe',
+        relatedQueue: 'task-b1: 失败（显存不足，可重试） · —',
+        relatedTaskShort: '关联：task-b1'
+      }
+    ];
+
+    const QUEUE_TASKS = [
+      {
+        id: 'task-a1',
+        promptShort: '黄昏天台上的城市天际线…',
+        seed: '20481',
+        statusText: '生成中（采样 16/28 步）',
+        statusType: 'running',
+        progressText: '57%',
+        progressVal: 57,
+        sampleIndex: 0
+      },
+      {
+        id: 'task-a2',
+        promptShort: '同一颗行星在不同天气下…',
+        seed: '20482',
+        statusText: '排队中（第 2 位）',
+        statusType: 'queued',
+        progressText: '0%',
+        progressVal: 0,
+        sampleIndex: 1
+      },
+      {
+        id: 'task-b1',
+        promptShort: '手绘风格的咖啡店门面招牌…',
+        seed: '20483',
+        statusText: '失败（显存不足，可重试）',
+        statusType: 'failed',
+        progressText: '—',
+        progressVal: null,
+        sampleIndex: 2
+      },
+      {
+        id: 'task-c1',
+        promptShort: '黄昏天台上的城市天际线…',
+        seed: '20481',
+        statusText: '已完成',
+        statusType: 'done',
+        progressText: '100%',
+        progressVal: 100,
+        sampleIndex: 0
+      }
+    ];
+
+    // State
+    let currentOS = 'win';
+    let selectedProjectId = 'proj-poster';
+    let selectedCardIndex = 0;
+    let selectedSampleIndex = 0;
+    let selectedQueueTaskId = 'task-a1';
+    let currentSeedFilter = 'all';
+
+    // Build placeholder cards for each project strictly using the 3 sample parameter sets
+    function getCardsForProject(project) {
+      const list = [];
+      for (let i = 0; i < project.count; i++) {
+        const sampleIdx = i % PARAM_SAMPLES.length;
+        const sample = PARAM_SAMPLES[sampleIdx];
+        list.push({
+          cardIndex: i,
+          badgeNo: String(i + 1).padStart(2, '0'),
+          projectName: project.name,
+          sampleIndex: sampleIdx,
+          sample: sample
+        });
+      }
+      return list;
+    }
+
+    // === 2. Render Functions ===
+    function renderProjects() {
+      const container = document.getElementById('projectListContainer');
+      container.innerHTML = PROJECTS.map(p => {
+        const isActive = p.id === selectedProjectId;
+        return `
+          <div class="project-item ${isActive ? 'active' : ''}"
+               onclick="selectProject('${p.id}')"
+               oncontextmenu="openContextMenu(event, 'project', '${p.id}')">
+            <div class="project-item-top">
+              <span class="project-name">${p.name}</span>
+              <span class="project-count">${p.count}</span>
+            </div>
+            <div class="project-desc">${p.desc}</div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderResultsGrid() {
+      const project = PROJECTS.find(p => p.id === selectedProjectId) || PROJECTS[0];
+      document.getElementById('currentProjectTitle').textContent = project.name;
+      document.getElementById('currentProjectMeta').textContent = `${project.count} 张 · ${project.desc}`;
+      document.getElementById('statusProjectSummary').textContent = `当前项目：${project.name}（${project.count} 张占位）`;
+
+      const container = document.getElementById('resultsGridContainer');
+
+      if (project.count === 0) {
+        container.innerHTML = `
+          <div class="empty-state" oncontextmenu="openContextMenu(event, 'project', '${project.id}')">
+            <span class="empty-badge">占位网格为空 · 0 张图片</span>
+            <div class="empty-title">${project.name}（${project.desc}）</div>
+            <div class="empty-desc">该项目刚创建，还没有任务。可在右侧参数检查器选择样例提示词，点击「以此参数重新生图」或使用快捷键提交任务。</div>
+            <button class="btn-primary" onclick="enqueueCurrentInspector()">按当前检查器参数加入队列</button>
+          </div>
+        `;
+        return;
+      }
+
+      const allCards = getCardsForProject(project);
+      const filtered = currentSeedFilter === 'all'
+        ? allCards
+        : allCards.filter(c => c.sample.seed === currentSeedFilter);
+
+      container.innerHTML = `
+        <div class="results-grid">
+          ${filtered.map(card => {
+            const isSel = card.cardIndex === selectedCardIndex;
+            return `
+              <div class="result-card ${isSel ? 'selected' : ''}"
+                   onclick="selectCard(${card.cardIndex}, ${card.sampleIndex})"
+                   oncontextmenu="openContextMenu(event, 'card', ${card.cardIndex})">
+                <div class="placeholder-canvas ${card.sample.themeClass}">
+                  <span class="card-index-badge">#${card.badgeNo}</span>
+                  <span class="card-seed-badge">Seed ${card.sample.seed}</span>
+                  <span class="placeholder-pill">占位</span>
+                  <span class="placeholder-ratio">${card.sample.other}</span>
+                </div>
+                <div class="card-meta">
+                  <div class="card-prompt" title="${card.sample.prompt}">${card.sample.prompt}</div>
+                  <div class="card-sub">
+                    <span>负面：${card.sample.negative}</span>
+                    <span>占位</span>
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      `;
+    }
+
+    function renderInspector() {
+      const project = PROJECTS.find(p => p.id === selectedProjectId) || PROJECTS[0];
+      const sample = PARAM_SAMPLES[selectedSampleIndex] || PARAM_SAMPLES[0];
+
+      const badgeText = project.count > 0
+        ? `#${String(selectedCardIndex + 1).padStart(2, '0')} · 占位`
+        : `预设样例 · 占位`;
+      document.getElementById('inspectorTargetBadge').textContent = badgeText;
+
+      const previewCanvas = document.getElementById('inspectorPreviewCanvas');
+      previewCanvas.className = `inspector-preview-canvas ${sample.themeClass}`;
+      document.getElementById('inspectorPreviewSub').textContent = `${sample.other} · Seed ${sample.seed}`;
+      document.getElementById('inspectorProjectLabel').textContent = `所属项目：${project.name}`;
+      document.getElementById('inspectorTaskLink').textContent = sample.relatedTaskShort;
+
+      document.getElementById('inspPrompt').textContent = sample.prompt;
+      document.getElementById('inspNegative').textContent = sample.negative;
+      document.getElementById('inspSeed').textContent = sample.seed;
+      document.getElementById('inspSteps').textContent = sample.steps;
+      document.getElementById('inspOther').textContent = sample.other;
+      document.getElementById('inspQueueStatus').innerHTML = sample.relatedQueue.replace(/\n/g, '<br>');
+
+      const switcher = document.getElementById('presetSwitcher');
+      switcher.innerHTML = PARAM_SAMPLES.map((s, idx) => `
+        <button class="preset-btn ${idx === selectedSampleIndex ? 'active' : ''}"
+                onclick="selectSamplePreset(${idx})">
+          <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${s.prompt}</span>
+          <span class="preset-seed">Seed ${s.seed}</span>
+        </button>
+      `).join('');
+    }
+
+    function renderQueueTable() {
+      const tbody = document.getElementById('queueTableBody');
+      tbody.innerHTML = QUEUE_TASKS.map(task => {
+        const isSel = task.id === selectedQueueTaskId;
+        let progressHtml = '';
+        if (task.progressVal === null) {
+          progressHtml = `
+            <div class="progress-wrap">
+              <span style="color:var(--status-failed); font-family:var(--font-mono); font-size:12px;">— (显存不足)</span>
+            </div>
+          `;
+        } else {
+          progressHtml = `
+            <div class="progress-wrap">
+              <div class="progress-bar">
+                <div class="progress-fill ${task.statusType}" style="width: ${task.progressVal}%;"></div>
+              </div>
+              <span class="progress-text">${task.progressText}</span>
+            </div>
+          `;
+        }
+
+        let actionLabel = '检查参数';
+        if (task.statusType === 'failed') actionLabel = '重试任务';
+        else if (task.statusType === 'running') actionLabel = '采样详情';
+
+        return `
+          <tr class="queue-row ${isSel ? 'selected' : ''}"
+              onclick="selectQueueTask('${task.id}')"
+              oncontextmenu="openContextMenu(event, 'task', '${task.id}')">
+            <td class="task-id-cell">${task.id}</td>
+            <td class="task-prompt-cell" title="${PARAM_SAMPLES[task.sampleIndex].prompt}">${task.promptShort}</td>
+            <td class="task-seed-cell">${task.seed}</td>
+            <td>
+              <span class="status-tag ${task.statusType}">${task.statusText}</span>
+            </td>
+            <td class="progress-cell">${progressHtml}</td>
+            <td style="text-align:right;">
+              <button class="row-action-btn" onclick="handleQueueRowAction(event, '${task.id}')">${actionLabel}</button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    // === 3. Interactions ===
+    function selectProject(projectId) {
+      selectedProjectId = projectId;
+      selectedCardIndex = 0;
+      const proj = PROJECTS.find(p => p.id === projectId);
+      if (proj && proj.count > 0) {
+        selectedSampleIndex = 0;
+      }
+      renderProjects();
+      renderResultsGrid();
+      renderInspector();
+    }
+
+    function selectCard(cardIdx, sampleIdx) {
+      selectedCardIndex = cardIdx;
+      selectedSampleIndex = sampleIdx;
+      renderResultsGrid();
+      renderInspector();
+    }
+
+    function selectSamplePreset(sampleIdx) {
+      selectedSampleIndex = sampleIdx;
+      const proj = PROJECTS.find(p => p.id === selectedProjectId);
+      if (proj && proj.count > 0) {
+        selectedCardIndex = sampleIdx;
+      }
+      renderResultsGrid();
+      renderInspector();
+    }
+
+    function setSeedFilter(seedVal) {
+      currentSeedFilter = seedVal;
+      const tabs = document.querySelectorAll('#seedFilterGroup .filter-tab');
+      tabs.forEach(btn => {
+        const text = btn.textContent;
+        const match = (seedVal === 'all' && text === '全部') || text.includes(seedVal);
+        btn.classList.toggle('active', match);
+      });
+      renderResultsGrid();
+    }
+
+    function selectQueueTask(taskId) {
+      selectedQueueTaskId = taskId;
+      const task = QUEUE_TASKS.find(t => t.id === taskId);
+      if (task) {
+        selectedSampleIndex = task.sampleIndex;
+      }
+      renderQueueTable();
+      renderInspector();
+    }
+
+    function handleQueueRowAction(e, taskId) {
+      e.stopPropagation();
+      selectQueueTask(taskId);
+      if (taskId === 'task-b1') {
+        retryFailedTask();
+      } else {
+        showToast(`已将 ${taskId} 对应的提示词与 Seed (${PARAM_SAMPLES[selectedSampleIndex].seed}) 同步至右侧检查器`);
+      }
+    }
+
+    function retryFailedTask() {
+      const t = QUEUE_TASKS.find(x => x.id === 'task-b1');
+      if (!t) return;
+      if (t.statusType === 'failed') {
+        t.statusText = '排队中（已触发重试，原状态：失败（显存不足，可重试））';
+        t.statusType = 'queued';
+        t.progressText = '0%';
+        t.progressVal = 0;
+        renderQueueTable();
+        showToast('已触发重试 task-b1（Seed 20483 · 手绘风格的咖啡店门面招牌…）');
+      } else {
+        t.statusText = '失败（显存不足，可重试）';
+        t.statusType = 'failed';
+        t.progressText = '—';
+        t.progressVal = null;
+        renderQueueTable();
+        showToast('已还原 task-b1 为初始样例状态：失败（显存不足，可重试）');
+      }
+    }
+
+    function enqueueCurrentInspector() {
+      const s = PARAM_SAMPLES[selectedSampleIndex];
+      showToast(`已按当前参数提交队列：Seed ${s.seed} (${s.other})`);
+    }
+
+    function copyField(field) {
+      const s = PARAM_SAMPLES[selectedSampleIndex];
+      let text = '';
+      if (field === 'prompt') text = s.prompt;
+      else if (field === 'negative') text = s.negative;
+      else if (field === 'seed') text = s.seed;
+      else {
+        text = `提示词: ${s.prompt}\n负面提示词: ${s.negative}\n种子: ${s.seed}\n其他参数: ${s.other}`;
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).catch(() => {});
+      }
+      showToast(`已复制到剪贴板：${text.replace(/\n/g, ' | ')}`);
+      closeAllMenus();
+    }
+
+    function switchMainView(view) {
+      const overlay = document.getElementById('specOverlay');
+      const btnWork = document.getElementById('btnViewWorkspace');
+      const btnSpec = document.getElementById('btnViewSpecs');
+      if (view === 'specs') {
+        overlay.classList.add('open');
+        btnSpec.classList.add('active');
+        btnWork.classList.remove('active');
+      } else {
+        overlay.classList.remove('open');
+        btnWork.classList.add('active');
+        btnSpec.classList.remove('active');
+      }
+      closeAllMenus();
+    }
+
+    function toggleQueueDock() {
+      const dock = document.getElementById('queueDockPanel');
+      const hidden = dock.style.display === 'none';
+      dock.style.display = hidden ? 'flex' : 'none';
+      showToast(hidden ? '已展开底部任务队列面板' : '已折叠底部任务队列面板 (Ctrl+J / ⌘J)');
+      closeAllMenus();
+    }
+
+    function toggleInspectorPanel() {
+      const insp = document.getElementById('inspectorPanel');
+      const ws = document.getElementById('mainWorkspace');
+      const hidden = insp.style.display === 'none';
+      insp.style.display = hidden ? 'flex' : 'none';
+      ws.style.gridTemplateColumns = hidden ? '240px 1fr 320px' : '240px 1fr';
+      showToast(hidden ? '已展开右侧参数检查器' : '已折叠右侧参数检查器 (Ctrl+B / ⌘B)');
+      closeAllMenus();
+    }
+
+    function setOS(os) {
+      currentOS = os;
+      document.body.setAttribute('data-os', os);
+      document.getElementById('osBtnWin').classList.toggle('active', os === 'win');
+      document.getElementById('osBtnMac').classList.toggle('active', os === 'mac');
+      document.getElementById('kbdHintBadge').textContent = os === 'mac' ? '⌘/' : 'Ctrl+/';
+
+      document.querySelectorAll('.menu-kbd[data-win]').forEach(el => {
+        el.textContent = os === 'mac' ? el.getAttribute('data-mac') : el.getAttribute('data-win');
+      });
+      showToast(os === 'mac' ? '已切换为 macOS 窗口控制与 ⌘ 快捷键显示' : '已切换为 Windows 窗口控制与 Ctrl 快捷键显示');
+    }
+
+    function triggerAction(label) {
+      showToast(`执行菜单操作：${label}`);
+      closeAllMenus();
+    }
+
+    // === 4. Top Menu Bar & Right-Click Context Menu ===
+    function toggleTopMenu(event, btn) {
+      event.stopPropagation();
+      const wrap = btn.parentElement;
+      const wasOpen = wrap.classList.contains('open');
+      closeAllMenus();
+      if (!wasOpen) {
+        wrap.classList.add('open');
+      }
+    }
+
+    function openContextMenu(event, type, targetId) {
+      event.preventDefault();
+      event.stopPropagation();
+      closeAllMenus();
+
+      const popup = document.getElementById('contextMenuPopup');
+      const isMac = currentOS === 'mac';
+      let html = '';
+
+      if (type === 'card') {
+        const cardIdx = Number(targetId);
+        const sampleIdx = cardIdx % PARAM_SAMPLES.length;
+        selectCard(cardIdx, sampleIdx);
+        const s = PARAM_SAMPLES[sampleIdx];
+        html = `
+          <div class="ctx-header">结果网格卡片 · #${String(cardIdx + 1).padStart(2, '0')} (占位 · Seed ${s.seed})</div>
+          <button class="menu-row" onclick="triggerAction('在右侧参数检查器聚焦 #${cardIdx + 1}')"><span>在检查器中定位参数</span><span class="menu-kbd">Enter</span></button>
+          <div class="menu-sep"></div>
+          <button class="menu-row" onclick="copyField('prompt')"><span>复制提示词（prompt）</span><span class="menu-kbd">${isMac ? '⌘C' : 'Ctrl+C'}</span></button>
+          <button class="menu-row" onclick="copyField('negative')"><span>复制负面提示词</span><span class="menu-kbd">${isMac ? '⇧⌘N' : 'Ctrl+Shift+N'}</span></button>
+          <button class="menu-row" onclick="copyField('seed')"><span>复制种子（Seed ${s.seed}）</span><span class="menu-kbd">${isMac ? '⌥S' : 'Alt+S'}</span></button>
+          <button class="menu-row" onclick="copyField('all')"><span>复制全部参数（含 ${s.other}）</span><span class="menu-kbd">${isMac ? '⇧⌘C' : 'Ctrl+Shift+C'}</span></button>
+          <div class="menu-sep"></div>
+          <button class="menu-row" onclick="enqueueCurrentInspector()"><span>锁定此 Seed (${s.seed}) 重新入队</span><span class="menu-kbd">${isMac ? '⌘↵' : 'Ctrl+Enter'}</span></button>
+          <button class="menu-row" onclick="triggerAction('打开本地文件所在目录')"><span>在${isMac ? '访达 (Finder)' : '资源管理器'}中显示占位文件</span><span class="menu-kbd">${isMac ? '⇧⌘R' : 'Ctrl+Shift+R'}</span></button>
+        `;
+      } else if (type === 'task') {
+        selectQueueTask(targetId);
+        const task = QUEUE_TASKS.find(t => t.id === targetId) || QUEUE_TASKS[0];
+        html = `
+          <div class="ctx-header">队列任务 · ${task.id} (${task.statusText})</div>
+          <button class="menu-row" onclick="triggerAction('已加载 ${task.id} 参数至右侧检查器')"><span>加载参数到右侧检查器</span><span class="menu-kbd">Enter</span></button>
+          <div class="menu-sep"></div>
+          <button class="menu-row" onclick="retryFailedTask()"><span>${task.id === 'task-b1' ? '立即重试失败任务 (task-b1)' : '重新排队执行此任务'}</span><span class="menu-kbd">${isMac ? '⌘R' : 'Ctrl+R'}</span></button>
+          <button class="menu-row" onclick="triggerAction('调整队列顺序：置顶 ${task.id}')"><span>置顶排队优先级</span><span class="menu-kbd">Alt+↑</span></button>
+          <button class="menu-row" onclick="copyField('all')"><span>复制任务提示词与 Seed (${task.seed})</span><span class="menu-kbd">${isMac ? '⌘C' : 'Ctrl+C'}</span></button>
+          <div class="menu-sep"></div>
+          <button class="menu-row" onclick="triggerAction('中止/移除队列项 ${task.id}')"><span>中止 / 从列表移除记录</span><span class="menu-kbd">${isMac ? '⌫' : 'Del'}</span></button>
+        `;
+      } else if (type === 'project') {
+        selectProject(targetId);
+        const proj = PROJECTS.find(p => p.id === targetId) || PROJECTS[0];
+        html = `
+          <div class="ctx-header">项目 · ${proj.name} (${proj.count} 张)</div>
+          <button class="menu-row" onclick="enqueueCurrentInspector()"><span>在此项目下新建生图任务</span><span class="menu-kbd">${isMac ? '⌘↵' : 'Ctrl+Enter'}</span></button>
+          <button class="menu-row" onclick="triggerAction('重命名项目：${proj.name}')"><span>重命名项目…</span><span class="menu-kbd">F2</span></button>
+          <button class="menu-row" onclick="triggerAction('打开项目目录：${proj.name}')"><span>在${isMac ? '访达 (Finder)' : '资源管理器'}中打开目录</span><span class="menu-kbd">${isMac ? '⇧⌘O' : 'Ctrl+Shift+O'}</span></button>
+          <div class="menu-sep"></div>
+          <button class="menu-row" onclick="triggerAction('导出项目参数清单：${proj.name}')"><span>导出项目参数清单 (JSON)</span><span class="menu-kbd">${isMac ? '⌘E' : 'Ctrl+E'}</span></button>
+        `;
+      }
+
+      popup.innerHTML = html;
+      popup.classList.add('open');
+
+      const rect = popup.getBoundingClientRect();
+      let x = event.clientX;
+      let y = event.clientY;
+      if (x + rect.width > window.innerWidth - 8) x = window.innerWidth - rect.width - 8;
+      if (y + rect.height > window.innerHeight - 8) y = window.innerHeight - rect.height - 8;
+      popup.style.left = `${Math.max(8, x)}px`;
+      popup.style.top = `${Math.max(8, y)}px`;
+    }
+
+    function closeAllMenus() {
+      document.querySelectorAll('.menu-trigger-wrap.open').forEach(el => el.classList.remove('open'));
+      document.getElementById('contextMenuPopup').classList.remove('open');
+    }
+
+    let toastTimer = null;
+    function showToast(msg) {
+      const box = document.getElementById('toastBox');
+      box.textContent = msg;
+      box.classList.add('show');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        box.classList.remove('show');
+      }, 2600);
+    }
+
+    // Global keyboard shortcuts
+    window.addEventListener('keydown', (e) => {
+      const mod = e.ctrlKey || e.metaKey;
+      if (mod && e.key === '/') {
+        e.preventDefault();
+        const isSpec = document.getElementById('specOverlay').classList.contains('open');
+        switchMainView(isSpec ? 'workspace' : 'specs');
+      } else if (mod && e.key === '1') {
+        e.preventDefault();
+        switchMainView('workspace');
+      } else if (mod && e.key === '2') {
+        e.preventDefault();
+        switchMainView('specs');
+      } else if (mod && e.key.toLowerCase() === 'j') {
+        e.preventDefault();
+        toggleQueueDock();
+      } else if (mod && e.key.toLowerCase() === 'b') {
+        e.preventDefault();
+        toggleInspectorPanel();
+      } else if (mod && e.key === 'Enter') {
+        e.preventDefault();
+        enqueueCurrentInspector();
+      } else if (mod && e.key.toLowerCase() === 'r') {
+        e.preventDefault();
+        retryFailedTask();
+      } else if (e.key === 'Escape') {
+        closeAllMenus();
+      }
+    });
+
+    window.addEventListener('click', () => closeAllMenus());
+
+    // Initialize
+    renderProjects();
+    renderResultsGrid();
+    renderInspector();
+    renderQueueTable();
+  </script>
+</body>
+</html>

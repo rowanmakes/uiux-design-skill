@@ -1,0 +1,225 @@
+{
+  "file": "index.html",
+  "viewports": {
+    "wide": {
+      "width": 1440,
+      "height": 900,
+      "horizontalOverflow": false
+    },
+    "narrow": {
+      "width": 390,
+      "height": 844,
+      "horizontalOverflow": false
+    },
+    "1280x800": {
+      "width": 1280,
+      "height": 800,
+      "horizontalOverflow": false
+    },
+    "900x600": {
+      "width": 900,
+      "height": 600,
+      "horizontalOverflow": false
+    }
+  },
+  "consoleErrors": [],
+  "pageErrors": [],
+  "externalRequests": [],
+  "tabStops": [
+    {
+      "tag": "button",
+      "text": "工作台原型 (四栏视图)",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "菜单 / 快捷键 / 右键菜单设计规范",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "Windows (Ctrl)",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "macOS (⌘)",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "―",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "□",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "✕",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "文件(F)",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "编辑(E)",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "视图(V)",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "任务(T)",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "帮助(H)",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "查看完整交互设计规范\nCtrl+/",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "+ 新建",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "全部",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "Seed 20481",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "Seed 20482",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "Seed 20483",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "+ 加入队列",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "div",
+      "text": "#01\nSeed 20481\n占位\nsteps 28 / 尺寸 1024×576",
+      "visibleFocusStyle": true
+    },
+    {
+      "tag": "button",
+      "text": "重试失败项 (task-b1)",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "右键菜单说明",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "采样详情",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "检查参数",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "重试任务",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "检查参数",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "黄昏天台上的城市天际线，冷色，胶片颗粒\nSeed 20481",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "同一颗行星在不同天气下的样子，九宫格\nSeed 20482",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "手绘风格的咖啡店门面招牌，上午光线\nSeed 20483",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "复制",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "复制",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "复制全部参数",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "以此参数重新生图",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "工作台原型 (四栏视图)",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "菜单 / 快捷键 / 右键菜单设计规范",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "Windows (Ctrl)",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "macOS (⌘)",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "―",
+      "visibleFocusStyle": false
+    },
+    {
+      "tag": "button",
+      "text": "□",
+      "visibleFocusStyle": false
+    }
+  ]
+}
