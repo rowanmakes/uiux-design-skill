@@ -1,0 +1,2197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>半山烘焙 · 成都小批量精品咖啡豆按月订阅</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500&family=Noto+Serif+SC:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <style>
+    :root {
+      --bg-abyss: oklch(0.085 0.012 48);
+      --bg-charcoal: oklch(0.115 0.015 48);
+      --bg-veil: oklch(0.105 0.014 48 / 0.72);
+      --bg-veil-strong: oklch(0.095 0.014 48 / 0.86);
+      --text-primary: oklch(0.945 0.016 76);
+      --text-secondary: oklch(0.80 0.022 70);
+      --text-muted: oklch(0.66 0.02 64);
+      --accent-ember: oklch(0.72 0.155 55);
+      --accent-ember-bright: oklch(0.80 0.145 62);
+      --accent-ember-soft: oklch(0.72 0.155 55 / 0.16);
+      --border-hairline: oklch(0.78 0.05 66 / 0.15);
+      --border-ember: oklch(0.74 0.15 56 / 0.62);
+      --error-warm: oklch(0.75 0.15 32);
+      --font-serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", "SimSun", serif;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      --stage-light-x: 74%;
+      --stage-light-y: 40%;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      background-color: var(--bg-abyss);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.65;
+      font-synthesis: none;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      line-break: strict;
+    }
+
+    body {
+      background-color: var(--bg-abyss);
+      color: var(--text-primary);
+      overflow-x: hidden;
+    }
+
+    ::selection {
+      background: oklch(0.72 0.155 55 / 0.32);
+      color: var(--text-primary);
+    }
+
+    /* 键盘焦点清晰可见 */
+    :focus-visible {
+      outline: 2px solid var(--accent-ember-bright);
+      outline-offset: 3px;
+    }
+
+    /* 全局胶片颗粒层：不透明度严格控制在 0.14 (taste.md 1.5: 0.08–0.25) */
+    .film-grain-overlay {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 60;
+      opacity: 0.14;
+      mix-blend-mode: soft-light;
+    }
+
+    /* ==================== 首屏：满版图像压字 ==================== */
+    .hero-viewport {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 600px;
+      overflow: hidden;
+      background-color: var(--bg-abyss);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      z-index: 5;
+    }
+
+    .hero-scene-media {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .hero-scene-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 62% center;
+      transform: scale(1.03);
+      will-change: transform;
+      filter: contrast(1.03) brightness(0.96);
+    }
+
+    /* 暗场色温连续渐变：保持左上/左侧炭黑安全区，让右侧滚筒炉火成为唯一主光源 */
+    .hero-vignette {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 78% 54%, transparent 14%, oklch(0.085 0.012 48 / 0.38) 54%, oklch(0.08 0.01 46 / 0.85) 100%),
+        linear-gradient(96deg, oklch(0.08 0.01 46 / 0.88) 0%, oklch(0.085 0.012 48 / 0.58) 38%, transparent 68%),
+        linear-gradient(180deg, oklch(0.08 0.01 46 / 0.52) 0%, transparent 25%, transparent 78%, var(--bg-abyss) 100%);
+    }
+
+    /* 代码叠加空气与光 1：有来源的炉火光呼吸 (6–10秒参数，取 8s 与 9.2s)，加柔化滤镜消除硬边界 */
+    .ember-light-breath {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .ember-breath-core {
+      position: absolute;
+      left: 77%;
+      top: 54%;
+      width: 68vw;
+      height: 68vw;
+      max-width: 980px;
+      max-height: 980px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      filter: blur(36px);
+      background: radial-gradient(
+        circle,
+        oklch(0.74 0.165 54 / 0.30) 0%,
+        oklch(0.66 0.15 50 / 0.16) 24%,
+        oklch(0.56 0.12 46 / 0.06) 46%,
+        oklch(0.45 0.08 44 / 0.015) 64%,
+        transparent 78%
+      );
+      mix-blend-mode: screen;
+      animation: emberPulseCore 8s ease-in-out infinite alternate;
+    }
+
+    .ember-breath-halo {
+      position: absolute;
+      left: 72%;
+      top: 52%;
+      width: 82vw;
+      height: 68vw;
+      max-width: 1180px;
+      max-height: 960px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      filter: blur(48px);
+      background: radial-gradient(
+        ellipse at center,
+        oklch(0.68 0.14 52 / 0.15) 0%,
+        oklch(0.58 0.11 46 / 0.06) 38%,
+        oklch(0.48 0.08 44 / 0.015) 58%,
+        transparent 74%
+      );
+      mix-blend-mode: screen;
+      animation: emberPulseHalo 9.2s ease-in-out infinite alternate;
+    }
+
+    @keyframes emberPulseCore {
+      0% {
+        opacity: 0.50;
+        transform: translate(-50%, -50%) scale(0.92);
+      }
+      100% {
+        opacity: 0.94;
+        transform: translate(-50%, -50%) scale(1.08);
+      }
+    }
+
+    @keyframes emberPulseHalo {
+      0% {
+        opacity: 0.42;
+        transform: translate(-50%, -50%) scale(0.95) rotate(-2deg);
+      }
+      100% {
+        opacity: 0.82;
+        transform: translate(-50%, -50%) scale(1.05) rotate(2deg);
+      }
+    }
+
+    /* 代码叠加空气与光 2：缓慢雾/烟 (30–60秒参数，取 42s 与 54s) */
+    .roast-smoke-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .smoke-veil {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(56px);
+      mix-blend-mode: screen;
+      will-change: transform, opacity;
+    }
+
+    .smoke-veil-a {
+      width: 62vw;
+      height: 36vh;
+      right: 14%;
+      top: 28%;
+      background: radial-gradient(
+        ellipse at 65% 55%,
+        oklch(0.76 0.06 60 / 0.15) 0%,
+        oklch(0.65 0.04 55 / 0.08) 42%,
+        oklch(0.55 0.03 50 / 0.02) 64%,
+        transparent 78%
+      );
+      animation: smokeDriftA 42s ease-in-out infinite alternate;
+    }
+
+    .smoke-veil-b {
+      width: 70vw;
+      height: 44vh;
+      right: 22%;
+      top: 20%;
+      background: radial-gradient(
+        ellipse at 50% 50%,
+        oklch(0.72 0.05 58 / 0.11) 0%,
+        oklch(0.58 0.03 52 / 0.05) 46%,
+        transparent 76%
+      );
+      animation: smokeDriftB 54s ease-in-out infinite alternate;
+    }
+
+    @keyframes smokeDriftA {
+      0% {
+        transform: translate3d(4%, 3%, 0) scale(0.96) rotate(-3deg);
+        opacity: 0.56;
+      }
+      50% {
+        transform: translate3d(-7%, -4%, 0) scale(1.05) rotate(1deg);
+        opacity: 0.85;
+      }
+      100% {
+        transform: translate3d(-15%, -9%, 0) scale(1.12) rotate(4deg);
+        opacity: 0.62;
+      }
+    }
+
+    @keyframes smokeDriftB {
+      0% {
+        transform: translate3d(2%, 5%, 0) scale(1.02) rotate(2deg);
+        opacity: 0.46;
+      }
+      50% {
+        transform: translate3d(-10%, -2%, 0) scale(1.09) rotate(-2deg);
+        opacity: 0.76;
+      }
+      100% {
+        transform: translate3d(-20%, -8%, 0) scale(0.98) rotate(-5deg);
+        opacity: 0.50;
+      }
+    }
+
+    /* 代码叠加空气与光 3：稀疏火星与烘焙碎屑粒子 (8–14秒参数) */
+    .ember-particles {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .ember-spark {
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, oklch(0.86 0.16 68) 0%, oklch(0.70 0.17 50) 55%, transparent 100%);
+      box-shadow: 0 0 8px oklch(0.74 0.17 54 / 0.65);
+      opacity: 0;
+      will-change: transform, opacity;
+      animation-name: sparkRise;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+    }
+
+    @keyframes sparkRise {
+      0% {
+        opacity: 0;
+        transform: translate3d(0, 14px, 0) scale(0.6);
+      }
+      22% {
+        opacity: 0.78;
+      }
+      68% {
+        opacity: 0.46;
+      }
+      100% {
+        opacity: 0;
+        transform: translate3d(-68px, -110px, 0) scale(0.25);
+      }
+    }
+
+    /* 首屏前景内容层：克制的品牌文字标识 + 一句话 + 一个动作 */
+    .hero-foreground {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 1200px;
+      height: 100%;
+      margin: 0 auto;
+      padding: clamp(24px, 4vh, 44px) clamp(24px, 5vw, 64px) clamp(40px, 7vh, 76px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .brand-wordmark {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 14px;
+      user-select: none;
+    }
+
+    .brand-name {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      color: var(--text-primary);
+    }
+
+    .brand-location {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    .hero-statement-group {
+      max-width: 31rem;
+      margin-top: auto;
+      margin-bottom: clamp(16px, 6vh, 56px);
+    }
+
+    .hero-headline {
+      font-family: var(--font-serif);
+      font-weight: 600;
+      font-size: clamp(2.15rem, 4.1vw, 3.55rem);
+      line-height: 1.2;
+      letter-spacing: 0;
+      color: var(--text-primary);
+      text-wrap: balance;
+      text-shadow: 0 2px 28px oklch(0.06 0.01 45 / 0.85);
+      margin-bottom: clamp(28px, 4.2vh, 42px);
+    }
+
+    /* 铸铁炉火光边主按钮：克制低饱和，受右侧炉火照亮的琥珀金细边与呼吸火点 */
+    .hero-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      min-height: 48px;
+      padding: 13px 28px;
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--text-primary);
+      background: linear-gradient(135deg, oklch(0.23 0.05 52 / 0.92) 0%, oklch(0.15 0.03 48 / 0.95) 100%);
+      border: 1px solid oklch(0.75 0.145 58 / 0.72);
+      border-radius: 2px;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow:
+        inset 0 1px 0 oklch(0.86 0.12 64 / 0.25),
+        0 10px 32px oklch(0.05 0.01 45 / 0.75);
+      transition: transform 160ms ease, border-color 160ms ease, background 160ms ease, box-shadow 160ms ease;
+    }
+
+    .cta-ember-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: var(--accent-ember-bright);
+      box-shadow: 0 0 10px var(--accent-ember);
+    }
+
+    .hero-cta-btn:hover {
+      border-color: var(--accent-ember-bright);
+      background: linear-gradient(135deg, oklch(0.28 0.065 54 / 0.96) 0%, oklch(0.19 0.04 50 / 0.98) 100%);
+      transform: translateY(-1px);
+      box-shadow:
+        inset 0 1px 0 oklch(0.88 0.13 66 / 0.38),
+        0 14px 36px oklch(0.55 0.15 52 / 0.26);
+    }
+
+    .hero-cta-btn:active {
+      transform: translateY(1px) scale(0.99);
+    }
+
+    /* ==================== 滚动叙事画布与三幕推进 ==================== */
+    .roast-narrative-wrapper {
+      position: relative;
+      width: 100%;
+      height: 360vh;
+      background-color: var(--bg-abyss);
+    }
+
+    .sticky-camera-stage {
+      position: sticky;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      z-index: 1;
+      background-color: var(--bg-abyss);
+    }
+
+    .story-frame {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      will-change: transform, opacity;
+      pointer-events: none;
+    }
+
+    .story-frame.is-initial {
+      opacity: 1;
+    }
+
+    .story-frame-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 64% center;
+      filter: contrast(1.03) brightness(0.95);
+    }
+
+    .story-frame-01 .story-frame-img {
+      object-position: 68% center;
+    }
+
+    .story-frame-02 .story-frame-img {
+      object-position: 64% center;
+    }
+
+    .story-frame-03 .story-frame-img {
+      object-position: 68% center;
+    }
+
+    /* 镜头暗场渐变：保证左侧文字阅读区与右侧火光光源自然衔接 */
+    .stage-directional-scrim {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background:
+        linear-gradient(94deg, oklch(0.08 0.01 46 / 0.90) 0%, oklch(0.085 0.012 48 / 0.74) 40%, oklch(0.09 0.012 48 / 0.20) 66%, transparent 88%),
+        linear-gradient(180deg, oklch(0.08 0.01 46 / 0.58) 0%, transparent 18%, transparent 82%, oklch(0.08 0.01 46 / 0.72) 100%);
+    }
+
+    /* 随镜头迁移的呼吸火光层：加大尺寸并柔化滤镜，彻底消除暗场硬圆边 */
+    .stage-dynamic-glow {
+      position: absolute;
+      left: var(--stage-light-x, 74%);
+      top: var(--stage-light-y, 40%);
+      width: 78vw;
+      height: 78vw;
+      max-width: 1120px;
+      max-height: 1120px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      filter: blur(44px);
+      z-index: 3;
+      pointer-events: none;
+      background: radial-gradient(
+        circle,
+        oklch(0.73 0.16 54 / 0.24) 0%,
+        oklch(0.64 0.14 50 / 0.11) 26%,
+        oklch(0.54 0.10 46 / 0.04) 48%,
+        transparent 70%
+      );
+      mix-blend-mode: screen;
+      animation: emberPulseCore 8.4s ease-in-out infinite alternate;
+      transition: left 320ms ease-out, top 320ms ease-out;
+    }
+
+    /* 舞台右上角火候进程标尺（置于右上安全区，绝不与第三幕底部页脚重叠） */
+    .stage-roast-rail {
+      position: absolute;
+      top: clamp(20px, 3.4vh, 36px);
+      right: clamp(24px, 5vw, 64px);
+      z-index: 8;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 7px 14px;
+      background: oklch(0.10 0.014 48 / 0.68);
+      border: 1px solid var(--border-hairline);
+      backdrop-filter: blur(8px);
+      border-radius: 2px;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .rail-step-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-family: var(--font-sans);
+      font-size: 0.875rem;
+      cursor: pointer;
+      padding: 3px 6px;
+      transition: color 160ms ease;
+    }
+
+    .rail-step-btn:hover {
+      color: var(--text-primary);
+    }
+
+    .rail-step-btn[aria-current="step"] {
+      color: var(--accent-ember-bright);
+      font-weight: 500;
+    }
+
+    .rail-divider {
+      width: 14px;
+      height: 1px;
+      background: var(--border-hairline);
+    }
+
+    /* ==================== 前景叙事章节轨 ==================== */
+    .narrative-chapters-track {
+      position: relative;
+      z-index: 5;
+      margin-top: -100vh;
+      width: 100%;
+      height: 360vh;
+      pointer-events: none;
+    }
+
+    .story-chapter {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    /* 精确锚定在 1/3 (120vh–220vh)、2/3 (240vh–340vh)、终点 (360vh–460vh) */
+    .story-chapter-01 {
+      top: 20vh;
+    }
+
+    .story-chapter-02 {
+      top: 140vh;
+    }
+
+    .story-chapter-03 {
+      top: 260vh;
+      align-items: stretch;
+    }
+
+    .chapter-inner {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 clamp(24px, 5vw, 64px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      pointer-events: auto;
+    }
+
+    .story-chapter-03 .chapter-inner {
+      justify-content: space-between;
+      padding-top: clamp(28px, 4.5vh, 52px);
+      padding-bottom: clamp(14px, 2.2vh, 26px);
+    }
+
+    .scene-narrative-panel {
+      width: 100%;
+      max-width: 530px;
+      will-change: transform, opacity;
+    }
+
+    .scene-chapter-title {
+      font-family: var(--font-serif);
+      font-weight: 600;
+      font-size: clamp(1.55rem, 2.5vw, 2.25rem);
+      line-height: 1.28;
+      letter-spacing: 0;
+      color: var(--text-primary);
+      text-wrap: balance;
+      margin-bottom: 14px;
+    }
+
+    /* 固定品牌介绍文案（严格按 test/materials/01.md 原文，36em 行宽以内） */
+    .brand-fixed-copy {
+      font-size: 1.02rem;
+      line-height: 1.72;
+      color: var(--text-secondary);
+      max-width: 34em;
+      margin-bottom: 24px;
+    }
+
+    .scene-context-note {
+      font-size: 0.95rem;
+      line-height: 1.68;
+      color: var(--text-secondary);
+      max-width: 34em;
+      margin-bottom: 20px;
+    }
+
+    /* ==================== 场景内嵌豆单谱系（烘焙火候标尺 + 暗场排印，绝不用卡片网格） ==================== */
+    .scene-bean-ledger {
+      border-top: 1px solid var(--border-hairline);
+      padding-top: 16px;
+    }
+
+    .bean-entry {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border-hairline);
+      transition: border-color 180ms ease;
+    }
+
+    .bean-entry.is-selected {
+      border-bottom-color: var(--border-ember);
+    }
+
+    .bean-header-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 6px;
+    }
+
+    .bean-title-group {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .bean-name {
+      font-family: var(--font-serif);
+      font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: 0;
+    }
+
+    .bean-origin-process {
+      font-size: 0.92rem;
+      color: var(--accent-ember-bright);
+      font-weight: 400;
+    }
+
+    .bean-price {
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    /* 浅中烘火候位置细线标尺 */
+    .roast-degree-bar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 6px 0 8px;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .roast-track {
+      position: relative;
+      flex: 1;
+      max-width: 140px;
+      height: 2px;
+      background: oklch(0.78 0.05 66 / 0.16);
+      border-radius: 1px;
+    }
+
+    .roast-marker {
+      position: absolute;
+      top: 50%;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-ember-bright);
+      box-shadow: 0 0 8px var(--accent-ember);
+      transform: translate(-50%, -50%);
+    }
+
+    .bean-flavor-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .bean-flavor-desc {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .bean-flavor-label {
+      color: var(--text-muted);
+      margin-right: 6px;
+    }
+
+    .bean-pick-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 36px;
+      padding: 6px 14px;
+      font-family: var(--font-sans);
+      font-size: 0.875rem;
+      color: var(--text-primary);
+      background: oklch(0.16 0.02 50 / 0.78);
+      border: 1px solid var(--border-hairline);
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background-color 150ms ease, border-color 150ms ease, transform 120ms ease;
+    }
+
+    .bean-pick-action:hover {
+      background: oklch(0.22 0.03 52 / 0.9);
+      border-color: var(--border-ember);
+    }
+
+    .bean-pick-action:active {
+      transform: scale(0.98);
+    }
+
+    .bean-pick-action[aria-pressed="true"] {
+      background: var(--accent-ember-soft);
+      border-color: var(--accent-ember);
+      color: var(--accent-ember-bright);
+      font-weight: 500;
+    }
+
+    .bean-status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--text-muted);
+      transition: background-color 150ms ease, box-shadow 150ms ease;
+    }
+
+    .bean-pick-action[aria-pressed="true"] .bean-status-dot {
+      background-color: var(--accent-ember-bright);
+      box-shadow: 0 0 8px var(--accent-ember);
+    }
+
+    /* ==================== 第三幕：场景内嵌订阅仪式 ==================== */
+    .subscription-ritual-panel {
+      width: 100%;
+      max-width: 550px;
+      margin: auto 0;
+      will-change: transform, opacity;
+    }
+
+    .sub-rule-summary {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.58;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-hairline);
+    }
+
+    .sub-config-group {
+      margin-bottom: 12px;
+    }
+
+    .sub-group-label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+
+    /* 订阅方案单选行 */
+    .plan-ledger-list {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid var(--border-hairline);
+    }
+
+    .plan-ledger-option {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      width: 100%;
+      padding: 10px 14px;
+      background: oklch(0.12 0.015 48 / 0.72);
+      border: none;
+      border-bottom: 1px solid var(--border-hairline);
+      border-left: 2px solid transparent;
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      text-align: left;
+      cursor: pointer;
+      transition: background-color 150ms ease, border-color 150ms ease;
+    }
+
+    .plan-ledger-option:hover {
+      background: oklch(0.16 0.02 50 / 0.84);
+    }
+
+    .plan-ledger-option[aria-checked="true"] {
+      background: oklch(0.17 0.03 52 / 0.88);
+      border-left-color: var(--accent-ember);
+    }
+
+    .plan-option-main {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .plan-option-title {
+      font-family: var(--font-serif);
+      font-size: 1.02rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .plan-option-detail {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .plan-option-price {
+      font-size: 1.02rem;
+      font-weight: 500;
+      color: var(--accent-ember-bright);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    /* 寄送节奏分段控件 */
+    .cadence-segmented {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .cadence-btn {
+      min-height: 38px;
+      padding: 7px 12px;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      background: oklch(0.12 0.015 48 / 0.72);
+      border: 1px solid var(--border-hairline);
+      border-radius: 2px;
+      cursor: pointer;
+      transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+    }
+
+    .cadence-btn:hover {
+      color: var(--text-primary);
+      border-color: oklch(0.78 0.05 66 / 0.32);
+    }
+
+    .cadence-btn[aria-checked="true"] {
+      background: var(--accent-ember-soft);
+      border-color: var(--accent-ember);
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    /* 首期豆款快速切换行 */
+    .bean-pills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .bean-pill-btn {
+      min-height: 36px;
+      padding: 6px 12px;
+      font-family: var(--font-sans);
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      background: oklch(0.12 0.015 48 / 0.72);
+      border: 1px solid var(--border-hairline);
+      border-radius: 2px;
+      cursor: pointer;
+      font-variant-numeric: tabular-nums;
+      transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+    }
+
+    .bean-pill-btn:hover {
+      color: var(--text-primary);
+    }
+
+    .bean-pill-btn[aria-pressed="true"] {
+      background: var(--accent-ember-soft);
+      border-color: var(--accent-ember);
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    /* 单列收件登记表单（遵循 interaction.md 第6节） */
+    .booking-form {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-hairline);
+    }
+
+    .form-field-row {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 10px;
+    }
+
+    .field-label {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .field-hint {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .field-input {
+      width: 100%;
+      min-height: 40px;
+      padding: 7px 12px;
+      font-family: var(--font-sans);
+      font-size: 1rem; /* >=16px 防止移动端自动缩放 */
+      color: var(--text-primary);
+      background: oklch(0.11 0.014 48 / 0.84);
+      border: 1px solid var(--border-hairline);
+      border-radius: 2px;
+      transition: border-color 150ms ease, background-color 150ms ease;
+    }
+
+    .field-input:focus {
+      border-color: var(--accent-ember);
+      background: oklch(0.13 0.016 48 / 0.95);
+      outline: none;
+    }
+
+    .field-input[aria-invalid="true"] {
+      border-color: var(--error-warm);
+    }
+
+    .field-error-msg {
+      font-size: 0.875rem;
+      color: var(--error-warm);
+      margin-top: 4px;
+      line-height: 1.45;
+    }
+
+    .field-error-msg[hidden] {
+      display: none;
+    }
+
+    .submit-action-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .submit-sub-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 42px;
+      padding: 9px 22px;
+      font-family: var(--font-sans);
+      font-size: 0.94rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      background: linear-gradient(135deg, oklch(0.24 0.055 54 / 0.94) 0%, oklch(0.16 0.035 48 / 0.96) 100%);
+      border: 1px solid oklch(0.75 0.145 58 / 0.76);
+      border-radius: 2px;
+      cursor: pointer;
+      box-shadow:
+        inset 0 1px 0 oklch(0.86 0.12 64 / 0.25),
+        0 8px 24px oklch(0.05 0.01 45 / 0.65);
+      transition: transform 140ms ease, border-color 140ms ease, background 140ms ease;
+    }
+
+    .submit-sub-btn:hover {
+      border-color: var(--accent-ember-bright);
+      background: linear-gradient(135deg, oklch(0.29 0.065 54 / 0.96) 0%, oklch(0.20 0.04 50 / 0.98) 100%);
+      transform: translateY(-1px);
+    }
+
+    .submit-sub-btn:active {
+      transform: translateY(1px) scale(0.99);
+    }
+
+    .live-summary-price {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .live-summary-price strong {
+      color: var(--accent-ember-bright);
+      font-weight: 600;
+    }
+
+    /* 原位预约确认回执（包含修改与撤销闭环） */
+    .booking-receipt {
+      margin-top: 10px;
+      padding: 14px;
+      background: oklch(0.13 0.02 50 / 0.92);
+      border: 1px solid var(--border-ember);
+      border-radius: 2px;
+    }
+
+    .booking-receipt[hidden] {
+      display: none;
+    }
+
+    .receipt-title {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--accent-ember-bright);
+      margin-bottom: 5px;
+    }
+
+    .receipt-body {
+      font-size: 0.88rem;
+      color: var(--text-primary);
+      line-height: 1.55;
+      margin-bottom: 6px;
+    }
+
+    .receipt-proto-note {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .receipt-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .receipt-secondary-btn {
+      min-height: 34px;
+      padding: 5px 12px;
+      font-family: var(--font-sans);
+      font-size: 0.875rem;
+      color: var(--text-primary);
+      background: transparent;
+      border: 1px solid var(--border-hairline);
+      border-radius: 2px;
+      cursor: pointer;
+      transition: border-color 150ms ease, color 150ms ease;
+    }
+
+    .receipt-secondary-btn:hover {
+      border-color: var(--text-secondary);
+    }
+
+    /* 页脚：全页唯一一处样例与生成图说明 */
+    .site-footer {
+      width: 100%;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-hairline);
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-size: 0.875rem;
+      color: var(--text-muted);
+    }
+
+    .footer-brand {
+      font-family: var(--font-serif);
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    .footer-sample-disclaimer {
+      line-height: 1.5;
+    }
+
+    /* ==================== 窄屏 390×844 响应式深度优化 ==================== */
+    @media (max-width: 768px) {
+      .hero-scene-img {
+        object-position: 75% center;
+      }
+
+      .hero-vignette {
+        background:
+          linear-gradient(180deg, oklch(0.08 0.01 46 / 0.80) 0%, oklch(0.08 0.01 46 / 0.30) 38%, oklch(0.08 0.01 46 / 0.68) 76%, var(--bg-abyss) 100%),
+          radial-gradient(circle at 74% 52%, transparent 14%, oklch(0.08 0.01 46 / 0.56) 86%);
+      }
+
+      .hero-foreground {
+        padding: 18px 20px 34px;
+      }
+
+      .hero-statement-group {
+        margin-bottom: 10px;
+      }
+
+      .hero-headline {
+        font-size: 1.92rem;
+        line-height: 1.24;
+        margin-bottom: 20px;
+      }
+
+      /* 窄屏顶部 32% 留作清透场景视窗，让圆窗火光、滚筒炉口、牛皮纸豆袋与杯测碗清晰呈现 */
+      .story-frame-01 .story-frame-img {
+        object-position: 74% 34%;
+      }
+
+      .story-frame-02 .story-frame-img {
+        object-position: 76% 40%;
+      }
+
+      .story-frame-03 .story-frame-img {
+        object-position: 80% 24%;
+      }
+
+      .stage-directional-scrim {
+        background:
+          linear-gradient(
+            180deg,
+            oklch(0.08 0.01 46 / 0.24) 0%,
+            oklch(0.08 0.01 46 / 0.14) 22%,
+            oklch(0.085 0.012 48 / 0.78) 42%,
+            oklch(0.08 0.01 46 / 0.94) 100%
+          );
+      }
+
+      .stage-roast-rail {
+        top: 12px;
+        right: 16px;
+        padding: 4px 10px;
+        gap: 8px;
+      }
+
+      .rail-divider {
+        width: 8px;
+      }
+
+      .chapter-inner {
+        padding: 0 18px;
+      }
+
+      .story-chapter-01 .chapter-inner,
+      .story-chapter-02 .chapter-inner {
+        justify-content: flex-end;
+        padding-bottom: 24px;
+      }
+
+      /* 第三幕顶部留出 178px 清透场景区展示牛皮纸豆袋与粗陶杯测碗，下部紧凑容纳订阅与页脚 */
+      .story-chapter-03 .chapter-inner {
+        justify-content: flex-end;
+        padding-top: 178px;
+        padding-bottom: 10px;
+      }
+
+      .subscription-ritual-panel {
+        margin: 0 0 auto 0;
+      }
+
+      .scene-chapter-title {
+        font-size: 1.32rem;
+        margin-bottom: 6px;
+      }
+
+      .brand-fixed-copy {
+        font-size: 0.90rem;
+        line-height: 1.56;
+        margin-bottom: 12px;
+      }
+
+      .scene-context-note {
+        font-size: 0.875rem;
+        line-height: 1.52;
+        margin-bottom: 10px;
+      }
+
+      .scene-bean-ledger {
+        padding-top: 8px;
+      }
+
+      .bean-entry {
+        padding: 9px 0;
+      }
+
+      .bean-name {
+        font-size: 1.12rem;
+      }
+
+      .roast-degree-bar {
+        margin: 4px 0 6px;
+      }
+
+      .bean-flavor-desc {
+        font-size: 0.875rem;
+      }
+
+      .sub-rule-summary {
+        font-size: 0.875rem;
+        line-height: 1.45;
+        margin-bottom: 8px;
+        padding-bottom: 6px;
+      }
+
+      .sub-config-group {
+        margin-bottom: 7px;
+      }
+
+      .sub-group-label {
+        margin-bottom: 3px;
+      }
+
+      /* 窄屏将单袋与双袋方案并排为紧凑双联账单，节省纵向空间给场景画面 */
+      .plan-ledger-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+        border-top: none;
+      }
+
+      .plan-ledger-option {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 3px;
+        padding: 7px 9px;
+        border: 1px solid var(--border-hairline);
+        border-left: 2px solid transparent;
+        border-radius: 2px;
+      }
+
+      .plan-option-title {
+        font-size: 0.92rem;
+      }
+
+      .plan-option-detail {
+        font-size: 0.875rem;
+        line-height: 1.3;
+      }
+
+      .plan-option-price {
+        font-size: 0.92rem;
+      }
+
+      .cadence-segmented {
+        gap: 6px;
+      }
+
+      .cadence-btn {
+        min-height: 32px;
+        padding: 4px 6px;
+        font-size: 0.875rem;
+      }
+
+      .bean-pills-row {
+        gap: 5px;
+      }
+
+      .bean-pill-btn {
+        min-height: 31px;
+        padding: 3px 8px;
+        font-size: 0.875rem;
+      }
+
+      .booking-form {
+        margin-top: 6px;
+        padding-top: 6px;
+      }
+
+      .form-field-row {
+        margin-bottom: 5px;
+      }
+
+      .field-hint {
+        display: none;
+      }
+
+      .field-input {
+        min-height: 35px;
+        padding: 5px 9px;
+      }
+
+      .submit-action-row {
+        margin-top: 6px;
+        gap: 6px;
+      }
+
+      .live-summary-price {
+        font-size: 0.875rem;
+        line-height: 1.35;
+      }
+
+      .submit-sub-btn {
+        width: 100%;
+        min-height: 36px;
+        padding: 6px 16px;
+      }
+
+      .site-footer {
+        padding-top: 6px;
+        gap: 2px;
+      }
+
+      .footer-sample-disclaimer {
+        font-size: 0.875rem;
+        line-height: 1.35;
+      }
+    }
+
+    /* ==================== prefers-reduced-motion: reduce ==================== */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+
+      .ember-breath-core,
+      .ember-breath-halo,
+      .smoke-veil-a,
+      .smoke-veil-b,
+      .ember-spark,
+      .stage-dynamic-glow {
+        animation: none !important;
+      }
+
+      .ember-spark {
+        opacity: 0.35 !important;
+        transform: none !important;
+      }
+
+      .hero-scene-img,
+      .story-frame,
+      .scene-narrative-panel,
+      .subscription-ritual-panel {
+        transform: none !important;
+      }
+
+      .scene-narrative-panel,
+      .subscription-ritual-panel {
+        opacity: 1 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 胶片颗粒 SVG 滤镜层（不透明度 0.14） -->
+  <svg class="film-grain-overlay" aria-hidden="true">
+    <filter id="roast-film-grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.78" numOctaves="3" stitchTiles="stitch" />
+      <feColorMatrix type="saturate" values="0.15" />
+    </filter>
+    <rect width="100%" height="100%" filter="url(#roast-film-grain)" />
+  </svg>
+
+  <!-- ==================== 首屏：满屏主场景图 + 一句话 + 一个动作 ==================== -->
+  <header class="hero-viewport" id="hero">
+    <div class="hero-scene-media">
+      <img
+        src="assets/hero-roaster.webp"
+        alt="深夜烘焙间内，铸铁滚筒炉口透出温暖琥珀色火光，浅中烘咖啡豆翻滚出炉，薄烟向炭黑暗场漫延"
+        class="hero-scene-img"
+        id="hero-scene-img"
+        fetchpriority="high"
+      >
+      <div class="hero-vignette" aria-hidden="true"></div>
+
+      <!-- 代码叠加光呼吸：6–10 秒周期 -->
+      <div class="ember-light-breath" aria-hidden="true">
+        <div class="ember-breath-halo"></div>
+        <div class="ember-breath-core"></div>
+      </div>
+
+      <!-- 代码叠加缓慢雾/烟：30–60 秒周期 -->
+      <div class="roast-smoke-layer" aria-hidden="true">
+        <div class="smoke-veil smoke-veil-a"></div>
+        <div class="smoke-veil smoke-veil-b"></div>
+      </div>
+
+      <!-- 代码叠加稀疏火星粒子：8–14 秒周期 -->
+      <div class="ember-particles" id="hero-particles" aria-hidden="true"></div>
+    </div>
+
+    <div class="hero-foreground">
+      <div class="brand-wordmark">
+        <span class="brand-name">半山烘焙</span>
+        <span class="brand-location">成都 · 精品咖啡豆订阅工作室</span>
+      </div>
+
+      <div class="hero-statement-group">
+        <h1 class="hero-headline">小批量浅中烘，让豆子的产地与处理法自己说话。</h1>
+        <a href="#chapter-courtyard" class="hero-cta-btn" id="hero-enter-btn">
+          <span class="cta-ember-dot" aria-hidden="true"></span>
+          <span>步入今夜烘焙间</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== 滚动驱动镜头叙事：在 story 三张画面间推进 ==================== -->
+  <main class="roast-narrative-wrapper" id="roast-journey">
+    <!-- Sticky 镜头画布：承载 story/01、story/02、story/03 三幅场景与连续空气介质 -->
+    <div class="sticky-camera-stage" id="sticky-stage">
+      <div class="story-frame story-frame-01 is-initial" id="stage-frame-01">
+        <img
+          src="assets/story-01-workshop.webp"
+          alt="成都半山夜色中的小型烘焙工作室外景，圆窗透出琥珀色炉火与青烟，雨后地面映出暖光"
+          class="story-frame-img"
+        >
+      </div>
+      <div class="story-frame story-frame-02" id="stage-frame-02">
+        <img
+          src="assets/story-02-drum.webp"
+          alt="烘焙机滚筒炉口特写，浅中烘咖啡豆在琥珀色炉火中翻滚落入冷却盘"
+          class="story-frame-img"
+        >
+      </div>
+      <div class="story-frame story-frame-03" id="stage-frame-03">
+        <img
+          src="assets/story-03-vessel.webp"
+          alt="烘焙冷却台上的黑色粗陶杯测碗与牛皮纸咖啡豆袋，新鲜烘焙豆散发袅袅余温蒸汽"
+          class="story-frame-img"
+        >
+      </div>
+
+      <div class="stage-directional-scrim" aria-hidden="true"></div>
+      <div class="stage-dynamic-glow" id="stage-dynamic-glow" aria-hidden="true"></div>
+
+      <!-- 舞台持续薄烟与稀疏粒子 -->
+      <div class="roast-smoke-layer" aria-hidden="true">
+        <div class="smoke-veil smoke-veil-a"></div>
+        <div class="smoke-veil smoke-veil-b"></div>
+      </div>
+      <div class="ember-particles" id="stage-particles" aria-hidden="true"></div>
+
+      <!-- 镜头与火候阶段指示器 -->
+      <nav class="stage-roast-rail" aria-label="烘焙叙事阶段">
+        <button type="button" class="rail-step-btn" data-target="#chapter-courtyard" aria-current="step">半山夜火</button>
+        <span class="rail-divider" aria-hidden="true"></span>
+        <button type="button" class="rail-step-btn" data-target="#chapter-roaster">浅中出炉</button>
+        <span class="rail-divider" aria-hidden="true"></span>
+        <button type="button" class="rail-step-btn" data-target="#chapter-subscribe">按月封袋</button>
+      </nav>
+    </div>
+
+    <!-- 前景叙事轨：随滚动在三张场景的暗场中自然浮现 -->
+    <div class="narrative-chapters-track">
+      <!-- 第一幕 (120vh–220vh, 对应 1/3 滚动位置)：story/01 工作室夜色 + 品牌介绍 + 第一支豆「云雾水洗」 -->
+      <section class="story-chapter story-chapter-01" id="chapter-courtyard" aria-labelledby="title-courtyard">
+        <div class="chapter-inner">
+          <div class="scene-narrative-panel" id="panel-chapter-01">
+            <h2 class="scene-chapter-title" id="title-courtyard">夜色入山，小批量浅中烘</h2>
+            <p class="brand-fixed-copy">
+              半山烘焙是成都一家小型精品咖啡豆烘焙工作室，只做订阅制卖豆：每支豆子按小批量烘焙，标注烘焙日期与风味描述，按月寄送到家。工作室相信「豆子的产地和处理法自己会说话」，烘焙风格偏浅中烘，尽量保留产地本味。
+            </p>
+
+            <div class="scene-bean-ledger" role="region" aria-label="当期豆单：第一支">
+              <article class="bean-entry is-selected" data-bean-entry="云雾水洗">
+                <div class="bean-header-row">
+                  <div class="bean-title-group">
+                    <h3 class="bean-name">云雾水洗</h3>
+                    <span class="bean-origin-process">埃塞俄比亚 耶加雪菲 ｜ 水洗</span>
+                  </div>
+                  <span class="bean-price">¥68 / 200g</span>
+                </div>
+                <div class="roast-degree-bar" aria-hidden="true">
+                  <span>浅烘火候</span>
+                  <span class="roast-track"><span class="roast-marker" style="left: 28%;"></span></span>
+                  <span>花香与明亮酸质</span>
+                </div>
+                <div class="bean-flavor-row">
+                  <p class="bean-flavor-desc">
+                    <span class="bean-flavor-label">风味描述：</span>茉莉花香、柠檬酸质、红茶尾韵
+                  </p>
+                  <button
+                    type="button"
+                    class="bean-pick-action"
+                    data-select-bean="云雾水洗"
+                    aria-pressed="true"
+                  >
+                    <span class="bean-status-dot" aria-hidden="true"></span>
+                    <span class="bean-btn-text">已选为首期寄送豆款</span>
+                  </button>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 第二幕 (240vh–340vh, 对应 2/3 滚动位置)：story/02 滚筒炉口特写 + 第二、三支豆「火塘日晒」「山脊蜜处理」 -->
+      <section class="story-chapter story-chapter-02" id="chapter-roaster" aria-labelledby="title-roaster">
+        <div class="chapter-inner">
+          <div class="scene-narrative-panel" id="panel-chapter-02">
+            <h2 class="scene-chapter-title" id="title-roaster">炉口火候推进，产地的两重性格</h2>
+            <p class="scene-context-note">
+              滚筒炉口微收，留住日晒的坚果醇厚与蜜处理的焦糖果甜。每锅出炉即标注烘焙日期与风味描述，不掩盖土地与处理法的本味。
+            </p>
+
+            <div class="scene-bean-ledger" role="region" aria-label="当期豆单：第二与第三支">
+              <article class="bean-entry" data-bean-entry="火塘日晒">
+                <div class="bean-header-row">
+                  <div class="bean-title-group">
+                    <h3 class="bean-name">火塘日晒</h3>
+                    <span class="bean-origin-process">巴西 喜拉多 ｜ 日晒</span>
+                  </div>
+                  <span class="bean-price">¥58 / 200g</span>
+                </div>
+                <div class="roast-degree-bar" aria-hidden="true">
+                  <span>中浅火候</span>
+                  <span class="roast-track"><span class="roast-marker" style="left: 58%;"></span></span>
+                  <span>坚果醇厚低酸</span>
+                </div>
+                <div class="bean-flavor-row">
+                  <p class="bean-flavor-desc">
+                    <span class="bean-flavor-label">风味描述：</span>巧克力、烤坚果、低酸醇厚
+                  </p>
+                  <button
+                    type="button"
+                    class="bean-pick-action"
+                    data-select-bean="火塘日晒"
+                    aria-pressed="false"
+                  >
+                    <span class="bean-status-dot" aria-hidden="true"></span>
+                    <span class="bean-btn-text">选为首期寄送豆款</span>
+                  </button>
+                </div>
+              </article>
+
+              <article class="bean-entry" data-bean-entry="山脊蜜处理">
+                <div class="bean-header-row">
+                  <div class="bean-title-group">
+                    <h3 class="bean-name">山脊蜜处理</h3>
+                    <span class="bean-origin-process">哥伦比亚 惠兰 ｜ 蜜处理</span>
+                  </div>
+                  <span class="bean-price">¥72 / 200g</span>
+                </div>
+                <div class="roast-degree-bar" aria-hidden="true">
+                  <span>浅中火候</span>
+                  <span class="roast-track"><span class="roast-marker" style="left: 44%;"></span></span>
+                  <span>红果与焦糖甜感</span>
+                </div>
+                <div class="bean-flavor-row">
+                  <p class="bean-flavor-desc">
+                    <span class="bean-flavor-label">风味描述：</span>红苹果、焦糖甜感、奶油口感
+                  </p>
+                  <button
+                    type="button"
+                    class="bean-pick-action"
+                    data-select-bean="山脊蜜处理"
+                    aria-pressed="false"
+                  >
+                    <span class="bean-status-dot" aria-hidden="true"></span>
+                    <span class="bean-btn-text">选为首期寄送豆款</span>
+                  </button>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 第三幕 (360vh–460vh, 对应滚动终点)：story/03 冷却台豆袋与杯测碗 + 场景内嵌按月订阅方式 + 页脚 -->
+      <section class="story-chapter story-chapter-03" id="chapter-subscribe" aria-labelledby="title-subscribe">
+        <div class="chapter-inner">
+          <div class="subscription-ritual-panel" id="panel-chapter-03">
+            <h2 class="scene-chapter-title" id="title-subscribe">出炉封袋，定下你的按月寄送</h2>
+            <p class="sub-rule-summary">
+              订阅方式：<strong>按月寄送，每期 1 袋 200g</strong>（可选双袋组合）。小批量浅中烘，标注烘焙日期与风味描述，按所选节奏寄送到家。
+            </p>
+
+            <!-- 1. 订阅方案与价格 -->
+            <div class="sub-config-group">
+              <span class="sub-group-label" id="label-sub-plan">订阅价格与方案</span>
+              <div class="plan-ledger-list" role="radiogroup" aria-labelledby="label-sub-plan">
+                <button
+                  type="button"
+                  class="plan-ledger-option"
+                  role="radio"
+                  aria-checked="true"
+                  data-plan-id="single"
+                  data-plan-name="单袋订阅"
+                  data-plan-price="¥62 / 月起"
+                >
+                  <span class="plan-option-main">
+                    <span class="plan-option-title">单袋订阅</span>
+                    <span class="plan-option-detail">每期 1 袋 200g · 单袋订阅价</span>
+                  </span>
+                  <span class="plan-option-price">¥62 / 月起</span>
+                </button>
+
+                <button
+                  type="button"
+                  class="plan-ledger-option"
+                  role="radio"
+                  aria-checked="false"
+                  data-plan-id="double"
+                  data-plan-name="双袋尝鲜组合"
+                  data-plan-price="¥118 / 月"
+                >
+                  <span class="plan-option-main">
+                    <span class="plan-option-title">双袋尝鲜组合</span>
+                    <span class="plan-option-detail">每期 2 袋 × 200g · 两支产地组合</span>
+                  </span>
+                  <span class="plan-option-price">¥118 / 月</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 2. 可选节奏：每 2 周 / 每月 / 每 6 周 -->
+            <div class="sub-config-group">
+              <span class="sub-group-label" id="label-sub-cadence">可选寄送节奏</span>
+              <div class="cadence-segmented" role="radiogroup" aria-labelledby="label-sub-cadence">
+                <button type="button" class="cadence-btn" role="radio" aria-checked="false" data-cadence="每 2 周">每 2 周</button>
+                <button type="button" class="cadence-btn" role="radio" aria-checked="true" data-cadence="每月">每月</button>
+                <button type="button" class="cadence-btn" role="radio" aria-checked="false" data-cadence="每 6 周">每 6 周</button>
+              </div>
+            </div>
+
+            <!-- 3. 首期豆款确认（与前两幕豆单双向同步） -->
+            <div class="sub-config-group">
+              <span class="sub-group-label" id="label-sub-beans">首期寄送豆款（可点选切换）</span>
+              <div class="bean-pills-row" role="group" aria-labelledby="label-sub-beans">
+                <button type="button" class="bean-pill-btn" data-pill-bean="云雾水洗" aria-pressed="true">
+                  云雾水洗 ¥68/200g
+                </button>
+                <button type="button" class="bean-pill-btn" data-pill-bean="火塘日晒" aria-pressed="false">
+                  火塘日晒 ¥58/200g
+                </button>
+                <button type="button" class="bean-pill-btn" data-pill-bean="山脊蜜处理" aria-pressed="false">
+                  山脊蜜处理 ¥72/200g
+                </button>
+              </div>
+            </div>
+
+            <!-- 4. 收件登记与原位反馈闭环 -->
+            <form class="booking-form" id="subscription-form" novalidate>
+              <div class="form-field-row">
+                <label class="field-label" for="subscriber-address">
+                  <span>收件人称呼与寄送地址</span>
+                  <span class="field-hint">用于寄送每期新鲜烘焙豆袋</span>
+                </label>
+                <input
+                  type="text"
+                  id="subscriber-address"
+                  name="subscriberAddress"
+                  class="field-input"
+                  placeholder="例：林先生 · 成都市武侯区玉林南路 12 号"
+                  autocomplete="shipping street-address"
+                  aria-describedby="address-error"
+                >
+                <p class="field-error-msg" id="address-error" role="alert" hidden></p>
+              </div>
+
+              <div class="submit-action-row">
+                <div class="live-summary-price" id="live-selection-summary" aria-live="polite">
+                  已选：<strong>单袋订阅（¥62 / 月起）</strong> ｜ 每月 ｜ 首期：云雾水洗
+                </div>
+                <button type="submit" class="submit-sub-btn" id="submit-booking-btn">
+                  <span class="cta-ember-dot" aria-hidden="true"></span>
+                  <span>生成当期烘焙订阅单</span>
+                </button>
+              </div>
+            </form>
+
+            <!-- 原位预约确认回执 -->
+            <div class="booking-receipt" id="booking-receipt" role="status" aria-live="polite" hidden>
+              <h3 class="receipt-title">已登记当期烘焙订阅单</h3>
+              <p class="receipt-body" id="receipt-detail-text"></p>
+              <p class="receipt-proto-note">
+                注：当前页面为设计演示原型，仅在本地展示预约状态，未连接真实支付与物流后端。
+              </p>
+              <div class="receipt-actions">
+                <button type="button" class="receipt-secondary-btn" id="modify-booking-btn">修改订阅偏好</button>
+                <button type="button" class="receipt-secondary-btn" id="cancel-booking-btn">撤销本次登记</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 页脚：全页唯一一处样例声明 -->
+          <footer class="site-footer">
+            <span class="footer-brand">半山烘焙 · 成都</span>
+            <p class="footer-sample-disclaimer">
+              说明：本页全部品牌介绍、三款豆子与订阅价格均为固定「样例」演示素材，非真实商家，无客户评价或销量数据；全页四幅场景图均为生成图像。
+            </p>
+          </footer>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      'use strict';
+
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      /* 1. 生成稀疏火星粒子（8–14 秒周期，遵照 taste.md 1.5 参数） */
+      function initSparseParticles(containerId, count) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        const specs = [
+          { left: '64%', top: '62%', size: 3, dur: 8.6, delay: 0.2 },
+          { left: '69%', top: '58%', size: 2, dur: 9.4, delay: 1.5 },
+          { left: '73%', top: '66%', size: 3.5, dur: 10.2, delay: 0.8 },
+          { left: '76%', top: '54%', size: 2.5, dur: 11.0, delay: 2.3 },
+          { left: '80%', top: '60%', size: 2, dur: 11.8, delay: 3.1 },
+          { left: '83%', top: '50%', size: 3, dur: 12.5, delay: 1.1 },
+          { left: '71%', top: '48%', size: 2, dur: 13.2, delay: 4.0 },
+          { left: '67%', top: '70%', size: 2.5, dur: 9.8, delay: 2.8 },
+          { left: '78%', top: '64%', size: 3, dur: 10.6, delay: 5.2 },
+          { left: '62%', top: '55%', size: 2, dur: 13.6, delay: 1.9 },
+          { left: '74%', top: '44%', size: 2.5, dur: 8.9, delay: 3.6 },
+          { left: '85%', top: '58%', size: 2, dur: 12.1, delay: 0.5 }
+        ];
+        const frag = document.createDocumentFragment();
+        for (let i = 0; i < Math.min(count, specs.length); i++) {
+          const s = specs[i];
+          const el = document.createElement('span');
+          el.className = 'ember-spark';
+          el.style.left = s.left;
+          el.style.top = s.top;
+          el.style.width = s.size + 'px';
+          el.style.height = s.size + 'px';
+          el.style.animationDuration = s.dur + 's';
+          el.style.animationDelay = (-s.delay) + 's';
+          frag.appendChild(el);
+        }
+        container.appendChild(frag);
+      }
+
+      initSparseParticles('hero-particles', 12);
+      initSparseParticles('stage-particles', 10);
+
+      /* 2. 滚动驱动镜头叙事：在 story/01、story/02、story/03 三幅场景间推进 */
+      const heroImg = document.getElementById('hero-scene-img');
+      const frame01 = document.getElementById('stage-frame-01');
+      const frame02 = document.getElementById('stage-frame-02');
+      const frame03 = document.getElementById('stage-frame-03');
+      const panel01 = document.getElementById('panel-chapter-01');
+      const panel02 = document.getElementById('panel-chapter-02');
+      const panel03 = document.getElementById('panel-chapter-03');
+      const dynamicGlow = document.getElementById('stage-dynamic-glow');
+      const railBtns = Array.from(document.querySelectorAll('.rail-step-btn'));
+
+      function clamp(val, min, max) {
+        return Math.max(min, Math.min(max, val));
+      }
+
+      function smoothstep(edge0, edge1, x) {
+        const t = clamp((x - edge0) / (edge1 - edge0), 0, 1);
+        return t * t * (3 - 2 * t);
+      }
+
+      function updateActiveRail(stepIndex) {
+        railBtns.forEach((btn, idx) => {
+          if (idx === stepIndex) {
+            btn.setAttribute('aria-current', 'step');
+          } else {
+            btn.removeAttribute('aria-current');
+          }
+        });
+      }
+
+      function syncCameraNarrative() {
+        const vh = Math.max(window.innerHeight || 900, 1);
+        const scrollVH = window.scrollY / vh;
+        const reduced = prefersReducedMotion.matches;
+
+        if (reduced) {
+          /* prefers-reduced-motion: reduce 时停用缩放与视差，状态直接到位，全部叙事内容保持可见 */
+          if (heroImg) heroImg.style.transform = 'none';
+          [frame01, frame02, frame03].forEach((f) => {
+            if (f) f.style.transform = 'none';
+          });
+          [panel01, panel02, panel03].forEach((p) => {
+            if (p) {
+              p.style.opacity = '1';
+              p.style.transform = 'none';
+            }
+          });
+
+          if (scrollVH < 1.85) {
+            frame01.style.opacity = '1';
+            frame02.style.opacity = '0';
+            frame03.style.opacity = '0';
+            updateActiveRail(0);
+          } else if (scrollVH < 3.05) {
+            frame01.style.opacity = '0';
+            frame02.style.opacity = '1';
+            frame03.style.opacity = '0';
+            updateActiveRail(1);
+          } else {
+            frame01.style.opacity = '0';
+            frame02.style.opacity = '0';
+            frame03.style.opacity = '1';
+            updateActiveRail(2);
+          }
+          return;
+        }
+
+        /* 首屏滚出时的镜头缓慢推进 */
+        if (heroImg && scrollVH <= 1.2) {
+          const heroProgress = clamp(scrollVH, 0, 1);
+          const heroScale = 1.03 + heroProgress * 0.08;
+          const heroY = heroProgress * 32;
+          heroImg.style.transform = 'translate3d(0, ' + heroY.toFixed(1) + 'px, 0) scale(' + heroScale.toFixed(4) + ')';
+        }
+
+        /*
+         * 三幕镜头时间轴（以 scrollVH = scrollY / innerHeight 计）：
+         * - 01-start: scrollVH = 0.00 (首屏)
+         * - 02-third: scrollVH = 1.20 (第一幕 story/01 满画面居中)
+         * - 03-two-thirds: scrollVH = 2.40 (第二幕 story/02 满画面居中)
+         * - 04-end: scrollVH = 3.60 (第三幕 story/03 满画面居中)
+         * 交叉过渡区间：
+         * - 第一幕 -> 第二幕：scrollVH 1.62 -> 2.10
+         * - 第二幕 -> 第三幕：scrollVH 2.82 -> 3.30
+         */
+        const t12 = smoothstep(1.62, 2.10, scrollVH);
+        const t23 = smoothstep(2.82, 3.30, scrollVH);
+
+        const op1 = 1 - t12;
+        const op2 = t12 * (1 - t23);
+        const op3 = t23;
+
+        frame01.style.opacity = op1.toFixed(4);
+        frame02.style.opacity = op2.toFixed(4);
+        frame03.style.opacity = op3.toFixed(4);
+
+        /* 镜头一：从半山夜院推向烘焙间圆窗 (scrollVH 0.6 -> 2.1) */
+        const p1 = clamp((scrollVH - 0.6) / 1.5, 0, 1);
+        const scale1 = 1.0 + p1 * 0.14;
+        const panY1 = (0.45 - p1) * 22;
+        frame01.style.transform = 'translate3d(0, ' + panY1.toFixed(1) + 'px, 0) scale(' + scale1.toFixed(4) + ')';
+
+        /* 镜头二：穿过圆窗切入滚筒炉口特写，缓慢拉稳 (scrollVH 1.6 -> 3.25) */
+        const p2 = clamp((scrollVH - 1.6) / 1.65, 0, 1);
+        const scale2 = 1.13 - p2 * 0.11;
+        const panY2 = (0.45 - p2) * 20;
+        frame02.style.transform = 'translate3d(0, ' + panY2.toFixed(1) + 'px, 0) scale(' + scale2.toFixed(4) + ')';
+
+        /* 镜头三：落向冷却台上的粗陶杯测碗与牛皮纸豆袋 (scrollVH 2.8 -> 3.6) */
+        const p3 = clamp((scrollVH - 2.8) / 0.8, 0, 1);
+        const scale3 = 1.10 - p3 * 0.10;
+        const panY3 = (1 - p3) * 18;
+        frame03.style.transform = 'translate3d(0, ' + panY3.toFixed(1) + 'px, 0) scale(' + scale3.toFixed(4) + ')';
+
+        /* 前景叙事章节的景深过渡（在各章节阅读中心保持 100% 清晰不透明，仅在跨幕交界处轻微景深过渡） */
+        if (panel01) {
+          const fadeOut1 = 1 - smoothstep(1.58, 1.98, scrollVH);
+          const y1 = (1 - fadeOut1) * -18;
+          panel01.style.opacity = clamp(fadeOut1, 0.15, 1).toFixed(3);
+          panel01.style.transform = 'translate3d(0, ' + y1.toFixed(1) + 'px, 0)';
+        }
+        if (panel02) {
+          const fadeIn2 = smoothstep(1.68, 2.08, scrollVH);
+          const fadeOut2 = 1 - smoothstep(2.78, 3.18, scrollVH);
+          const vis2 = Math.min(fadeIn2, fadeOut2);
+          const y2 = (1 - fadeIn2) * 18 - (1 - fadeOut2) * 18;
+          panel02.style.opacity = clamp(vis2, 0.15, 1).toFixed(3);
+          panel02.style.transform = 'translate3d(0, ' + y2.toFixed(1) + 'px, 0)';
+        }
+        if (panel03) {
+          const fadeIn3 = smoothstep(2.88, 3.28, scrollVH);
+          const y3 = (1 - fadeIn3) * 16;
+          panel03.style.opacity = clamp(fadeIn3, 0.15, 1).toFixed(3);
+          panel03.style.transform = 'translate3d(0, ' + y3.toFixed(1) + 'px, 0)';
+        }
+
+        /* 主光源位置随镜头同步迁移 */
+        if (dynamicGlow) {
+          const lx = 74 * op1 + 78 * op2 + 76 * op3;
+          const ly = 40 * op1 + 54 * op2 + 56 * op3;
+          dynamicGlow.style.setProperty('--stage-light-x', lx.toFixed(1) + '%');
+          dynamicGlow.style.setProperty('--stage-light-y', ly.toFixed(1) + '%');
+        }
+
+        /* 舞台右上阶段高亮更新 */
+        if (scrollVH < 1.86) {
+          updateActiveRail(0);
+        } else if (scrollVH < 3.06) {
+          updateActiveRail(1);
+        } else {
+          updateActiveRail(2);
+        }
+      }
+
+      window.addEventListener('scroll', syncCameraNarrative, { passive: true });
+      window.addEventListener('resize', syncCameraNarrative, { passive: true });
+      if (prefersReducedMotion.addEventListener) {
+        prefersReducedMotion.addEventListener('change', syncCameraNarrative);
+      }
+      syncCameraNarrative();
+
+      /* 若 GSAP / ScrollTrigger 加载就绪，注册 ScrollTrigger 同步钩子 */
+      window.addEventListener('load', function () {
+        if (window.gsap && window.ScrollTrigger) {
+          window.gsap.registerPlugin(window.ScrollTrigger);
+          window.ScrollTrigger.create({
+            trigger: '#roast-journey',
+            start: 'top bottom',
+            end: 'bottom bottom',
+            scrub: true,
+            onUpdate: syncCameraNarrative
+          });
+        }
+        syncCameraNarrative();
+      });
+
+      /* 3. 平滑锚点跳转（尊重 prefers-reduced-motion） */
+      function scrollToTarget(selector) {
+        const target = document.querySelector(selector);
+        if (!target) return;
+        target.scrollIntoView({
+          behavior: prefersReducedMotion.matches ? 'auto' : 'smooth',
+          block: 'start'
+        });
+      }
+
+      const heroBtn = document.getElementById('hero-enter-btn');
+      if (heroBtn) {
+        heroBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          scrollToTarget('#chapter-courtyard');
+        });
+      }
+
+      railBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const sel = btn.getAttribute('data-target');
+          if (sel) scrollToTarget(sel);
+        });
+      });
+
+      /* 4. 三款豆子与订阅方式的双向状态联动（原位反馈 < 0.1s） */
+      const state = {
+        planId: 'single',
+        planName: '单袋订阅',
+        planPrice: '¥62 / 月起',
+        cadence: '每月',
+        selectedBeans: ['云雾水洗']
+      };
+
+      const planButtons = Array.from(document.querySelectorAll('.plan-ledger-option'));
+      const cadenceButtons = Array.from(document.querySelectorAll('.cadence-btn'));
+      const sceneBeanButtons = Array.from(document.querySelectorAll('[data-select-bean]'));
+      const pillBeanButtons = Array.from(document.querySelectorAll('[data-pill-bean]'));
+      const beanEntries = Array.from(document.querySelectorAll('[data-bean-entry]'));
+      const summaryEl = document.getElementById('live-selection-summary');
+
+      function renderSubscriptionState() {
+        planButtons.forEach(function (btn) {
+          const isMatch = btn.getAttribute('data-plan-id') === state.planId;
+          btn.setAttribute('aria-checked', isMatch ? 'true' : 'false');
+        });
+
+        cadenceButtons.forEach(function (btn) {
+          const isMatch = btn.getAttribute('data-cadence') === state.cadence;
+          btn.setAttribute('aria-checked', isMatch ? 'true' : 'false');
+        });
+
+        sceneBeanButtons.forEach(function (btn) {
+          const bean = btn.getAttribute('data-select-bean');
+          const active = state.selectedBeans.indexOf(bean) !== -1;
+          btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+          const txt = btn.querySelector('.bean-btn-text');
+          if (txt) {
+            txt.textContent = active ? '已选为首期寄送豆款' : '选为首期寄送豆款';
+          }
+        });
+
+        beanEntries.forEach(function (entry) {
+          const bean = entry.getAttribute('data-bean-entry');
+          const active = state.selectedBeans.indexOf(bean) !== -1;
+          entry.classList.toggle('is-selected', active);
+        });
+
+        pillBeanButtons.forEach(function (btn) {
+          const bean = btn.getAttribute('data-pill-bean');
+          const active = state.selectedBeans.indexOf(bean) !== -1;
+          btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+        });
+
+        if (summaryEl) {
+          summaryEl.innerHTML =
+            '已选：<strong>' +
+            state.planName +
+            '（' +
+            state.planPrice +
+            '）</strong> ｜ ' +
+            state.cadence +
+            ' ｜ 首期：' +
+            state.selectedBeans.join(' + ');
+        }
+      }
+
+      function toggleBeanSelection(beanName) {
+        if (state.planId === 'single') {
+          state.selectedBeans = [beanName];
+        } else {
+          const idx = state.selectedBeans.indexOf(beanName);
+          if (idx !== -1) {
+            if (state.selectedBeans.length > 1) {
+              state.selectedBeans.splice(idx, 1);
+            }
+          } else {
+            if (state.selectedBeans.length >= 2) {
+              state.selectedBeans.shift();
+            }
+            state.selectedBeans.push(beanName);
+          }
+        }
+        renderSubscriptionState();
+      }
+
+      planButtons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          state.planId = btn.getAttribute('data-plan-id') || 'single';
+          state.planName = btn.getAttribute('data-plan-name') || '单袋订阅';
+          state.planPrice = btn.getAttribute('data-plan-price') || '¥62 / 月起';
+          if (state.planId === 'single' && state.selectedBeans.length > 1) {
+            state.selectedBeans = [state.selectedBeans[0]];
+          } else if (state.planId === 'double' && state.selectedBeans.length < 2) {
+            const fallbacks = ['云雾水洗', '火塘日晒', '山脊蜜处理'];
+            for (let i = 0; i < fallbacks.length; i++) {
+              if (state.selectedBeans.indexOf(fallbacks[i]) === -1) {
+                state.selectedBeans.push(fallbacks[i]);
+                break;
+              }
+            }
+          }
+          renderSubscriptionState();
+        });
+      });
+
+      cadenceButtons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          state.cadence = btn.getAttribute('data-cadence') || '每月';
+          renderSubscriptionState();
+        });
+      });
+
+      sceneBeanButtons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const bean = btn.getAttribute('data-select-bean');
+          if (bean) toggleBeanSelection(bean);
+        });
+      });
+
+      pillBeanButtons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const bean = btn.getAttribute('data-pill-bean');
+          if (bean) toggleBeanSelection(bean);
+        });
+      });
+
+      /* 5. 表单校验、原位提交确认、修改与撤销闭环（遵循 interaction.md 第6–8节） */
+      const form = document.getElementById('subscription-form');
+      const addressInput = document.getElementById('subscriber-address');
+      const addressError = document.getElementById('address-error');
+      const receiptBox = document.getElementById('booking-receipt');
+      const receiptDetail = document.getElementById('receipt-detail-text');
+      const modifyBtn = document.getElementById('modify-booking-btn');
+      const cancelBtn = document.getElementById('cancel-booking-btn');
+
+      function showAddressError(msg) {
+        if (!addressInput || !addressError) return;
+        addressInput.setAttribute('aria-invalid', 'true');
+        addressError.textContent = msg;
+        addressError.hidden = false;
+      }
+
+      function clearAddressError() {
+        if (!addressInput || !addressError) return;
+        addressInput.removeAttribute('aria-invalid');
+        addressError.textContent = '';
+        addressError.hidden = true;
+      }
+
+      if (addressInput) {
+        addressInput.addEventListener('input', function () {
+          if (addressInput.value.trim().length >= 4) {
+            clearAddressError();
+          }
+        });
+      }
+
+      if (form) {
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          const val = addressInput ? addressInput.value.trim() : '';
+          if (val.length < 4) {
+            showAddressError('尚未填写完整的收件信息。每期熟豆出炉后需按址寄送，请补充称呼与收件地址（至少 4 个字）。');
+            if (addressInput) addressInput.focus();
+            return;
+          }
+          clearAddressError();
+          if (receiptDetail) {
+            receiptDetail.textContent =
+              '方案：' +
+              state.planName +
+              '（' +
+              state.planPrice +
+              '） · 寄送节奏：' +
+              state.cadence +
+              ' · 首期豆款：' +
+              state.selectedBeans.join('、') +
+              '（每袋 200g，浅中烘） · 收件信息：' +
+              val;
+          }
+          form.hidden = true;
+          if (receiptBox) {
+            receiptBox.hidden = false;
+          }
+          if (modifyBtn) {
+            modifyBtn.focus();
+          }
+        });
+      }
+
+      if (modifyBtn) {
+        modifyBtn.addEventListener('click', function () {
+          if (receiptBox) receiptBox.hidden = true;
+          if (form) form.hidden = false;
+          if (addressInput) addressInput.focus();
+        });
+      }
+
+      if (cancelBtn) {
+        cancelBtn.addEventListener('click', function () {
+          if (receiptBox) receiptBox.hidden = true;
+          if (form) form.hidden = false;
+          if (addressInput) {
+            addressInput.value = '';
+            addressInput.focus();
+          }
+          if (summaryEl) {
+            summaryEl.innerHTML = '已撤销刚才的订阅登记，你的豆款与节奏偏好仍已保留，可随时重新登记。';
+          }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
