@@ -1,0 +1,45 @@
+{
+  "protocol": "per-scene independent shuffle of slot order [jia, yi] via crypto-secure Fisher-Yates (node:crypto randomInt)",
+  "generatedAt": "2026-10-21T17:34:39.292Z",
+  "scenes": {
+    "A": {
+      "jia": {
+        "kind": "run",
+        "runId": "e2-A-agy",
+        "source": "runs/e2-A-agy/recordings/delivery",
+        "view": "runs/e2-view/A/jia/"
+      },
+      "yi": {
+        "kind": "missing",
+        "expectedRunId": "e2-A-codex",
+        "reason": "no committed e2 output on its branch"
+      }
+    },
+    "B": {
+      "yi": {
+        "kind": "run",
+        "runId": "e2-B-agy",
+        "source": "runs/e2-B-agy/recordings/delivery",
+        "view": "runs/e2-view/B/yi/"
+      },
+      "jia": {
+        "kind": "missing",
+        "expectedRunId": "e2-B-codex",
+        "reason": "no committed e2 output on its branch"
+      }
+    },
+    "C": {
+      "jia": {
+        "kind": "run",
+        "runId": "e2-C-agy",
+        "source": "runs/e2-C-agy/recordings/delivery",
+        "view": "runs/e2-view/C/jia/"
+      },
+      "yi": {
+        "kind": "missing",
+        "expectedRunId": "e2-C-codex",
+        "reason": "no committed e2 output on its branch"
+      }
+    }
+  }
+}

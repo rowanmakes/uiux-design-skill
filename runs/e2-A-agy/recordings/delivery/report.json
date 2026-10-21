@@ -1,0 +1,495 @@
+{
+  "file": "index.html",
+  "generatedAt": "2026-10-21T17:31:07.799Z",
+  "reducedMotion": false,
+  "timeline": {
+    "initialHoldMs": 3000,
+    "scrollTargetMs": 20000,
+    "finalPauseMs": 2000
+  },
+  "viewports": {
+    "1440x900": {
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "timeline": {
+        "setupMs": 305,
+        "assetsReady": true,
+        "scrollActualMs": 20012,
+        "totalMs": 28133
+      },
+      "scroll": {
+        "samples": [
+          {
+            "tMs": 5,
+            "progress": 0,
+            "scrollY": 0,
+            "maxScroll": 0,
+            "scrollHeight": 0,
+            "done": false,
+            "elapsedMs": 0
+          },
+          {
+            "tMs": 1082,
+            "progress": 0.049579999995231626,
+            "scrollY": 205,
+            "maxScroll": 4140,
+            "scrollHeight": 5040,
+            "done": false,
+            "elapsedMs": 992
+          },
+          {
+            "tMs": 2163,
+            "progress": 0.10360999999642372,
+            "scrollY": 429,
+            "maxScroll": 4140,
+            "scrollHeight": 5040,
+            "done": false,
+            "elapsedMs": 2072
+          },
+          {
+            "tMs": 3250,
+            "progress": 0.15717999999523163,
+            "scrollY": 651,
+            "maxScroll": 4140,
+            "scrollHeight": 5040,
+            "done": false,
+            "elapsedMs": 3144
+          },
+          {
+            "tMs": 4327,
+            "progress": 0.212675,
+            "scrollY": 880,
+            "maxScroll": 4140,
+            "scrollHeight": 5040,
+            "done": false,
+            "elapsedMs": 4254
+          },
+          {
+            "tMs": 5365,
+            "progress": 0.264325,
+            "scrollY": 1094,
+            "maxScroll": 4140,
+            "scrollHeight": 5040,
+            "done": false,
+            "elapsedMs": 5287
+          },
+          {
+            "tMs": 6410,
+            "progress": 0.31611499999761583,
+            "scrollY": 1309,
+            "maxScroll": 4140,
+            "scrollHeight": 5040,
+            "done": false,
+            "elapsedMs": 6322
+          },
+          {
+            "tMs": 8164,
+            "progress": 0.3711649999976158,
+            "scrollY": 1537,
+            "maxScroll": 4140,
+            "scrollHeight": 5040,
+            "done": false,
+            "elapsedMs": 7423
+          },
+          {
+            "tMs": 9236,
+            "progress": 0.42367999999523165,
+            "scrollY": 1754,
+            "maxScroll": 4140,
+            "scrollHeight": 5040,
+            "done": false,
+            "elapsedMs": 8474
+          },
+          {
+            "tMs": 10299,
+            "progress": 0.4770649999976158,
+            "scrollY": 1975,
+            "maxScroll": 4140,
+            "scrollHeight": 5040,
+            "done": false,
+            "elapsedMs": 9541
+          },
+          {
+            "tMs": 11348,
+            "progress": 0.5305849999964237,
+            "scrollY": 2197,
+            "maxScroll": 4140,
+            "scrollHeight": 5040,
+            "done": false,
+            "elapsedMs": 10612
+          },
+          {
+            "tMs": 12435,
+            "progress": 0.5832999999940396,
+            "scrollY": 2415,
+            "maxScroll": 4140,
+            "scrollHeight": 5040,
+            "done": false,
+            "elapsedMs": 11666
+          },
+          {
+            "tMs": 13504,
+            "progress": 0.6364449999988079,
+            "scrollY": 2635,
+            "maxScroll": 4140,
+            "scrollHeight": 5040,
+            "done": false,
+            "elapsedMs": 12729
+          },
+          {
+            "tMs": 15214,
+            "progress": 0.6918049999952316,
+            "scrollY": 2864,
+            "maxScroll": 4140,
+            "scrollHeight": 5040,
+            "done": false,
+            "elapsedMs": 13836
+          },
+          {
+            "tMs": 16273,
+            "progress": 0.7454499999940395,
+            "scrollY": 3086,
+            "maxScroll": 4140,
+            "scrollHeight": 5040,
+            "done": false,
+            "elapsedMs": 14909
+          },
+          {
+            "tMs": 17363,
+            "progress": 0.7998899999916553,
+            "scrollY": 3312,
+            "maxScroll": 4140,
+            "scrollHeight": 5040,
+            "done": false,
+            "elapsedMs": 15998
+          },
+          {
+            "tMs": 18414,
+            "progress": 0.8524899999916553,
+            "scrollY": 3529,
+            "maxScroll": 4140,
+            "scrollHeight": 5040,
+            "done": false,
+            "elapsedMs": 17050
+          },
+          {
+            "tMs": 19474,
+            "progress": 0.9060099999904633,
+            "scrollY": 3751,
+            "maxScroll": 4140,
+            "scrollHeight": 5040,
+            "done": false,
+            "elapsedMs": 18120
+          },
+          {
+            "tMs": 20494,
+            "progress": 0.9565299999952316,
+            "scrollY": 3960,
+            "maxScroll": 4140,
+            "scrollHeight": 5040,
+            "done": false,
+            "elapsedMs": 19131
+          },
+          {
+            "tMs": 21391,
+            "progress": 1,
+            "scrollY": 4140,
+            "maxScroll": 4140,
+            "scrollHeight": 5040,
+            "done": true,
+            "elapsedMs": 20012
+          }
+        ],
+        "startScrollHeight": 5040,
+        "maxScrollStartPx": 4140,
+        "shortPage": false,
+        "endScrollY": 4140,
+        "endMaxScrollPx": 4140,
+        "endScrollHeight": 5040,
+        "reachedBottom": true
+      },
+      "screenshots": [
+        {
+          "label": "01-start",
+          "path": "runs/e2-A-agy/recordings/delivery/1440x900-01-start.png",
+          "scrollY": 0
+        },
+        {
+          "label": "02-third",
+          "path": "runs/e2-A-agy/recordings/delivery/1440x900-02-third.png",
+          "scrollY": 1392
+        },
+        {
+          "label": "03-two-thirds",
+          "path": "runs/e2-A-agy/recordings/delivery/1440x900-03-two-thirds.png",
+          "scrollY": 2773
+        },
+        {
+          "label": "04-end",
+          "path": "runs/e2-A-agy/recordings/delivery/1440x900-04-end.png",
+          "scrollY": 4140
+        }
+      ],
+      "video": {
+        "path": "runs/e2-A-agy/recordings/delivery/1440x900-scroll.webm",
+        "width": 1440,
+        "height": 900,
+        "fileSizeBytes": 10721739,
+        "nonempty": true
+      },
+      "consoleErrors": [],
+      "pageErrors": [],
+      "failedRequests": [],
+      "ok": true
+    },
+    "390x844": {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "timeline": {
+        "setupMs": 218,
+        "assetsReady": true,
+        "scrollActualMs": 20013,
+        "totalMs": 26405
+      },
+      "scroll": {
+        "samples": [
+          {
+            "tMs": 2,
+            "progress": 0,
+            "scrollY": 0,
+            "maxScroll": 0,
+            "scrollHeight": 0,
+            "done": false,
+            "elapsedMs": 0
+          },
+          {
+            "tMs": 1031,
+            "progress": 0.050594999998807906,
+            "scrollY": 197,
+            "maxScroll": 3886,
+            "scrollHeight": 4730,
+            "done": false,
+            "elapsedMs": 1012
+          },
+          {
+            "tMs": 2070,
+            "progress": 0.10239499999880791,
+            "scrollY": 398,
+            "maxScroll": 3886,
+            "scrollHeight": 4730,
+            "done": false,
+            "elapsedMs": 2048
+          },
+          {
+            "tMs": 3097,
+            "progress": 0.15388499999642372,
+            "scrollY": 598,
+            "maxScroll": 3886,
+            "scrollHeight": 4730,
+            "done": false,
+            "elapsedMs": 3078
+          },
+          {
+            "tMs": 4141,
+            "progress": 0.20608999999761582,
+            "scrollY": 801,
+            "maxScroll": 3886,
+            "scrollHeight": 4730,
+            "done": false,
+            "elapsedMs": 4122
+          },
+          {
+            "tMs": 5194,
+            "progress": 0.2585699999988079,
+            "scrollY": 1005,
+            "maxScroll": 3886,
+            "scrollHeight": 4730,
+            "done": false,
+            "elapsedMs": 5171
+          },
+          {
+            "tMs": 6208,
+            "progress": 0.3086699999988079,
+            "scrollY": 1199,
+            "maxScroll": 3886,
+            "scrollHeight": 4730,
+            "done": false,
+            "elapsedMs": 6173
+          },
+          {
+            "tMs": 7512,
+            "progress": 0.35963499999642373,
+            "scrollY": 1398,
+            "maxScroll": 3886,
+            "scrollHeight": 4730,
+            "done": false,
+            "elapsedMs": 7193
+          },
+          {
+            "tMs": 8530,
+            "progress": 0.4105199999988079,
+            "scrollY": 1595,
+            "maxScroll": 3886,
+            "scrollHeight": 4730,
+            "done": false,
+            "elapsedMs": 8210
+          },
+          {
+            "tMs": 9574,
+            "progress": 0.4621799999952316,
+            "scrollY": 1796,
+            "maxScroll": 3886,
+            "scrollHeight": 4730,
+            "done": false,
+            "elapsedMs": 9244
+          },
+          {
+            "tMs": 10590,
+            "progress": 0.5129049999952316,
+            "scrollY": 1993,
+            "maxScroll": 3886,
+            "scrollHeight": 4730,
+            "done": false,
+            "elapsedMs": 10258
+          },
+          {
+            "tMs": 11617,
+            "progress": 0.5642899999976159,
+            "scrollY": 2193,
+            "maxScroll": 3886,
+            "scrollHeight": 4730,
+            "done": false,
+            "elapsedMs": 11286
+          },
+          {
+            "tMs": 12638,
+            "progress": 0.6154499999940395,
+            "scrollY": 2392,
+            "maxScroll": 3886,
+            "scrollHeight": 4730,
+            "done": false,
+            "elapsedMs": 12309
+          },
+          {
+            "tMs": 13656,
+            "progress": 0.6667949999988079,
+            "scrollY": 2591,
+            "maxScroll": 3886,
+            "scrollHeight": 4730,
+            "done": false,
+            "elapsedMs": 13336
+          },
+          {
+            "tMs": 15024,
+            "progress": 0.7193149999976158,
+            "scrollY": 2795,
+            "maxScroll": 3886,
+            "scrollHeight": 4730,
+            "done": false,
+            "elapsedMs": 14386
+          },
+          {
+            "tMs": 16074,
+            "progress": 0.771825,
+            "scrollY": 2999,
+            "maxScroll": 3886,
+            "scrollHeight": 4730,
+            "done": false,
+            "elapsedMs": 15437
+          },
+          {
+            "tMs": 17086,
+            "progress": 0.82245,
+            "scrollY": 3196,
+            "maxScroll": 3886,
+            "scrollHeight": 4730,
+            "done": false,
+            "elapsedMs": 16449
+          },
+          {
+            "tMs": 18094,
+            "progress": 0.8722949999988079,
+            "scrollY": 3390,
+            "maxScroll": 3886,
+            "scrollHeight": 4730,
+            "done": false,
+            "elapsedMs": 17446
+          },
+          {
+            "tMs": 19110,
+            "progress": 0.9230899999976158,
+            "scrollY": 3587,
+            "maxScroll": 3886,
+            "scrollHeight": 4730,
+            "done": false,
+            "elapsedMs": 18462
+          },
+          {
+            "tMs": 20109,
+            "progress": 0.9731049999952316,
+            "scrollY": 3781,
+            "maxScroll": 3886,
+            "scrollHeight": 4730,
+            "done": false,
+            "elapsedMs": 19462
+          },
+          {
+            "tMs": 20716,
+            "progress": 1,
+            "scrollY": 3886,
+            "maxScroll": 3886,
+            "scrollHeight": 4730,
+            "done": true,
+            "elapsedMs": 20013
+          }
+        ],
+        "startScrollHeight": 4730,
+        "maxScrollStartPx": 3886,
+        "shortPage": false,
+        "endScrollY": 3886,
+        "endMaxScrollPx": 3886,
+        "endScrollHeight": 4730,
+        "reachedBottom": true
+      },
+      "screenshots": [
+        {
+          "label": "01-start",
+          "path": "runs/e2-A-agy/recordings/delivery/390x844-01-start.png",
+          "scrollY": 0
+        },
+        {
+          "label": "02-third",
+          "path": "runs/e2-A-agy/recordings/delivery/390x844-02-third.png",
+          "scrollY": 1299
+        },
+        {
+          "label": "03-two-thirds",
+          "path": "runs/e2-A-agy/recordings/delivery/390x844-03-two-thirds.png",
+          "scrollY": 2591
+        },
+        {
+          "label": "04-end",
+          "path": "runs/e2-A-agy/recordings/delivery/390x844-04-end.png",
+          "scrollY": 3886
+        }
+      ],
+      "video": {
+        "path": "runs/e2-A-agy/recordings/delivery/390x844-scroll.webm",
+        "width": 390,
+        "height": 844,
+        "fileSizeBytes": 3175437,
+        "nonempty": true
+      },
+      "consoleErrors": [],
+      "pageErrors": [],
+      "failedRequests": [],
+      "ok": true
+    }
+  },
+  "failures": [],
+  "totalRuntimeMs": 56050
+}

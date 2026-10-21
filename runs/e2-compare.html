@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>E2 盲评对比 · 半山烘焙</title>
+<style>
+  :root { color-scheme: dark; --bg:#111014; --fg:#efeae1; --muted:#a49c90; --line:#2c2a31; --accent:#c98f52; --card:#18171c; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.65 "Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif; }
+  main { max-width: 1240px; margin: 0 auto; padding: 32px 20px 72px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; letter-spacing: .04em; }
+  h2 { font-size: 1.25rem; margin: 0; letter-spacing: .03em; }
+  h3 { font-size: 1.05rem; margin: 34px 0 10px; color: var(--fg); }
+  .sub { color: var(--muted); margin: 0 0 10px; }
+  .protocol { border:1px solid var(--line); border-radius:10px; padding:14px 16px; margin:18px 0 34px; color:var(--muted); font-size:.9rem; }
+  .protocol b { color: var(--fg); }
+  .scene { margin-bottom: 46px; }
+  .scene-head { display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between; border-top:1px solid var(--line); padding-top:18px; margin-bottom:14px; }
+  .pair-controls { display:flex; gap:8px; flex-wrap:wrap; }
+  .pair-controls button, #autoplay-toggle { background:#221f27; color:var(--fg); border:1px solid var(--line); border-radius:8px; padding:8px 14px; font-size:.9rem; cursor:pointer; }
+  .pair-controls button:hover, #autoplay-toggle:hover { border-color: var(--accent); }
+  .autoplay-bar { display:flex; gap:10px; align-items:center; margin: 0 0 8px; color: var(--muted); font-size: .88rem; }
+  .pair { display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; }
+  .panel { margin:0; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px; }
+  .panel-head { display:flex; justify-content:space-between; align-items:baseline; padding: 2px 4px 10px; }
+  .slot-label { font-size:1.5rem; font-weight:700; letter-spacing:.2em; color:var(--accent); }
+  .slot-progress { color:var(--muted); font-variant-numeric: tabular-nums; font-size:.85rem; }
+  video.wide { width:100%; aspect-ratio: 16/10; background:#000; border-radius:8px; display:block; }
+  .panel-links { padding: 10px 4px 2px; font-size:.86rem; color:var(--muted); display:flex; gap:16px; flex-wrap:wrap; }
+  .panel-links a { color: var(--accent); text-decoration:none; border-bottom:1px dotted var(--accent); }
+  .missing-tile { aspect-ratio: 16/10; border:1px dashed #3a3742; border-radius:8px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; color:var(--muted); text-align:center; padding: 16px; }
+  .missing-mark { font-size: 2.4rem; color:#4a4750; }
+  .missing-title { margin:0; color:var(--fg); font-weight:600; }
+  .missing-note { margin:0; font-size:.86rem; }
+  .autoplay-note { min-height: 1.2em; }
+  #appendix { border-top: 1px solid var(--line); margin-top: 56px; padding-top: 8px; }
+  .gal-row { display:grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+  .gal { margin:0; background:var(--card); border:1px solid var(--line); border-radius:10px; padding:8px; }
+  .gal img { width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:6px; display:block; background:#000; }
+  .gal figcaption { font-size:.8rem; color:var(--muted); padding:7px 2px 2px; word-break: break-all; }
+  .gal.is-selected { border-color: var(--accent); }
+  .gal.is-selected figcaption { color: var(--fg); }
+  footer { color:var(--muted); font-size:.85rem; border-top:1px solid var(--line); margin-top:48px; padding-top:14px; }
+  @media (max-width: 720px) { .pair { grid-template-columns: 1fr; } .slot-label { font-size: 1.3rem; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>E2 盲评对比 · 半山烘焙官网首页</h1>
+  <p class="sub">三个场景 × 每场景两个匿名槽位（甲 / 乙）· 宽屏 1440×900 滚动录像</p>
+  <div class="protocol">
+    <b>盲评说明</b>：每个场景内「甲 / 乙」的槽位分配已各自独立随机化；页面上不出现任何模型、运行或来源标识。
+    每个槽位为一段约 26 秒的匀速整页滚动录像（开头静置 3 秒、滚动 20 秒、结尾静置 2 秒）。
+    某槽位对应运行未完成时，以中性空缺卡片呈现，同样不披露任何来源信息。
+  </div>
+  <div class="autoplay-bar">
+    <button type="button" id="autoplay-toggle" aria-pressed="false">自动连播：关</button>
+    <span class="autoplay-note" id="autoplay-note">可开启静音自动循环播放；若被浏览器策略阻止，请使用各场景「同步播放」按钮。</span>
+  </div>
+
+      <section class="scene" id="scene-A" data-scene="A">
+        <header class="scene-head">
+          <h2>场景 A · 雾中山</h2>
+          <div class="pair-controls" role="group" aria-label="场景 A 同步控制">
+            <button type="button" data-act="play">▶ 同步播放</button>
+            <button type="button" data-act="pause">⏸ 同步暂停</button>
+            <button type="button" data-act="restart">↻ 同步重播</button>
+          </div>
+        </header>
+        <div class="pair">
+
+        <figure class="panel" data-slot="jia">
+          <div class="panel-head"><span class="slot-label">甲</span><span class="slot-progress" data-progress>未开始</span></div>
+          <video class="wide" muted playsinline loop controls preload="metadata" poster="e2-view/A/jia/wide-poster.png" data-pair="A">
+            <source src="e2-view/A/jia/wide.webm" type="video/webm">
+          </video>
+          <figcaption class="panel-links">
+            <a href="e2-view/A/jia/narrow.webm" target="_blank" rel="noopener">竖屏 390×844 录像</a>
+            <span class="keyframes">关键帧：<a href="e2-view/A/jia/wide-f1.png" target="_blank" rel="noopener">起点</a>·<a href="e2-view/A/jia/wide-f2.png" target="_blank" rel="noopener">1/3</a>·<a href="e2-view/A/jia/wide-f3.png" target="_blank" rel="noopener">2/3</a>·<a href="e2-view/A/jia/wide-f4.png" target="_blank" rel="noopener">终点</a></span>
+          </figcaption>
+        </figure>
+
+        <figure class="panel is-missing" data-slot="yi">
+          <div class="panel-head"><span class="slot-label">乙</span><span class="slot-progress">—</span></div>
+          <div class="missing-tile">
+            <div class="missing-mark" aria-hidden="true">／</div>
+            <p class="missing-title">本槽位缺少结果</p>
+            <p class="missing-note">对应运行未产出可交付页面，此槽位保持空缺，不参与播放。</p>
+          </div>
+          <figcaption class="panel-links"><span class="keyframes">（无媒体文件）</span></figcaption>
+        </figure>
+        </div>
+      </section>
+
+      <section class="scene" id="scene-B" data-scene="B">
+        <header class="scene-head">
+          <h2>场景 B · 余烬</h2>
+          <div class="pair-controls" role="group" aria-label="场景 B 同步控制">
+            <button type="button" data-act="play">▶ 同步播放</button>
+            <button type="button" data-act="pause">⏸ 同步暂停</button>
+            <button type="button" data-act="restart">↻ 同步重播</button>
+          </div>
+        </header>
+        <div class="pair">
+
+        <figure class="panel is-missing" data-slot="jia">
+          <div class="panel-head"><span class="slot-label">甲</span><span class="slot-progress">—</span></div>
+          <div class="missing-tile">
+            <div class="missing-mark" aria-hidden="true">／</div>
+            <p class="missing-title">本槽位缺少结果</p>
+            <p class="missing-note">对应运行未产出可交付页面，此槽位保持空缺，不参与播放。</p>
+          </div>
+          <figcaption class="panel-links"><span class="keyframes">（无媒体文件）</span></figcaption>
+        </figure>
+
+        <figure class="panel" data-slot="yi">
+          <div class="panel-head"><span class="slot-label">乙</span><span class="slot-progress" data-progress>未开始</span></div>
+          <video class="wide" muted playsinline loop controls preload="metadata" poster="e2-view/B/yi/wide-poster.png" data-pair="B">
+            <source src="e2-view/B/yi/wide.webm" type="video/webm">
+          </video>
+          <figcaption class="panel-links">
+            <a href="e2-view/B/yi/narrow.webm" target="_blank" rel="noopener">竖屏 390×844 录像</a>
+            <span class="keyframes">关键帧：<a href="e2-view/B/yi/wide-f1.png" target="_blank" rel="noopener">起点</a>·<a href="e2-view/B/yi/wide-f2.png" target="_blank" rel="noopener">1/3</a>·<a href="e2-view/B/yi/wide-f3.png" target="_blank" rel="noopener">2/3</a>·<a href="e2-view/B/yi/wide-f4.png" target="_blank" rel="noopener">终点</a></span>
+          </figcaption>
+        </figure>
+        </div>
+      </section>
+
+      <section class="scene" id="scene-C" data-scene="C">
+        <header class="scene-head">
+          <h2>场景 C · 胶片夕照</h2>
+          <div class="pair-controls" role="group" aria-label="场景 C 同步控制">
+            <button type="button" data-act="play">▶ 同步播放</button>
+            <button type="button" data-act="pause">⏸ 同步暂停</button>
+            <button type="button" data-act="restart">↻ 同步重播</button>
+          </div>
+        </header>
+        <div class="pair">
+
+        <figure class="panel" data-slot="jia">
+          <div class="panel-head"><span class="slot-label">甲</span><span class="slot-progress" data-progress>未开始</span></div>
+          <video class="wide" muted playsinline loop controls preload="metadata" poster="e2-view/C/jia/wide-poster.png" data-pair="C">
+            <source src="e2-view/C/jia/wide.webm" type="video/webm">
+          </video>
+          <figcaption class="panel-links">
+            <a href="e2-view/C/jia/narrow.webm" target="_blank" rel="noopener">竖屏 390×844 录像</a>
+            <span class="keyframes">关键帧：<a href="e2-view/C/jia/wide-f1.png" target="_blank" rel="noopener">起点</a>·<a href="e2-view/C/jia/wide-f2.png" target="_blank" rel="noopener">1/3</a>·<a href="e2-view/C/jia/wide-f3.png" target="_blank" rel="noopener">2/3</a>·<a href="e2-view/C/jia/wide-f4.png" target="_blank" rel="noopener">终点</a></span>
+          </figcaption>
+        </figure>
+
+        <figure class="panel is-missing" data-slot="yi">
+          <div class="panel-head"><span class="slot-label">乙</span><span class="slot-progress">—</span></div>
+          <div class="missing-tile">
+            <div class="missing-mark" aria-hidden="true">／</div>
+            <p class="missing-title">本槽位缺少结果</p>
+            <p class="missing-note">对应运行未产出可交付页面，此槽位保持空缺，不参与播放。</p>
+          </div>
+          <figcaption class="panel-links"><span class="keyframes">（无媒体文件）</span></figcaption>
+        </figure>
+        </div>
+      </section>
+  <section id="appendix">
+    <h2>附录 · 场景生成图全量图库（15 张源图，未经修改）</h2>
+    <p class="sub">每场景 2 张 Hero 候选（标注选用状态）+ 3 张叙事图；选图元数据来自实验预置的 selection.json，与任何运行无关。</p>
+
+          <h3>场景 A · 雾中山</h3>
+          <div class="gal-row">
+            <figure class="gal is-selected"><img src="../test/e2/images/A/candidates/hero-01.webp" alt="场景A · candidates/hero-01.webp · 选用" loading="lazy"><figcaption>场景A · candidates/hero-01.webp · 选用</figcaption></figure>
+            <figure class="gal "><img src="../test/e2/images/A/candidates/hero-02.webp" alt="场景A · candidates/hero-02.webp · 未选用" loading="lazy"><figcaption>场景A · candidates/hero-02.webp · 未选用</figcaption></figure>
+            <figure class="gal "><img src="../test/e2/images/A/story/01.webp" alt="场景A · story/01.webp · 叙事图（固定使用）" loading="lazy"><figcaption>场景A · story/01.webp · 叙事图（固定使用）</figcaption></figure>
+            <figure class="gal "><img src="../test/e2/images/A/story/02.webp" alt="场景A · story/02.webp · 叙事图（固定使用）" loading="lazy"><figcaption>场景A · story/02.webp · 叙事图（固定使用）</figcaption></figure>
+            <figure class="gal "><img src="../test/e2/images/A/story/03.webp" alt="场景A · story/03.webp · 叙事图（固定使用）" loading="lazy"><figcaption>场景A · story/03.webp · 叙事图（固定使用）</figcaption></figure>
+          </div>
+
+          <h3>场景 B · 余烬</h3>
+          <div class="gal-row">
+            <figure class="gal "><img src="../test/e2/images/B/candidates/hero-01.webp" alt="场景B · candidates/hero-01.webp · 未选用" loading="lazy"><figcaption>场景B · candidates/hero-01.webp · 未选用</figcaption></figure>
+            <figure class="gal is-selected"><img src="../test/e2/images/B/candidates/hero-02.webp" alt="场景B · candidates/hero-02.webp · 选用" loading="lazy"><figcaption>场景B · candidates/hero-02.webp · 选用</figcaption></figure>
+            <figure class="gal "><img src="../test/e2/images/B/story/01.webp" alt="场景B · story/01.webp · 叙事图（固定使用）" loading="lazy"><figcaption>场景B · story/01.webp · 叙事图（固定使用）</figcaption></figure>
+            <figure class="gal "><img src="../test/e2/images/B/story/02.webp" alt="场景B · story/02.webp · 叙事图（固定使用）" loading="lazy"><figcaption>场景B · story/02.webp · 叙事图（固定使用）</figcaption></figure>
+            <figure class="gal "><img src="../test/e2/images/B/story/03.webp" alt="场景B · story/03.webp · 叙事图（固定使用）" loading="lazy"><figcaption>场景B · story/03.webp · 叙事图（固定使用）</figcaption></figure>
+          </div>
+
+          <h3>场景 C · 胶片夕照</h3>
+          <div class="gal-row">
+            <figure class="gal "><img src="../test/e2/images/C/candidates/hero-01.webp" alt="场景C · candidates/hero-01.webp · 未选用" loading="lazy"><figcaption>场景C · candidates/hero-01.webp · 未选用</figcaption></figure>
+            <figure class="gal is-selected"><img src="../test/e2/images/C/candidates/hero-02.webp" alt="场景C · candidates/hero-02.webp · 选用" loading="lazy"><figcaption>场景C · candidates/hero-02.webp · 选用</figcaption></figure>
+            <figure class="gal "><img src="../test/e2/images/C/story/01.webp" alt="场景C · story/01.webp · 叙事图（固定使用）" loading="lazy"><figcaption>场景C · story/01.webp · 叙事图（固定使用）</figcaption></figure>
+            <figure class="gal "><img src="../test/e2/images/C/story/02.webp" alt="场景C · story/02.webp · 叙事图（固定使用）" loading="lazy"><figcaption>场景C · story/02.webp · 叙事图（固定使用）</figcaption></figure>
+            <figure class="gal "><img src="../test/e2/images/C/story/03.webp" alt="场景C · story/03.webp · 叙事图（固定使用）" loading="lazy"><figcaption>场景C · story/03.webp · 叙事图（固定使用）</figcaption></figure>
+          </div>
+
+  </section>
+  <footer>本页所有媒体均为本地相对路径，可离线直接打开；页面只做盲评对照，不提供到各原始运行目录的链接。</footer>
+</main>
+<script>
+(function () {
+  var autoplay = false;
+  var toggle = document.getElementById('autoplay-toggle');
+  var note = document.getElementById('autoplay-note');
+
+  function fmt(t) { return t.toFixed(1) + 's'; }
+  function updateProgress(panel) {
+    var v = panel.querySelector('video');
+    var el = panel.querySelector('[data-progress]');
+    if (!v || !el) return;
+    el.textContent = v.paused && v.currentTime === 0 ? '未开始'
+      : (v.paused ? '暂停于 ' : '播放中 ') + fmt(v.currentTime) + ' / ' + (isFinite(v.duration) ? fmt(v.duration) : '?');
+  }
+
+  document.querySelectorAll('.scene').forEach(function (scene) {
+    var videos = Array.prototype.slice.call(scene.querySelectorAll('video'));
+    videos.forEach(function (v) {
+      v.addEventListener('timeupdate', function () { updateProgress(v.closest('.panel')); });
+      v.addEventListener('pause', function () { updateProgress(v.closest('.panel')); });
+      v.addEventListener('play', function () { updateProgress(v.closest('.panel')); });
+    });
+    var controls = scene.querySelector('.pair-controls');
+    controls.addEventListener('click', function (e) {
+      var btn = e.target.closest('button'); if (!btn) return;
+      var act = btn.getAttribute('data-act');
+      videos.forEach(function (v) {
+        if (act === 'play') v.play().catch(function () {});
+        else if (act === 'pause') v.pause();
+        else if (act === 'restart') { v.pause(); v.currentTime = 0; v.play().catch(function () {}); }
+        updateProgress(v.closest('.panel'));
+      });
+    });
+  });
+
+  function setAutoplay(on) {
+    autoplay = on;
+    toggle.setAttribute('aria-pressed', on ? 'true' : 'false');
+    toggle.textContent = '自动连播：' + (on ? '开' : '关');
+    if (!on) { document.querySelectorAll('video').forEach(function (v) { v.pause(); }); note.textContent = '自动连播已关闭。'; return; }
+    var all = Array.prototype.slice.call(document.querySelectorAll('video'));
+    Promise.all(all.map(function (v) { return v.play(); }))
+      .then(function () { note.textContent = '全部槽位已自动循环播放。'; })
+      .catch(function () { note.textContent = '浏览器阻止了自动播放；请使用各场景「同步播放」按钮手动播放。'; });
+  }
+  toggle.addEventListener('click', function () { setAutoplay(!autoplay); });
+})();
+</script>
+</body>
+</html>
