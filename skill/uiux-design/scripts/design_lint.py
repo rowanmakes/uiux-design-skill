@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# 来源：huashu-design（https://github.com/alchaincyf/huashu-design，798c423），MIT 许可，除这一行来源注释外未修改。见仓库 THIRD_PARTY_NOTICES.md。
+# 来源：huashu-design（https://github.com/alchaincyf/huashu-design，798c423），MIT 许可，除这一行来源注释外未修改。见本技能目录的 THIRD_PARTY_NOTICES.md。
 """
 design_lint.py — 只量事实的设计体检，外加「外观指纹」：三方向撞没撞、和最近的项目撞没撞。
 

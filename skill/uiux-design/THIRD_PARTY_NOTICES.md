@@ -1,6 +1,6 @@
 # 第三方代码声明
 
-## scripts/design_lint.py、scripts/fixtures/lint_*.html
+## scripts/design_lint.py、scripts/fixtures/lint_*.html（相对本技能目录）
 
 来自 huashu-design（https://github.com/alchaincyf/huashu-design，提交 `798c423`），除 design_lint.py 第二行加了一行来源注释外未修改。按 MIT 许可使用，原许可证全文如下：
 
