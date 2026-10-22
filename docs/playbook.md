@@ -33,6 +33,7 @@
 - 每个运行写 `run-log.md`：实际读了哪些文件、每步做了什么决定、看截图发现了什么、改了什么、没验证的、耗时。没写完不能报告完成。
 - 运行结束跑 `python3 skill/uiux-design/scripts/honesty_check.py <页面目录> --run-log <日志> [--generated-images]`，红灯就退回。
 - 记录模型和思考强度。
+- 阅读记录要具体到文件和小节，并写明哪个决定用到了它，消融靠这个找没用的内容（`docs/ablation-plan.md`）。
 
 ## 通用提示词
 

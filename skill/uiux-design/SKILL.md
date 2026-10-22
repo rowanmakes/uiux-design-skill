@@ -98,4 +98,3 @@ description: 从产品描述或现有界面出发，做出让人眼前一亮、�
 - `references/interaction.md`：交互、反馈与 UX（交付前检查用）
 - `references/review-and-evidence.md`：评审与证据
 - `references/brand-to-interface.md`：品牌定位与品牌原则转界面（做品牌系统时用）
-- `references/skill-landscape.md`：外部设计技能清单

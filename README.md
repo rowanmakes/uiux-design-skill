@@ -2,7 +2,7 @@
 
 我自己的 UI/UX 设计 Skill：从产品描述出发，做出留白、干净、简约、大气、干练，而且一眼不像 AI 模板的界面。
 
-**当前状态：v0.12。** 有证据的只有一个场景：消费品牌官网首页（实验 E2，用户评价"确实可以"）。其余见 `docs/coverage.md`。下一步是实验 E3（`docs/tests/e3-plan.md`）。
+**当前状态：v0.13。** 有证据的只有一个场景：消费品牌官网首页（实验 E2，用户评价"确实可以"）。其余见 `docs/coverage.md`。下一步是实验 E3（`docs/tests/e3-plan.md`）。
 
 ## 目录
 
@@ -19,7 +19,6 @@ skill/uiux-design/          Skill 本体，整个目录复制到 agent 的 skill
     interaction.md          交互、反馈与 UX，含结账与定价清单
     review-and-evidence.md  评审、独立评审交接、证据边界
     brand-to-interface.md   品牌定位与品牌原则转界面
-    skill-landscape.md      外部设计技能与来源清单
   scripts/
     design_lint.py          检查红灯与模板装饰、比较三个方向、外观账本（来自 huashu-design）
     honesty_check.py        检查诚实问题：日志、"实景"、样例标签、无依据的数值条
@@ -31,8 +30,9 @@ docs/playbook.md            Orca 测试手册与通用提示词
 docs/tests/                 每次实验的记录与 E3 计划
 docs/retro-2026-10-21.md    复盘与参考仓库重读
 docs/coverage.md            覆盖矩阵
+docs/ablation-plan.md       哪些内容待验证是否多余、怎么测
 docs/research/              原始笔记与外部技能调研
-library/                    参考库：按品类沉淀参考网站与用户的反应
+library/                    参考库：用户的品味参考、按品类沉淀的参考网站
 CHANGELOG.md                每次改动的现象、假设、改动与结果
 ```
 
