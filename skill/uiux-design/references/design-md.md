@@ -99,4 +99,4 @@ awesome-design-md 仓库（https://github.com/VoltAgent/awesome-design-md，84 �
 - **具体到能照着做。** 每一节都要写到数值或明确的关系；只写形容词的规范等于没写。
 - **引用来源，不复制网页。** 从参考里借的是关系，不是某个品牌的 Logo、配色组合、字体组合和版式整体。
 - **规范跟着项目走。** 放在项目根目录；之后的页面先读它；有改动就更新它，并在末尾记一行改动日期和原因。
-- **交付时把外观记进 `appearance-ledger.md`**（形式、明暗、主光、空气、主色、镜头、字体），用于下一个项目避开。
+- **交付时把外观记进账本：** `python3 $SKILL/scripts/design_lint.py ledger add <最终页面> --project <名字> --note "形式、主光、空气、镜头"`，用于下一个项目避开（见 `taste.md` 1.7 节）。

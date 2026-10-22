@@ -42,7 +42,7 @@ description: 从产品描述或现有界面出发，做出让人眼前一亮、�
 - 能生图：先生成 3–6 张主视觉候选（场景、光线、材质各不相同），与方向一起给用户挑；选定后再生成同一光线和色调的后续画面，用于滚动叙事和产品页。这是目前测试中唯一明显拉开差距的一步，有生图能力时不要跳过。
 - 不能生图：按 `taste.md`"素材不足时"的顺序选（真实产品画面、字即图像、数据即图像、克制的程序化材质）。
 
-**4 · 三个首屏方向。** 开工前先读项目里的 `appearance-ledger.md`（没有就新建），避开最近交付过的外观，规则见 `taste.md` 1.7 节。**不从空白开始：** 每个方向从一份现成的 DESIGN.md 起步，三个方向用三份不同的种子（一份同类或结构相近的、一份来自用户喜欢的参考、一份跨品类的），再按我们的内容、主视觉和品牌改造。种子从 awesome-design-md 仓库（https://github.com/VoltAgent/awesome-design-md）或 getdesign.md 找，挑法和改造的底线见 `references/design-md.md`。
+**4 · 三个首屏方向。** 开工前运行 `python3 $SKILL/scripts/design_lint.py ledger` 看最近交付过的外观并避开（`taste.md` 1.7 节）。**不从空白开始：** 每个方向从一份现成的 DESIGN.md 起步，三个方向用三份不同的种子（一份同类或结构相近的、一份来自用户喜欢的参考、一份跨品类的），再按我们的内容、主视觉和品牌改造。种子从 awesome-design-md 仓库（https://github.com/VoltAgent/awesome-design-md）或 getdesign.md 找，挑法和改造的底线见 `references/design-md.md`。
 
 每个方向只做首屏，真实渲染并截图（宽屏和窄屏）。三个方向必须真正不同：
 - 骨架互不相同（`taste.md` 第 5 节的骨架表）；左右分栏最多用一次。
@@ -50,7 +50,7 @@ description: 从产品描述或现有界面出发，做出让人眼前一亮、�
 - 至少一个方向避开"暖米色纸底 + 衬线标题 + 陶土或赤褐点缀"。
 - 每个方向写几行方向卡：北极星、骨架、主视觉、字体、色彩及其来源、唯一最大胆的一处、哪样东西是这个产品才有的。
 
-把截图和第 2 步的参考板并排看。
+把截图和第 2 步的参考板并排看，再运行 `python3 $SKILL/scripts/design_lint.py compare <三个方向的页面>` 和 `ledger check`：脚本说撞了（色板几乎相同、同一底色类加同一标题字体、骨架相关过高），就回到方向卡换骨架或换来源，不是换颜色。
 
 **5 · 摆出来，停下，让用户挑。** 把三个方向的截图和方向卡一起给用户，请他确认三件事：整体感觉是不是他想要的；有没有漏掉他最喜欢的东西；有没有加入他不喜欢的元素（对照 `design-md.md` 的确认清单）。然后结束这一轮。用户可能会混合（"A 的结构加 C 的颜色"），照做。
 
@@ -65,9 +65,12 @@ description: 从产品描述或现有界面出发，做出让人眼前一亮、�
 **8 · 交付前检查。** 分三层，最好由一个没参与制作的 agent 来做（只给它网址、DESIGN.md 和简报）：
 1. **打开真实页面，对照 `DESIGN.md` 检查：** 视觉层级、间距、移动端适配，以及各页面之间是否一致（同一个世界、同一套组件和动效档位）。截图和录屏为证，不读代码代替看画面。
 2. **用外部技能检查表达与质量：** impeccable（https://github.com/pbakaus/impeccable）的 `critique`（设计判断与评分）和 `audit`（可访问性、性能、响应式），必要时 `polish` 做最后一遍；taste-skill（https://github.com/Leonxlnx/taste-skill）的 `references/critique.md` 检查设计表达和细节。只用它们的检查部分，不让它们按自己的风格重做页面。它们和我们的规则冲突时以 `DESIGN.md` 和用户的品味为准，例如 taste-skill 要求页面至少有 8 个在动的元素、每个区块都有出场动画、至少 4 张真实图片，这和"少用动效"冲突，不采用。
-3. **读我们自己的检查文件：** `references/interaction.md`（交互、反馈、状态、表单、可访问性）、`taste.md` 与对应页面类型文件末尾的自检清单、`references/review-and-evidence.md`（问题卡与证据边界）。
+3. **跑两个检查脚本：** `python3 $SKILL/scripts/design_lint.py check <页面>`（红灯：裂图、字太小、对比度不够、控制台报错，必须修；黄灯：模板装饰，删掉那个结构而不是换个符号）；`python3 $SKILL/scripts/honesty_check.py <页面目录> --run-log <运行日志> [--generated-images]`（没写日志、生成图被称为实景、到处贴样例字样、没有依据的数值条）。脚本只量事实；文字压在图片上时的对比度它算不准，要看截图确认。
+4. **读我们自己的检查文件：** `references/interaction.md`（交互、反馈、状态、表单、可访问性）、`taste.md` 与对应页面类型文件末尾的自检清单、`references/review-and-evidence.md`（问题卡与证据边界）。
 
-必须修的问题修掉；审美建议记下来交给用户。
+必须修的问题修掉；审美建议记下来交给用户。交付后把最终页面记进账本：`python3 $SKILL/scripts/design_lint.py ledger add <页面> --project <名字> --note "形式、主光、空气、镜头"`。
+
+`$SKILL` 指本技能所在的目录（这份 SKILL.md 所在的目录），不是用户的项目目录。脚本依赖：Python 3 加 `pip install playwright pillow`；Node 18 以上加 `npm i -D playwright`；都需要 Chromium。
 
 ## 诚实规则
 

@@ -88,8 +88,9 @@
 **判断标准：** 把两个不同品牌的页面放在一起，它们应该一眼能分出是两个品牌，只有"做得都很好"这一点相同。
 
 **外观账本（防止跨项目趋同）：**
-- 每次交付后，在项目目录的 `appearance-ledger.md` 记一行：品牌、形式、明暗、主光、空气、主色、镜头、字体。
-- 新项目开工前先读账本：和最近交付的项目相比，上表六个轴里至少三个要不同。用户或品牌明确要求某种外观时除外。
+- 用 `$SKILL/scripts/design_lint.py` 的账本，它自动记录底色、主色板、字体和版式骨架，存在本机 `~/.huashu-design/ledger.jsonl`（可用环境变量 `HUASHU_DESIGN_HOME` 改位置），跨项目共用。
+- 每次交付后：`python3 $SKILL/scripts/design_lint.py ledger add <最终页面> --project <名字> --note "形式、主光、空气、镜头"`（脚本量不出来的几个轴写进 note）。
+- 新项目开工前：`python3 $SKILL/scripts/design_lint.py ledger` 看最近交付过的样子；方向做出来后 `python3 $SKILL/scripts/design_lint.py ledger check <方向页面…>`，撞了就换。六个轴里至少三个要和最近的项目不同，用户或品牌明确要求某种外观时除外。
 - 用户自己的产品之间（例如官网和它的产品页）应当一致；要拉开的是不同产品、不同品牌之间。
 
 ## 1.8 形式的审美疲劳
