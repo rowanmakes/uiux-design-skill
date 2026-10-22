@@ -2,6 +2,20 @@
 
 格式：现象 → 假设 → 改动 → 预期 → 结果（回归后填写）。
 
+## v0.12 · 2026-10-21 · 按复盘补齐
+
+- **依据：** `docs/retro-2026-10-21.md` 的第一优先借鉴。
+- **改动：**
+  - 引入 huashu-design 的 `design_lint.py`（MIT）：`check` 查红灯与模板装饰，`compare` 查三个方向是否换皮，`ledger` 跨项目外观账本。用 E2 三页验证：自动指出了三页底色同类、色板几乎相同。外观账本改用它，不再手写 `appearance-ledger.md`。
+  - 新增 `honesty_check.py`：没写日志、生成图称"实景"、到处贴样例字样、无依据的数值条。用 E2 验证：抓到了 B 没有日志、C 的"实景"和风味比例条。
+  - 所有脚本移进 `skill/uiux-design/scripts/`，随技能分发；路径统一写成 `$SKILL/scripts/`。
+  - `taste.md` 新增 1.9 节滚动叙事（来自 oil-ui 与 taste-skill）。
+  - `review-and-evidence.md` 新增独立评审交接协议（来自 oil-ui）。
+  - `interaction.md` 新增 6.5 节结账与定价清单（来自 ui-craft）。
+  - `SKILL.md` 第 4、8 步接入两个脚本。
+  - 重写 `docs/playbook.md` 为 Orca 流程；新增 `docs/tests/e3-plan.md`。
+- **结果：** 待 E3。
+
 ## v0.11.1 · 2026-10-21
 
 - **更正（用户指出）：** Magic UI 只是动效参考，不直接安装使用；实现按项目实际的技术栈来。已改 `taste.md` 第 8 节与 `skill-landscape.md`，并要求在 DESIGN.md 里写明参考了哪个效果、在我们的技术栈里怎么实现。
