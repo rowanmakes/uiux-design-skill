@@ -20,11 +20,11 @@ description: 从产品描述或现有界面出发，做出让人眼前一亮、�
 | 页面类型 | 用户来做什么 | 惊艳来自 | 读 |
 | --- | --- | --- | --- |
 | 官网、落地页、发布页、作品集，以及同一品牌的产品页、订单页 | 看，然后买 | 头五秒被镇住：电影感的氛围；产品页、订单页保留质感、降低音量，页面之间的切换连贯 | `references/taste.md` |
-| 工作台、后台、专业工具 | 用 | 用十分钟后服了：极客式的精确、速度、掌控 | `references/workbench.md` |
+| 工作台、后台、专业工具（含桌面端） | 用 | 用十分钟后服了：极客式的精确、速度、掌控 | `references/workbench.md` |
 | 手机 App、桌面客户端 | 用 | 手感、连续、状态完整 | `references/app.md` |
 | 含 AI 的界面 | 用 | 过程看得见、结果能掌控 | `references/ai.md` |
 
-多种情况叠加时都读，例如桌面 AI 生图工作台 = `workbench.md` + `app.md` + `ai.md`。用户或品牌已经给了风格时，以他们的为准。
+多种情况叠加时都读，但只读需要的：桌面 AI 生图工作台 = `workbench.md` + `ai.md`（`workbench.md` 已含桌面约定，不必再读 `app.md`）。用户或品牌已经给了风格时，以他们的为准。
 
 **工作量：**
 - 新设计或明显改版：走下面完整流程。
@@ -45,7 +45,7 @@ description: 从产品描述或现有界面出发，做出让人眼前一亮、�
 **4 · 三个首屏方向。** 开工前运行 `python3 $SKILL/scripts/design_lint.py ledger` 看最近交付过的外观并避开（`taste.md` 1.7 节）。**不从空白开始：** 每个方向从一份现成的 DESIGN.md 起步，三个方向用三份不同的种子（一份同类或结构相近的、一份来自用户喜欢的参考、一份跨品类的），再按我们的内容、主视觉和品牌改造。种子从 awesome-design-md 仓库（https://github.com/VoltAgent/awesome-design-md）或 getdesign.md 找，挑法和改造的底线见 `references/design-md.md`。
 
 每个方向只做首屏，真实渲染并截图（宽屏和窄屏）。三个方向必须真正不同：
-- 骨架互不相同（`taste.md` 第 5 节的骨架表）；左右分栏最多用一次。
+- 骨架互不相同（`taste.md` 第 4 节的骨架表）；左右分栏最多用一次。
 - 骨架、字体、色彩、主视觉四项里，任意两个方向至多一项相同。
 - 至少一个方向避开"暖米色纸底 + 衬线标题 + 陶土或赤褐点缀"。
 - 每个方向写几行方向卡：北极星、骨架、主视觉、字体、色彩及其来源、唯一最大胆的一处、哪样东西是这个产品才有的。
@@ -66,7 +66,7 @@ description: 从产品描述或现有界面出发，做出让人眼前一亮、�
 1. **打开真实页面，对照 `DESIGN.md` 检查：** 视觉层级、间距、移动端适配，以及各页面之间是否一致（同一个世界、同一套组件和动效档位）。截图和录屏为证，不读代码代替看画面。
 2. **用外部技能检查表达与质量：** impeccable（https://github.com/pbakaus/impeccable）的 `critique`（设计判断与评分）和 `audit`（可访问性、性能、响应式），必要时 `polish` 做最后一遍；taste-skill（https://github.com/Leonxlnx/taste-skill）的 `references/critique.md` 检查设计表达和细节。只用它们的检查部分，不让它们按自己的风格重做页面。它们和我们的规则冲突时以 `DESIGN.md` 和用户的品味为准，例如 taste-skill 要求页面至少有 8 个在动的元素、每个区块都有出场动画、至少 4 张真实图片，这和"少用动效"冲突，不采用。
 3. **跑两个检查脚本：** `python3 $SKILL/scripts/design_lint.py check <页面>`（红灯：裂图、字太小、对比度不够、控制台报错，必须修；黄灯：模板装饰，删掉那个结构而不是换个符号）；`python3 $SKILL/scripts/honesty_check.py <页面目录> --run-log <运行日志> [--generated-images]`（没写日志、生成图被称为实景、到处贴样例字样、没有依据的数值条）。脚本只量事实；文字压在图片上时的对比度它算不准，要看截图确认。
-4. **读我们自己的检查文件：** `references/interaction.md`（交互、反馈、状态、表单、可访问性）、`taste.md` 与对应页面类型文件末尾的自检清单、`references/review-and-evidence.md`（问题卡与证据边界）。
+4. **读我们自己的检查：** `taste.md` 第 8 节自检（官网类）、`workbench.md` 第 2 节（工作台）；有操作流程的读 `references/interaction.md`；写问题用 `references/review-and-evidence.md` 的问题卡。
 
 必须修的问题修掉；审美建议记下来交给用户。交付后把最终页面记进账本：`python3 $SKILL/scripts/design_lint.py ledger add <页面> --project <名字> --note "形式、主光、空气、镜头"`。
 
@@ -95,6 +95,5 @@ description: 从产品描述或现有界面出发，做出让人眼前一亮、�
 - `references/workbench.md`：工作台的极客感
 - `references/app.md`：手机与桌面客户端
 - `references/ai.md`：AI 界面
-- `references/interaction.md`：交互、反馈与 UX（交付前检查用）
+- `references/interaction.md`：交互闭环、状态、结账与定价
 - `references/review-and-evidence.md`：评审与证据
-- `references/brand-to-interface.md`：品牌定位与品牌原则转界面（做品牌系统时用）
