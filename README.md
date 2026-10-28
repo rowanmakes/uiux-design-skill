@@ -25,6 +25,7 @@ skill/uiux-design/          Skill 本体，整个目录复制到 agent 的 skill
     ref-shot.mjs            参考网站截图
   THIRD_PARTY_NOTICES.md    第三方代码许可
 evals/evals.json            测试简报
+docs/basics.md              基础：来龙去脉、用户的品味与决定、分工（先读这份）
 docs/playbook.md            Orca 测试手册与通用提示词
 docs/tests/                 每次实验的记录与 E3 计划
 docs/retro-2026-10-21.md    复盘与参考仓库重读
