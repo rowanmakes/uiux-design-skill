@@ -19,6 +19,15 @@
 - 每个子 worktree 能运行截图脚本：Node 18 以上、`npm i -D playwright`、Python 3 加 `pip install playwright pillow`、Chromium。
 - 生成阶段的 agent 只读 `skill/uiux-design/` 和本次的简报、素材；不读 `docs/`、`runs/`、其他运行的产物。
 
+## 在服务器上跑（无桌面）
+
+- **装中文字体：** Debian / Ubuntu 用 `apt install fonts-noto-cjk`。没有它，截图里的中文是方块，设计判断和检查脚本都会被误导。这只用于浏览器渲染截图，不是字体库。
+- **依赖：** Node 18 以上加 `npm i -D playwright`；Python 3 加 `pip install playwright pillow`；`npx playwright install --with-deps chromium` 装浏览器和系统库。
+- **建页：** Antigravity 是桌面 IDE，服务器上通常用不了，改用 Gemini 命令行或经 OMP 加载 Gemini，记进 run-log。
+- **Codex：** 免授权启动（例如 `--ask-for-approval never --sandbox workspace-write`，以 `codex --help` 为准）；先试一张图确认命令行能生图。
+- **生成阶段的 agent 只装本 Skill：** 不要同时装其他会抢触发的技能（例如 mattpocock/skills 的 `prototype` 会在"探索界面长什么样"时触发），否则测的就不是本 Skill。
+- **放进 tmux 跑，** 断开 SSH 也不停；结果照旧推到 `test/<实验名>` 分支。
+
 ## 固定流程
 
 1. **准备（OMP）：** 简报和固定素材写进 `test/`；确认截图与录屏脚本能跑。
